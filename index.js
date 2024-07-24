@@ -8,16 +8,22 @@ const morgan = require("./middlewares/morgan");
 // const swaggerDocument = require('./swagger.json');
 require('./config/db_mysql');
 const port = process.env.PORT || 5000;
+const bodyParser = require('body-parser');
 
 const roleRoutes = require('./routes/role.routes');
 const staffRoutes = require('./routes/staff.routes');
 const statusRoutes = require('./routes/status.routes');
 const assessmentRoutes = require('./routes/assessment.routes');
+const candidateRoutes = require('./routes/candidate.routes');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use('/api/role', roleRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/status', statusRoutes);
 app.use('/api/assessment', assessmentRoutes);
+app.use('/api/candidate', candidateRoutes);
 
 app.use(express.json());
 

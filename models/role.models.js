@@ -11,15 +11,15 @@ const createRole = async (name_rol) => {
     }
 };
 
-let newRole = {
-    nombre: "Jefe"
+/* let newRole = {
+    nombre: "Reclutador"
 };
 
 createRole(newRole.nombre)
     .then(data => console.log(data))
     .catch(error => console.log(error));
 
-
+ */
 const readAllRoles = async () => {
     let connection, result;
     try {
@@ -34,6 +34,11 @@ const readAllRoles = async () => {
     }
     return result;
 };
+
+/* readAllRoles()
+.then(data => console.log(data))
+.catch(error => console.log(error));
+ */
 
 const readRoleById = async (id_rol) => {
     let connection, result;
@@ -80,6 +85,15 @@ const updateRole = async (id_rol, name_rol) => {
     return result;
 };
 
+/* let updatedRole = {
+    nombre: "Patatita sabrosona",
+    id_rol: 3
+};
+
+updateRole(updatedRole.id_rol, updatedRole.nombre)
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+ */
 const deleteRole = async (id_rol) => {
     let connection, result;
     try {
@@ -95,6 +109,14 @@ const deleteRole = async (id_rol) => {
     return result;
 };
 
+/* let oldRole = {
+    id_rol: 2
+};
+
+deleteRole(oldRole.id_rol)
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+ */
 const roles = {
     createRole,
     readAllRoles,

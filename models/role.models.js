@@ -71,11 +71,11 @@ const updateRole = async (id_role, name_role) => {
     return result;
 };
 
-const deleteRole = async (id_role) => {
+const deleteRole = async (name_role) => {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [data] = await connection.query(queries.deleteRole, [id_role]);
+        const [data] = await connection.query(queries.deleteRole, [name_role]);
         result = data.affectedRows;
     } catch (err) {
         console.log(err);

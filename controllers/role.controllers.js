@@ -72,10 +72,11 @@ const updateRole = async (req, res) => {
 };
 
 const deleteRole = async (req, res) => {
-    const { id_role } = req.params;
+    const { name_role } = req.params;
+    console.log(req.params)
 
     try {
-        const affectedRows = await roleModels.deleteRole(id_role);
+        const affectedRows = await roleModels.deleteRole(name_role);
         if (affectedRows === 0) {
             return res.status(404).json({ error: 'Rol no encontrado' });
         }

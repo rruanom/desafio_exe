@@ -27,7 +27,7 @@ app.use('/api/role', roleRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/status', statusRoutes);
 app.use('/api/assessment', assessmentRoutes);
-app.use('/form', formRoutes);
+app.use('/api/form', formRoutes);
 app.use('/api/candidate', candidateRoutes);
 
 

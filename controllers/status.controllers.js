@@ -25,10 +25,10 @@ const getAllStatus = async (req, res) => {
 };
 
 const deleteStatus = async (req, res) => {
-    const { id_status } = req.params;
+    const { name_status } = req.body;
 
     try {
-        const affectedRows = await statusModels.deleteStatus(id_status);
+        const affectedRows = await statusModels.deleteStatus(name_status);
         if (affectedRows === 0) {
             return res.status(404).json({ error: 'Estado no encontrado' });
         }

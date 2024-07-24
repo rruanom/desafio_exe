@@ -11,11 +11,11 @@ const createAssessment = async (name_assessment) => {
     }
 };
 
-const readAllAssessments = async () => {
+const getAllAssessment = async () => {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [rows] = await connection.query(queries.readAllAssessments);
+        const [rows] = await connection.query(queries.getAllAssessment);
         result = rows;
     } catch (err) {
         console.log(err);
@@ -26,11 +26,11 @@ const readAllAssessments = async () => {
     return result;
 };
 
-const deleteAssessment = async (id_assessment) => {
+const deleteAssessment = async (name_assessment) => {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [data] = await connection.query(queries.deleteAssessment, [id_assessment]);
+        const [data] = await connection.query(queries.deleteAssessment, [name_assessment]);
         result = data.affectedRows;
     } catch (err) {
         console.log(err);
@@ -43,7 +43,7 @@ const deleteAssessment = async (id_assessment) => {
 
 const assessments = {
     createAssessment,
-    readAllAssessments,
+    getAllAssessment,
     deleteAssessment
 };
 

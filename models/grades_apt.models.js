@@ -54,8 +54,8 @@ const readGradesByEmail = async (email) => {
 };
 
 // UPDATE BY ADMIN
-const updateGradesByAdmin = async (gradeData, email) => {
-    const { id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, id_staff, feedback } = gradeData;
+const updateGradesByAdmin = async (gradeData) => {
+    const { id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, id_staff, feedback, email } = gradeData;
     let connection, result;
     try {
         connection = await pool.getConnection();

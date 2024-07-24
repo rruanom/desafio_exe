@@ -7,7 +7,9 @@ const morgan = require("./middlewares/morgan");
 // const swaggerUi = require('swagger-ui-express');
 // const swaggerDocument = require('./swagger.json');
 require('./config/db_mysql');
+const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
+
 
 const roleRoutes = require('./routes/role.routes');
 const staffRoutes = require('./routes/staff.routes');
@@ -15,7 +17,9 @@ const statusRoutes = require('./routes/status.routes');
 const assessmentRoutes = require('./routes/assessment.routes');
 const gradesRoutes = require('./routes/grades_apt.routes')
 
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/role', roleRoutes);
@@ -24,7 +28,7 @@ app.use('/api/status', statusRoutes);
 app.use('/api/assessment', assessmentRoutes);
 app.use('/api/grades', gradesRoutes);
 
-
+app.use(express.json());
 
 //app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
 

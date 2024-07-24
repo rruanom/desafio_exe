@@ -45,14 +45,14 @@ const readGradesByEmail = async (req, res) => {
 };
 
 const updateGradebyAdmin = async (req, res) => {
-    const { id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, id_staff, feedback } = req.body;
+    const { id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, id_staff, feedback, email } = req.body;
 
-    if ( !id_candidate || !professionality || !domain || !resilience || !social_hab || !leadership || !collaboration || !commitment || !initiative || !id_assessment || !id_staff || !feedback) {
+    if ( !id_candidate || !professionality || !domain || !resilience || !social_hab || !leadership || !collaboration || !commitment || !initiative || !id_assessment || !id_staff || !feedback || !email) {
         return res.status(400).json({ error: 'Los campos son requeridos' });
     }
 
     try {
-        const result = await gradesModels.updateGradesByAdmin({ id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, id_staff, feedback });
+        const result = await gradesModels.updateGradesByAdmin({ id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, id_staff, feedback, email });
         if (result === 0) {
             return res.status(404).json({ error: 'Candidato no encontrado' });
         }

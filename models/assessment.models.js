@@ -1,9 +1,9 @@
 const queries = require('../queries/assessment.queries');
 const pool = require('../config/db_mysql');
 
-const createAssessment = async (nombre_eval) => {
+const createAssessment = async (name_assessment) => {
     try {
-        const [result] = await pool.query(queries.createAssessment, [nombre_eval]);
+        const [result] = await pool.query(queries.createAssessment, [name_assessment]);
         return result.insertId;
     } catch (err) {
         console.log(err);
@@ -11,20 +11,11 @@ const createAssessment = async (nombre_eval) => {
     }
 };
 
-/* let newAssessment = {
-    nombre: "Evaluacion_1"
-};
-
-createAssessment(newAssessment.nombre)
-    .then(data => console.log(data))
-    .catch(error => console.log(error)); */
-
-
-const readAllAssessment = async () => {
+const readAllAssessments = async () => {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [rows] = await connection.query(queries.readAllAssessment);
+        const [rows] = await connection.query(queries.readAllAssessments);
         result = rows;
     } catch (err) {
         console.log(err);
@@ -34,15 +25,12 @@ const readAllAssessment = async () => {
     }
     return result;
 };
-/* readAllAssessment()
-.then(data => console.log(data))
-.catch(error => console.log(error));  */
 
-const deleteAssessment = async (id_eval) => {
+const deleteAssessment = async (id_assessment) => {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [data] = await connection.query(queries.deleteAssessment, [id_eval]);
+        const [data] = await connection.query(queries.deleteAssessment, [id_assessment]);
         result = data.affectedRows;
     } catch (err) {
         console.log(err);
@@ -53,14 +41,10 @@ const deleteAssessment = async (id_eval) => {
     return result;
 };
 
-/* deleteAssessment(4)
-.then(data => console.log(data))
-.catch(error => console.log(error));  */
-
-const status = {
+const assessments = {
     createAssessment,
-    readAllAssessment,
+    readAllAssessments,
     deleteAssessment
 };
 
-module.exports = status;
+module.exports = assessments;

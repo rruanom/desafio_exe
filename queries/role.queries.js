@@ -1,21 +1,21 @@
 const queriesRoles = {
     createRole: `
-    INSERT INTO rol (name_rol) VALUES (?)
+    INSERT INTO role (name_role) VALUES (?)
     `,
     readAllRoles: `
-    SELECT * FROM rol
+    SELECT * FROM role
     `,
     readRoleById: `
-    SELECT * FROM rol WHERE id_rol = ?
+    SELECT * FROM role WHERE id_role = ?
     `,
     readRoleByName: `
-    SELECT * FROM rol WHERE name_rol = ?
+    SELECT * FROM role WHERE name_role = ?
     `,
     updateRole: `
-    UPDATE rol SET name_rol = ? WHERE id_rol = ?
+    UPDATE role SET name_role = ? WHERE id_role = ?
     `,
     deleteRole: `
-    DELETE FROM rol WHERE id_rol = ?
+    DELETE FROM role WHERE id_role = ?
     `
 };
 

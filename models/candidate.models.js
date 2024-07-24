@@ -1,13 +1,13 @@
-const queries = require('../queries/staff.queries');
-const pool = require('../config/db_mysql').promise();
+const queries = require('../queries/candidate.queries');
+const pool = require('../config/db_mysql');
 
 // CREATE
-const createStaff = async (first_name, last_name, email, password, id_role) => {
+const createCandidate = async (first_name, last_name, email, password, gender, id_status) => {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [data] = await connection.query(queries.createStaff, [first_name, last_name, email, password, id_role]);
-        result = data.affectedRows;
+        const [data] = await connection.query(queries.createCandidate, [first_name, last_name, email, password, gender, id_status]);
+        result = data.insertId;
     } catch (err) {
         console.log(err);
         throw err;
@@ -18,11 +18,11 @@ const createStaff = async (first_name, last_name, email, password, id_role) => {
 };
 
 // READ ALL
-const readStaff = async () => {
+const readCandidates = async () => {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [rows] = await connection.query(queries.readStaff);
+        const [rows] = await connection.query(queries.readCandidates);
         result = rows;
     } catch (err) {
         console.log(err);
@@ -34,11 +34,11 @@ const readStaff = async () => {
 };
 
 // READ ONE
-const readStaffByEmail = async (email) => {
+const readCandidateByEmail = async (email) => {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [rows] = await connection.query(queries.readStaffByEmail, [email]);
+        const [rows] = await connection.query(queries.readCandidateByEmail, [email]);
         result = rows[0];
     } catch (err) {
         console.log(err);
@@ -49,13 +49,13 @@ const readStaffByEmail = async (email) => {
     return result;
 };
 
-// UPDATE BY STAFF
-const updateStaffByStaff = async (staff) => {
-    const { first_name, last_name, password, email } = staff;
+// UPDATE BY CANDIDATE
+const updateCandidateByCandidate = async (candidate) => {
+    const { first_name, last_name, gender, email } = candidate;
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [data] = await connection.query(queries.updateStaffByStaff, [first_name, last_name, password, email]);
+        const [data] = await connection.query(queries.updateCandidateByCandidate, [first_name, last_name, gender, email]);
         result = data.affectedRows;
     } catch (err) {
         console.log(err);
@@ -67,12 +67,12 @@ const updateStaffByStaff = async (staff) => {
 };
 
 // UPDATE BY ADMIN
-const updateStaffByAdmin = async (staff) => {
-    const { id_role, active, logged, last_logged_date, email } = staff;
+const updateCandidateByAdmin = async (candidate) => {
+    const { id_status, active, email } = candidate;
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [data] = await connection.query(queries.updateStaffByAdmin, [id_role, active, logged, last_logged_date, email]);
+        const [data] = await connection.query(queries.updateCandidateByAdmin, [id_status, active, email]);
         result = data.affectedRows;
     } catch (err) {
         console.log(err);
@@ -84,11 +84,11 @@ const updateStaffByAdmin = async (staff) => {
 };
 
 // DELETE
-const deleteStaff = async (email) => {
+const deleteCandidate = async (email) => {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [data] = await connection.query(queries.deleteStaff, [email]);
+        const [data] = await connection.query(queries.deleteCandidate, [email]);
         result = data.affectedRows;
     } catch (err) {
         console.log(err);
@@ -99,13 +99,13 @@ const deleteStaff = async (email) => {
     return result;
 };
 
-const staff = {
-    createStaff,
-    readStaff,
-    readStaffByEmail,
-    updateStaffByStaff,
-    updateStaffByAdmin,
-    deleteStaff
+const candidates = {
+    createCandidate,
+    readCandidates,
+    readCandidateByEmail,
+    updateCandidateByCandidate,
+    updateCandidateByAdmin,
+    deleteCandidate
 };
 
-module.exports = staff;
+module.exports = candidates;

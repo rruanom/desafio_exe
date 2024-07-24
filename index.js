@@ -1,7 +1,7 @@
 const express = require("express");
 require('dotenv').config();
-const cors = require('cors');
-const path = require('path');
+// const cors = require('cors');
+// const path = require('path');
 const app = express();
 const morgan = require("./middlewares/morgan");
 // const swaggerUi = require('swagger-ui-express');
@@ -21,7 +21,7 @@ app.use('/api/assessment', assessmentRoutes);
 
 app.use(express.json());
 
-app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
+//app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
 
 app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);

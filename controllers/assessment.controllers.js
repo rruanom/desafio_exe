@@ -3,7 +3,7 @@ const assessmentModels = require('../models/assessment.models');
 const createAssessment = async (req, res) => {
     const { name_assessment } = req.body;
 
-    if (!nombre_eval) {
+    if (!name_assessment) {
         return res.status(400).json({ error: 'El nombre de la evaluación es requerido' });
     }
 
@@ -17,7 +17,7 @@ const createAssessment = async (req, res) => {
 
 const getAllAssessment = async (req, res) => {
     try {
-        const assessments = await assessmentModels.readAllAssessment();
+        const assessments = await assessmentModels.getAllAssessment();
         res.status(200).json(assessments);
     } catch (err) {
         res.status(500).json({ error: 'Error al obtener las evaluaciones' });
@@ -25,10 +25,10 @@ const getAllAssessment = async (req, res) => {
 };
 
 const deleteAssessment = async (req, res) => {
-    const { id_assessment } = req.params;
+    const { name_assessment } = req.body;
 
     try {
-        const affectedRows = await assessmentModels.deleteAssessment(id_assessment);
+        const affectedRows = await assessmentModels.deleteAssessment(name_assessment);
         if (affectedRows === 0) {
             return res.status(404).json({ error: 'Evaluación no encontrada' });
         }

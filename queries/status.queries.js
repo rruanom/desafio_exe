@@ -8,7 +8,7 @@ const queriesStatus = {
     `,
     deleteStatus: `
         DELETE FROM status 
-        WHERE id_status = ?
+        WHERE name_status = ?
     `
 };
 

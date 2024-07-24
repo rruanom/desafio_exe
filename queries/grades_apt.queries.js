@@ -1,6 +1,6 @@
 const queriesGrades = {
     createGrades: `
-    INSERT INTO grades_apt (id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, assessment_date, id_staff, feedback)
+    INSERT INTO grades_apt AS ga (ga.id_candidate, ga.professionality, ga.domain, ga.resilience, ga.social_hab, ga.leadership, ga.collaboration, ga.commitment, ga.initiative, ga.id_assessment, ga.assessment_date, id_staff, feedback)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?)
     `,
     readGrades: `

@@ -13,11 +13,13 @@ const roleRoutes = require('./routes/role.routes');
 const staffRoutes = require('./routes/staff.routes');
 const statusRoutes = require('./routes/status.routes');
 const assessmentRoutes = require('./routes/assessment.routes');
+const gradesRoutes = require('./routes/grades_apt.routes')
 
 app.use('/api/role', roleRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/status', statusRoutes);
 app.use('/api/assessment', assessmentRoutes);
+app.use('/api/grades', gradesRoutes);
 
 app.use(express.json());
 

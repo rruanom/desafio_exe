@@ -1,6 +1,7 @@
 const staffModels = require('../models/staff.models');
 
 const createStaff = async (req, res) => {
+    console.log(req.body)
     const { first_name, last_name, email, password } = req.body;
 
     if (!first_name || !last_name || !email || !password) {
@@ -52,7 +53,7 @@ const updateStaffbyStaff = async (req, res) => {
     }
 
     try {
-        const result = await staffModels.updateStaffbyStaff({ first_name, last_name, email, password });
+        const result = await staffModels.updateStaffByStaff({ first_name, last_name, email, password });
         if (result === 0) {
             return res.status(404).json({ error: 'Miembro del Staff no encontrado' });
         }
@@ -63,14 +64,15 @@ const updateStaffbyStaff = async (req, res) => {
 };
 
 const updateStaffbyAdmin = async (req, res) => {
-    const { id_role, active, email } = req.body;
+    const { email } = req.params
+    const { id_role, active } = req.body;
 
     if (!email) {
         return res.status(400).json({ error: 'El email es requerido para la actualización' });
     }
 
     try {
-        const result = await staffModels.updateStaffbyAdmin({ id_role, active, email });
+        const result = await staffModels.updateStaffByAdmin({ id_role, active, email });
         if (result === 0) {
             return res.status(404).json({ error: 'Miembro del personal no encontrado o no actualizado' });
         }
@@ -80,26 +82,11 @@ const updateStaffbyAdmin = async (req, res) => {
     }
 };
 
-const deleteStaff = async (req, res) => {
-    const { email } = req.params;
-
-    try {
-        const staff = await staffModels.deleteStaff(email);
-        if (!staff) {
-            return res.status(404).json({ error: 'Miembro del personal no encontrado' });
-        }
-        res.status(200).json({ message: 'Miembro del personal eliminado exitosamente' });
-    } catch (err) {
-        res.status(500).json({ error: 'Error al borrar el miembro del Staff' });
-    }
-};
-
 module.exports = {
     createStaff,
     readStaff,
     readStaffByEmail,
     updateStaffbyStaff,
-    updateStaffbyAdmin,
-    deleteStaff
+    updateStaffbyAdmin
 };
 

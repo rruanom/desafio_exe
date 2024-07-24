@@ -15,13 +15,16 @@ const statusRoutes = require('./routes/status.routes');
 const assessmentRoutes = require('./routes/assessment.routes');
 const gradesRoutes = require('./routes/grades_apt.routes')
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use('/api/role', roleRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/status', statusRoutes);
 app.use('/api/assessment', assessmentRoutes);
 app.use('/api/grades', gradesRoutes);
 
-app.use(express.json());
+
 
 //app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
 

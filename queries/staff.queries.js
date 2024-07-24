@@ -12,6 +12,7 @@ const queriesStaff = {
     SET first_name = COALESCE(?, first_name),
         last_name = COALESCE(?, last_name),
         password = COALESCE(?, password)
+
     WHERE email = ?`,
     updateStaffByAdmin: `UPDATE staff
     SET id_role = COALESCE(?, id_role),

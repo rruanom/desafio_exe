@@ -1,5 +1,5 @@
 const queries = require('../queries/staff.queries')
-const pool = require('../config/db_mysql').promise();
+const pool = require('../config/db_mysql');
 
 // CREATE
 const createStaff = async (nombre, apellido, email, contrasena) => {
@@ -19,138 +19,146 @@ const createStaff = async (nombre, apellido, email, contrasena) => {
 
 
 // Testing PostgreSQL
-let newStaff = {
-    nombre: "Prueba",
-    apellido: "PruebaApellido",
-    email: "prueba2@gmail.com",
-    contrasena: "123456"
-};
+// let newStaff = {
+//     nombre: "Prueba",
+//     apellido: "PruebaApellido",
+//     email: "prueba3@gmail.com",
+//     contrasena: "123456"
+// };
 
-createStaff(newStaff.nombre, newStaff.apellido, newStaff.email, newStaff.contrasena)
-    .then(data => console.log(data))
-    .catch(error => console.log(error));
+// createStaff(newStaff.nombre, newStaff.apellido, newStaff.email, newStaff.contrasena)
+//     .then(data => console.log(data))
+//     .catch(error => console.log(error));
     
 // READ ALL
 const readStaff = async () => {
-    let client, result;
+    let connection, result;
     try {
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.readStaff);
-        result = data.rows;
+        connection = await pool.getConnection(); 
+        const [rows] = await connection.query(queries.readStaff);
+        result = rows;
     } catch (err) {
         console.log(err);
         throw err;
     } finally {
-        client.release();
+        if (connection) connection.release();
     }
-    return result
+    return result;
 }
-// Testing PostgreSQL
-// readUsers()
+// TestingMySQL
+// readStaff()
 //     .then(data=>console.log(data))
 //     .catch(error => console.log(error))
 
 // READ ONE
 const readStaffByEmail = async (email) => {
-    let client, result;
+    let connection, result;
     try {
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.readStaffByEmail, [email])
-        result = data.rows
+        connection = await pool.connect(); 
+        const [rows] = await connection.query(queries.readStaffByEmail, [email])
+        result = rows[0];
     } catch (err) {
         console.log(err);
         throw err;
     } finally {
-        client.release();
+        if (connection) connection.release();
     }
     return result
 }
 // Testing PostgreSQL
-// readUsersByEmail('prueba@gmail.com')
+// readStaffByEmail('prueba@gmail.com')
 //     .then(data=>console.log(data))
 //     .catch(error => console.log(error))
 
 // UPDATE
 const updateStaffbyStaff = async (user) => {
-    const { nombre, apellido, email, contrasena, role, logged, last_logged_date, old_email } = user;
-    let client, result;
+    const { nombre, apellido, contrasena, email } = user;
+    let connection;
     try {
-        client = await pool.connect(); // Espera a abrir conexion
-        result = 0; // Initialize the result counter
+        connection = await pool.getConnection();
+        const [result] = await connection.query(queries.updateStaffbyStaff, [
+            nombre || null,
+            apellido || null,
+            contrasena || null,
+            email
+        ]);
 
-        // Array to store promises for each update query
-        const updatePromises = [];
-
-        if (nombre) {
-            updatePromises.push(client.query(queries.updateStaffnombre, [nombre, old_email]));
+        if (result && result.affectedRows !== undefined) {
+            return result.affectedRows;
+        } else {
+            return 0;
         }
-        if (apellido) {
-            updatePromises.push(client.query(queries.updateStaffnombre, [apellido, old_email]));
-        }
-        if (contrasena) {
-            updatePromises.push(client.query(queries.updateStaffcontrasena, [contrasena, old_email]));
-        }
-        if (role) {
-            updatePromises.push(client.query(queries.updateStaffRole, [role, old_email]));
-        }
-        if (typeof logged !== 'undefined') { // Checking for undefined to allow false values
-            updatePromises.push(client.query(queries.updateStaffLogged, [logged, old_email]));
-        }
-        if (last_logged_date) {
-            updatePromises.push(client.query(queries.updateStaffLastLoggedDate, [last_logged_date, old_email]));
-        }
-        if (email) {
-            updatePromises.push(client.query(queries.updateStaffEmail, [email, old_email]));
-        }
-
-        // Wait for all promises to complete
-        const updateResults = await Promise.all(updatePromises);
-
-        // Count the number of rows affected by each update
-        updateResults.forEach(updateResult => {
-            result += updateResult.rowCount;
-        });
-
     } catch (err) {
-        console.log(err);
+        console.error(err);
         throw err;
     } finally {
-        client.release();
+        if (connection) connection.release();
     }
-    return result;
 }
 
-// Testing PostgreSQL
-// const updatedUser = {
-//     nombre: "Prueba2",
-//     email: "prueba2@gmail.com",
-//     contrasena: "123456123456",
-//     role: "user",
-//     old_email: "prueba@gmail.com",
-//     logged: false,
-//     last_logged_date: "2024-07-01 20:57:30.212678+00"
+// Testing MySQL
+// const updatedStaff = {
+//     nombre: "PruebaUpdated",
+//     apellido: 'PruebaApellidoUpdated',
+//     contrasena: "123456updated",
+//     email: "prueba3@gmail.com"
 // }
-// updateUser(updatedUser)
+// updateStaffbyStaff(updatedStaff)
 //     .then(data => console.log(data))
 //     .catch(error => console.log(error))
 
+const updateStaffbyAdmin = async (user) => {
+    const { id_rol, active, email } = user;
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        const [result] = await connection.query(queries.updateStaffbyAdmin, [
+            id_rol || null,
+            active || null,
+            email
+        ]);
+
+        if (result && result.affectedRows !== undefined) {
+            return result.affectedRows;
+        } else {
+            return 0;
+        }
+    } catch (err) {
+        console.error(err);
+        throw err;
+    } finally {
+        if (connection) connection.release();
+    }
+}
+
+// Testing MySQL
+// const updatedStaffbyAdmin = {
+//     id_rol: "3",
+//     active: "false",
+//     email: "prueba3@gmail.com"
+// }
+// updateStaffbyAdmin(updatedStaffbyAdmin)
+//     .then(data => console.log(data))
+//     .catch(error => console.log(error))
+
+
 // DELETE
 const deleteStaff = async (email) => {
-    let client, result;
+    let connection, result;
     try {
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.deleteStaff, [email])
-        result = data.rowCount
+        connection = await pool.getConnection();
+        const [data] = await connection.query(queries.deleteStaff, [email])
+        result = data.affectedRows;
     } catch (err) {
         console.log(err);
         throw err;
     } finally {
-        client.release();
+        if (connection) connection.release();
     }
-    return result
+    return result;
 }
-// Testing PostgreSQL
-// deleteUser('prueba2@gmail.com')
+// Testing MySQL
+// deleteStaff('prueba3@gmail.com')
 //     .then(data => console.log(data))
 //     .catch(error => console.log(error))
 
@@ -159,6 +167,7 @@ const users = {
     readStaff,
     readStaffByEmail,
     updateStaffbyStaff,
+    updateStaffbyAdmin,
     deleteStaff
 }
 

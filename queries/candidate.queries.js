@@ -1,35 +1,34 @@
 const queriesCandidates = {
     createCandidate: `
-    INSERT INTO candidatos (nombre, apellido, email, contrasena, sexo, id_status, fecha_registro, logged, last_logged_day, active)
+    INSERT INTO candidate (first_name, last_name, email, password, gender, id_status, registration_date, logged, last_logged_date, active)
     VALUES (?, ?, ?, ?, ?, 1, NOW(), false, NOW(), true)
     `,
     readCandidates: `
-    SELECT c.id_candidato, c.nombre, c.apellido, c.email, c.sexo, s.nombre_s, c.fecha_registro, c.logged, c.last_logged_day, c.active
-    FROM candidatos AS c
+    SELECT c.id_candidate, c.first_name, c.last_name, c.email, c.gender, s.status_name, c.registration_date, c.logged, c.last_logged_date, c.active
+    FROM candidate AS c
     INNER JOIN status AS s ON s.id_status = c.id_status
     `,
     readCandidateByEmail: `
-    SELECT c.id_candidato, c.nombre, c.apellido, c.email, c.sexo, s.nombre_s, c.fecha_registro, c.logged, c.last_logged_day, c.active
-    FROM candidatos AS c
+    SELECT c.id_candidate, c.first_name, c.last_name, c.email, c.gender, s.status_name, c.registration_date, c.logged, c.last_logged_date, c.active
+    FROM candidate AS c
     INNER JOIN status AS s ON s.id_status = c.id_status
     WHERE c.email = ?
     `,
     updateCandidateByCandidate: `
-    UPDATE candidatos
-    SET nombre = COALESCE(?, nombre),
-        apellido = COALESCE(?, apellido),
-        sexo = COALESCE(?, sexo),
+    UPDATE candidate
+    SET first_name = COALESCE(?, first_name),
+        last_name = COALESCE(?, last_name),
+        gender = COALESCE(?, gender)
     WHERE email = ?
     `,
-
-   updateCandidateByAdmin: `
-UPDATE candidatos
-SET id_status = COALESCE(?, id_status),
-    active = COALESCE(?, active)
-WHERE email = ?
-`,
+    updateCandidateByAdmin: `
+    UPDATE candidate
+    SET id_status = COALESCE(?, id_status),
+        active = COALESCE(?, active)
+    WHERE email = ?
+    `,
     deleteCandidate: `
-    DELETE FROM candidatos
+    DELETE FROM candidate
     WHERE email = ?
     `
 };

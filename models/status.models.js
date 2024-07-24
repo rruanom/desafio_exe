@@ -1,24 +1,15 @@
 const queries = require('../queries/status.queries');
 const pool = require('../config/db_mysql');
 
-const createStatus = async (nombre_s) => {
+const createStatus = async (name_status) => {
     try {
-        const [result] = await pool.query(queries.createStatus, [nombre_s]);
+        const [result] = await pool.query(queries.createStatus, [name_status]);
         return result.insertId;
     } catch (err) {
         console.log(err);
         throw err;
     }
 };
-
-/* let newStatus = {
-    nombre: "Solicitud"
-};
-
-createStatus(newStatus.nombre)
-    .then(data => console.log(data))
-    .catch(error => console.log(error)); */
-
 
 const readAllStatus = async () => {
     let connection, result;
@@ -34,9 +25,6 @@ const readAllStatus = async () => {
     }
     return result;
 };
-/* readAllStatus()
-.then(data => console.log(data))
-.catch(error => console.log(error)); */
 
 const deleteStatus = async (id_status) => {
     let connection, result;
@@ -52,10 +40,6 @@ const deleteStatus = async (id_status) => {
     }
     return result;
 };
-
-/* deleteStatus(2)
-.then(data => console.log(data))
-.catch(error => console.log(error)); */
 
 const status = {
     createStatus,

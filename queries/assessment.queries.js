@@ -1,22 +1,14 @@
 const queriesAssessment = {
     createAssessment: `
-        INSERT 
-            INTO 
-                evaluacion (nombre_eval) 
-            VALUES (?)
+        INSERT INTO assessment (name_assessment) 
+        VALUES (?)
     `,
-    readAllAssessment: `
-        SELECT 
-            * 
-        FROM 
-            evaluacion
+    readAllAssessments: `
+        SELECT * FROM assessment
     `,
     deleteAssessment: `
-        DELETE 
-            FROM 
-                evaluacion 
-            WHERE 
-                id_eval = ?
+        DELETE FROM assessment 
+        WHERE id_assessment = ?
     `
 };
 

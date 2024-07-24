@@ -1,22 +1,14 @@
 const queriesStatus = {
     createStatus: `
-        INSERT 
-            INTO 
-                status (nombre_s) 
-            VALUES (?)
+        INSERT INTO status (name_status) 
+        VALUES (?)
     `,
     readAllStatus: `
-        SELECT 
-            * 
-        FROM 
-            status
+        SELECT * FROM status
     `,
     deleteStatus: `
-        DELETE 
-            FROM 
-                status 
-            WHERE 
-                id_status = ?
+        DELETE FROM status 
+        WHERE id_status = ?
     `
 };
 

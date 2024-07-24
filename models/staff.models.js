@@ -1,5 +1,5 @@
 const queries = require('../queries/staff.queries');
-const pool = require('../config/db_mysql').promise();
+const pool = require('../config/db_mysql');
 
 // CREATE
 const createStaff = async (first_name, last_name, email, password, id_role) => {

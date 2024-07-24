@@ -3,32 +3,33 @@ const pool = require('../config/db_mysql').promise();
 
 // CREATE
 const createStaff = async (nombre, apellido, email, contrasena) => {
-    let client, result;
+    let connection, result;
     try {
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.createStaff, [nombre, apellido, email, contrasena]);
-        result = data.rowCount;
+        connection = await pool.getConnection();
+        const [data] = await connection.query(queries.createStaff, [nombre, apellido, email, contrasena]);
+        result = data.affectedRows;
     } catch (err) {
         console.log(err);
         throw err;
     } finally {
-        client.release();
+        if (connection) connection.release();
     }
-    return result
-}
+    return result;
+};
 
 
 // Testing PostgreSQL
 let newStaff = {
     nombre: "Prueba",
-apellido: "PruebaApellido",
+    apellido: "PruebaApellido",
     email: "prueba2@gmail.com",
     contrasena: "123456"
-}
-createStaff(newStaff)
-    .then(data => console.log(data))
-    .catch(error => console.log(error))
+};
 
+createStaff(newStaff.nombre, newStaff.apellido, newStaff.email, newStaff.contrasena)
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+    
 // READ ALL
 const readStaff = async () => {
     let client, result;

@@ -26,11 +26,11 @@ const readAllStatus = async () => {
     return result;
 };
 
-const deleteStatus = async (id_status) => {
+const deleteStatus = async (name_status) => {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [data] = await connection.query(queries.deleteStatus, [id_status]);
+        const [data] = await connection.query(queries.deleteStatus, [name_status]);
         result = data.affectedRows;
     } catch (err) {
         console.log(err);

@@ -4,12 +4,12 @@ const queriesCandidates = {
     VALUES (?, ?, ?, ?, ?, 1, NOW(), false, NOW(), true)
     `,
     readCandidates: `
-    SELECT c.id_candidate, c.first_name, c.last_name, c.email, c.gender, s.status_name, c.registration_date, c.logged, c.last_logged_date, c.active
+    SELECT c.id_candidate, c.first_name, c.last_name, c.email, c.gender, s.name_status, c.registration_date, c.logged, c.last_logged_date, c.active
     FROM candidate AS c
     INNER JOIN status AS s ON s.id_status = c.id_status
     `,
     readCandidateByEmail: `
-    SELECT c.id_candidate, c.first_name, c.last_name, c.email, c.gender, s.status_name, c.registration_date, c.logged, c.last_logged_date, c.active
+    SELECT c.id_candidate, c.first_name, c.last_name, c.email, c.gender, s.name_status, c.registration_date, c.logged, c.last_logged_date, c.active
     FROM candidate AS c
     INNER JOIN status AS s ON s.id_status = c.id_status
     WHERE c.email = ?

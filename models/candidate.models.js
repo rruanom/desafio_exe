@@ -2,11 +2,11 @@ const queries = require('../queries/candidate.queries');
 const pool = require('../config/db_mysql');
 
 // CREATE
-const createCandidate = async (first_name, last_name, email, password, gender, id_status) => {
+const createCandidate = async (first_name, last_name, email, password, gender) => {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const [data] = await connection.query(queries.createCandidate, [first_name, last_name, email, password, gender, id_status]);
+        const [data] = await connection.query(queries.createCandidate, [first_name, last_name, email, password, gender]);
         result = data.insertId;
     } catch (err) {
         console.log(err);

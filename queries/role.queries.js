@@ -15,7 +15,7 @@ const queriesRoles = {
     UPDATE role SET name_role = ? WHERE id_role = ?
     `,
     deleteRole: `
-    DELETE FROM role WHERE id_role = ?
+    DELETE FROM role WHERE name_role = ?
     `
 };
 

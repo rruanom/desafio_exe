@@ -5,14 +5,13 @@ const createForm = async (formData) => {
     let connection;
     try {
         connection = await pool.getConnection();
-        const [result] = await connection.query(queries.insertForm, [
+        const [result] = await connection.query(queries.createForm, [
             formData.id_candidate,
             formData.academic_degree,
             formData.average_grade,
             formData.languages,
             formData.experience,
-            formData.about_you,
-            formData.email
+            formData.about_you
         ]);
         return result.insertId;
     } catch (err) {
@@ -53,25 +52,10 @@ const deleteForm = async (id_form) => {
     return result;
 };
 
-const createFormTable = async () => {
-    let connection;
-    try {
-        connection = await pool.getConnection();
-        await connection.query(queries.createFormTable);
-        console.log('Form table created successfully');
-    } catch (err) {
-        console.log('Error creating form table:', err);
-        throw err;
-    } finally {
-        if (connection) connection.release();
-    }
-};
-
 const form = {
     createForm,
     readFormByEmail,
-    deleteForm,
-    createFormTable
+    deleteForm
 };
 
 module.exports = form;

@@ -1,7 +1,7 @@
 const queriesStaff = {
     createStaff: `INSERT INTO personal(nombre, apellido, email, contrasena, id_rol, logged, active)
     VALUES (?, ?, ?, ?, 1, false, true)`,
-    readStaff: `SELECT p.name, p.apellido, p.email, r.name_rol
+    readStaff: `SELECT p.nombre, p.apellido, p.email, r.name_rol
     FROM personal as p
     INNER JOIN rol as r ON r.id_rol = p.id_rol`,
     readStaffByEmail: `SELECT p.name, p.apellido, p.email, r.name_rol

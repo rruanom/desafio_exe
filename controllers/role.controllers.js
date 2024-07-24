@@ -25,10 +25,10 @@ const getAllRoles = async (req, res) => {
 };
 
 const getRoleById = async (req, res) => {
-    const { id_rol } = req.params;
+    const { id_role } = req.params;
 
     try {
-        const role = await roleModels.readRoleById(id_rol);
+        const role = await roleModels.readRoleById(id_role);
         if (!role) {
             return res.status(404).json({ error: 'Rol no encontrado' });
         }
@@ -53,7 +53,7 @@ const getRoleByName = async (req, res) => {
 };
 
 const updateRole = async (req, res) => {
-    const { id_rol } = req.params;
+    const { id_role } = req.params;
     const { name_role } = req.body;
 
     if (!name_role) {
@@ -61,7 +61,7 @@ const updateRole = async (req, res) => {
     }
 
     try {
-        const affectedRows = await roleModels.updateRole(id_rol, name_role);
+        const affectedRows = await roleModels.updateRole(id_role, name_role);
         if (affectedRows === 0) {
             return res.status(404).json({ error: 'Rol no encontrado' });
         }

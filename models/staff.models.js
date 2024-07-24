@@ -83,29 +83,12 @@ const updateStaffByAdmin = async (staff) => {
     return result;
 };
 
-// DELETE
-const deleteStaff = async (email) => {
-    let connection, result;
-    try {
-        connection = await pool.getConnection();
-        const [data] = await connection.query(queries.deleteStaff, [email]);
-        result = data.affectedRows;
-    } catch (err) {
-        console.log(err);
-        throw err;
-    } finally {
-        if (connection) connection.release();
-    }
-    return result;
-};
-
 const staff = {
     createStaff,
     readStaff,
     readStaffByEmail,
     updateStaffByStaff,
-    updateStaffByAdmin,
-    deleteStaff
+    updateStaffByAdmin
 };
 
 module.exports = staff;

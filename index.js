@@ -5,13 +5,12 @@ require('dotenv').config();
 // const path = require('path');
 const app = express();
 const morgan = require("./middlewares/morgan");
+const manage404 = require('./middlewares/error404');
 // const swaggerUi = require('swagger-ui-express');
 // const swaggerDocument = require('./swagger.json');
 require('./config/db_mysql');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
-
-
 
 const roleRoutes = require('./routes/role.routes');
 const staffRoutes = require('./routes/staff.routes');
@@ -39,6 +38,7 @@ app.use('/api/auth', authRoutes)
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(manage404);
 //app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
 
 app.listen(port, () => {

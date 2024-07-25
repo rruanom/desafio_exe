@@ -1,6 +1,12 @@
 const candidateModels = require('../models/candidate.models');
+const { validationResult } = require('express-validator');
 
 const createCandidate = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
     const { first_name, last_name, email, password, gender } = req.body;
 
     if (!first_name || !last_name || !email || !password || !gender) {
@@ -31,6 +37,11 @@ const readCandidate = async (req, res) => {
 };
 
 const readCandidateByEmail = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { email } = req.params;
 
     try {
@@ -45,6 +56,11 @@ const readCandidateByEmail = async (req, res) => {
 };
 
 const updateCandidateByCandidate = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { first_name, last_name, gender, email } = req.body;
 
     if (!email || !first_name || !last_name || !gender) {
@@ -63,6 +79,11 @@ const updateCandidateByCandidate = async (req, res) => {
 };
 
 const updateCandidateByAdmin = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { email } = req.params;
     const { id_status, active } = req.body;
 
@@ -82,6 +103,11 @@ const updateCandidateByAdmin = async (req, res) => {
 };
 
 const deleteCandidate = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
     const { email } = req.params;
 
     try {

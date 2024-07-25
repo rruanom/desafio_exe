@@ -1,6 +1,12 @@
 const gradesModels = require('../models/grades_apt.models');
+const { validationResult } = require('express-validator');
 
 const createGrades = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, id_staff, feedback } = req.body;
 
     if (!id_candidate || !professionality || !domain || !resilience || !social_hab || !leadership || !collaboration || !commitment || !initiative || !id_assessment || !id_staff || !feedback) {
@@ -31,6 +37,11 @@ const readGrades = async (req, res) => {
 };
 
 const readGradesByEmail = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { email } = req.params;
 
     try {
@@ -45,6 +56,11 @@ const readGradesByEmail = async (req, res) => {
 };
 
 const updateGradebyAdmin = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, id_staff, feedback, email } = req.body;
 
     if ( !id_candidate || !professionality || !domain || !resilience || !social_hab || !leadership || !collaboration || !commitment || !initiative || !id_assessment || !id_staff || !feedback || !email) {
@@ -63,6 +79,11 @@ const updateGradebyAdmin = async (req, res) => {
 };
 
 const deleteGrades = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
     const { email } = req.params;
 
     try {

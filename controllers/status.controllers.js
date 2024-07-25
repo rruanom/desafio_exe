@@ -1,6 +1,12 @@
 const statusModels = require('../models/status.models');
+const { validationResult } = require('express-validator');
 
 const createStatus = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { name_status } = req.body;
 
     if (!name_status) {
@@ -25,6 +31,11 @@ const getAllStatus = async (req, res) => {
 };
 
 const deleteStatus = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
     const { name_status } = req.body;
 
     try {

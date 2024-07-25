@@ -12,6 +12,11 @@ require('./config/db_mysql');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 
+const session = require("express-session");
+const passport = require("passport");
+require("./config/passport");
+const cors = require('cors');
+
 const roleRoutes = require('./routes/role.routes');
 const staffRoutes = require('./routes/staff.routes');
 const statusRoutes = require('./routes/status.routes');
@@ -20,6 +25,11 @@ const gradesRoutes = require('./routes/grades_apt.routes')
 const formRoutes = require('./routes/form.routes');
 const candidateRoutes = require('./routes/candidate.routes');
 const authRoutes = require('./routes/auth.routes')
+
+app.use(cors({
+  origin: 'http://localhost:5173', // Permite solicitudes solo desde este origen
+  credentials: true
+}));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

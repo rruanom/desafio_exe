@@ -1,7 +1,12 @@
 const staffModels = require('../models/staff.models');
+const { validationResult } = require('express-validator');
 
 const createStaff = async (req, res) => {
-    console.log(req.body)
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { first_name, last_name, email, password } = req.body;
 
     if (!first_name || !last_name || !email || !password) {
@@ -32,6 +37,11 @@ const readStaff = async (req, res) => {
 };
 
 const readStaffByEmail = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { email } = req.params;
 
     try {
@@ -46,6 +56,11 @@ const readStaffByEmail = async (req, res) => {
 };
 
 const updateStaffbyStaff = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { first_name, last_name, email, password } = req.body;
 
     if (!email || !first_name || !last_name || !password) {
@@ -64,6 +79,11 @@ const updateStaffbyStaff = async (req, res) => {
 };
 
 const updateStaffbyAdmin = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
     const { email } = req.params
     const { id_role, active } = req.body;
 

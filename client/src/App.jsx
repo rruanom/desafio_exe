@@ -7,11 +7,17 @@ import Register from './pages/Register';
 import HomePage from './components/HomePage';
 import AdminPage from './components/AdminPage'; 
 import UnauthorizedPage from './components/UnauthorizedPage'; 
+import Header from "./components/Header"; 
+import Footer from "./components/Footer"; 
+import Main from "./components/Main";
 
 const App = () => {
     return (
         <AuthProvider>
             <Router>
+                <Header /> 
+                <Main />
+                <Footer /> 
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />

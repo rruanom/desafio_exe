@@ -19,7 +19,6 @@ passport.use(new GoogleStrategy({
             last_name: profile.name.familyName
         };
 
-        // Buscar usuario en la base de datos
         const buscaUsuario = await candidateModel.readCandidateByEmail(user.email);
         console.log(buscaUsuario);
 

@@ -9,7 +9,6 @@ const morgan = require("./middlewares/morgan");
 require('./config/db_mysql');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
-const bodyParser = require('body-parser');
 
 
 const roleRoutes = require('./routes/role.routes');

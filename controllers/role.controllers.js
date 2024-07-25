@@ -1,6 +1,12 @@
 const roleModels = require('../models/role.models');
+const { validationResult } = require('express-validator');
 
 const createRole = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { name_role } = req.body;
 
     if (!name_role) {
@@ -25,6 +31,11 @@ const getAllRoles = async (req, res) => {
 };
 
 const getRoleById = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { id_role } = req.params;
 
     try {
@@ -39,6 +50,11 @@ const getRoleById = async (req, res) => {
 };
 
 const getRoleByName = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { name_role } = req.params;
 
     try {
@@ -53,6 +69,11 @@ const getRoleByName = async (req, res) => {
 };
 
 const updateRole = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { id_role } = req.params;
     const { name_role } = req.body;
 
@@ -72,6 +93,11 @@ const updateRole = async (req, res) => {
 };
 
 const deleteRole = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { name_role } = req.params;
     console.log(req.params)
 

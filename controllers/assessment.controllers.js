@@ -1,6 +1,12 @@
 const assessmentModels = require('../models/assessment.models');
+const { validationResult } = require('express-validator');
 
 const createAssessment = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
     const { name_assessment } = req.body;
 
     if (!name_assessment) {
@@ -25,6 +31,11 @@ const getAllAssessment = async (req, res) => {
 };
 
 const deleteAssessment = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
     const { name_assessment } = req.body;
 
     try {

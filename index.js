@@ -5,17 +5,17 @@ require('dotenv').config();
 // const path = require('path');
 const app = express();
 const morgan = require("./middlewares/morgan");
+const manage404 = require('./middlewares/error404');
 // const swaggerUi = require('swagger-ui-express');
 // const swaggerDocument = require('./swagger.json');
 require('./config/db_mysql');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
-//
+
 const session = require("express-session");
 const passport = require("passport");
 require("./config/passport");
 const cors = require('cors');
-
 
 const roleRoutes = require('./routes/role.routes');
 const staffRoutes = require('./routes/staff.routes');
@@ -26,7 +26,6 @@ const formRoutes = require('./routes/form.routes');
 const candidateRoutes = require('./routes/candidate.routes');
 const authRoutes = require('./routes/auth.routes')
 
-//
 app.use(cors({
   origin: 'http://localhost:5173', // Permite solicitudes solo desde este origen
   credentials: true
@@ -49,6 +48,7 @@ app.use('/api/auth', authRoutes)
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(manage404);
 //app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
 
 app.listen(port, () => {

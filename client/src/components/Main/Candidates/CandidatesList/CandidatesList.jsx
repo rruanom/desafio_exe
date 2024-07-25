@@ -1,12 +1,21 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import CandidatesList from "./CandidatesList";
+import CandidateCard from "./CandidateCard";
 
-const CandidatesList = ({dataItem}) => {
+const CandidatesList = ({status, candidates}) => {
+
+  // STATES
+  console.log(status)
+  console.log(candidates)
+
+
+  // FUNCTIONS
+
+  // RETURN
   return <section className="candidatesList">
-    <p>{dataItem.name_status} ({numCandidates})</p>
-    {candidateList.map((item, i) =>
-    <CandidateCard key={uuidv4()} dataItem={item} />)}
+    <p>{status} ({candidates.length})</p>
+    {candidates.map((item, i) =>
+    <CandidateCard key={uuidv4()} details={item} />)}
 
 
 

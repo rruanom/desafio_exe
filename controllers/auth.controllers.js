@@ -100,4 +100,38 @@ const getUserFromToken = (req, res) => {
     });
 };
 
-module.exports = { login, register, getUserFromToken };
+
+
+
+
+
+const googleCallback = async (req, res) => {
+    const payload = {
+        email: req.user.emails[0].value,
+        role_id: 2
+    };
+    console.log(req.user.emails[0].value);
+    console.log(payload);
+    const token = jsonwebtoken.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
+
+    console.log(token);
+    res.cookie("access-token", token, {
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
+        path: "/",
+    }).redirect("http://localhost:5173/login"); 
+};
+
+
+const authFailure = (req, res) => {
+    res.redirect("/login");
+};
+
+const logout = (req, res, next) => {
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        req.session.destroy();
+        res.clearCookie("access-token").send('Goodbye! <br><br> <a href="/auth/google">Authenticate again</a>');
+    });
+};
+
+module.exports = { login, register, getUserFromToken, googleCallback, authFailure, logout };

@@ -1,0 +1,43 @@
+{
+  "name": "desafio_exe",
+  "version": "1.0.0",
+  "description": "desafio_exe",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rruanom/desafio_exe.git"
+  },
+  "author": "Desafio Final - Grupo 2",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rruanom/desafio_exe/issues"
+  },
+  "homepage": "https://github.com/rruanom/desafio_exe#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.2",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.1.0",
+    "jest": "^29.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.10.3",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "supertest": "^7.0.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.3",
+    "nodemon": "^2.0.19"
+  }
+}

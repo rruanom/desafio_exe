@@ -13,6 +13,7 @@ const Candidates = () => {
 
   const statusOrder = [
     'Registro',
+    'Solicitud',
     'CentroEvaluacion',
     'Entrevista1',
     'Entrevista2',
@@ -41,7 +42,7 @@ const Candidates = () => {
 
         const groupedByStatus = activeCandidates.reduce((accumulator, candidate) => {
           const status = candidate.name_status;
-          if (status !== 'Descartado' && status !== 'Abandona') {
+          if (status !== 'Descartado' && status !== 'Abandona' && status !== 'Registro') { //quitamos Registro porque nos interesan desde que pasen el primer filtro
             if (!accumulator[status]) {
               accumulator[status] = [];
             }

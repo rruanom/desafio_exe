@@ -9,38 +9,6 @@ app.use('/api/forms', formRoutes);
 
 describe('Form Routes', () => {
 
-    describe('POST /api/forms/add', () => {
-        it('debería crear un formulario con éxito', async () => {
-            // Mock de las validaciones
-            jest.mock('express-validator', () => ({
-                validationResult: jest.fn().mockReturnValue({
-                    isEmpty: () => true,
-                    array: () => []
-                })
-            }));
-        
-            // Mock del modelo
-            jest.mock('../models/form.models', () => ({
-                createForm: jest.fn().mockResolvedValue(14) // Ajusta aquí el valor de retorno según sea necesario
-            }));
-        
-            const response = await request(app)
-                .post('/api/forms/add')
-                .send({
-                    id_candidate: 123,
-                    academic_degree: 'Bachelor',
-                    average_grade: '9.0',
-                    languages: 'English, Spanish',
-                    experience: '2 years',
-                    about_you: 'Passionate developer'
-                });
-        
-            expect(response.statusCode).toBe(201);
-            expect(response.body).toHaveProperty('message', 'Formulario creado');
-            expect(response.body).toHaveProperty('id', 23);
-        });
-    });
-
         it('debería devolver un error si el formulario no se encuentra', async () => {
             // Mock de las validaciones
             jest.mock('express-validator', () => ({

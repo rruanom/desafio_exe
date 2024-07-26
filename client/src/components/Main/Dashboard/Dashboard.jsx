@@ -14,8 +14,8 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const [candidatesResponse, statusesResponse] = await Promise.all([
-          axios.get('http://localhost:5000/api/candidate'),
-          axios.get('http://localhost:5000/api/status')
+          axios.get('https://desafio-exe.onrender.com/api/candidate'),
+          axios.get('https://desafio-exe.onrender.com/api/status')
         ]);
 
         setCandidates(candidatesResponse.data);

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import SearchDashboard from "./SearchDashboard/SearchDashboard";
-import Redirector from './Redirector';
-import Overview from './Overview';
+import SearchDashboard from "../../components/SearchDashboard/SearchDashboard";
+import Redirector from '../../components/Redirector';
+import Overview from '../../components/Overview';
 
 const Dashboard = () => {
   const [candidates, setCandidates] = useState([]);

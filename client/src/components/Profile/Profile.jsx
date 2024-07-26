@@ -10,10 +10,10 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const profileResponse = await axios.get(`http://localhost:5000/api/candidate/${email}`);
+        const profileResponse = await axios.get(`https://desafio-exe.onrender.com/api/candidate/${email}`);
         setProfile(profileResponse.data);
 
-        const statusesResponse = await axios.get('http://localhost:5000/api/status');
+        const statusesResponse = await axios.get('https://desafio-exe.onrender.com/api/status');
         setStatuses(statusesResponse.data);
       } catch (error) {
         console.error('Error fetching profile or statuses:', error);
@@ -25,7 +25,7 @@ const Profile = () => {
 
   const handleStatusChange = async (e) => {
     try {
-      await axios.put(`/candidates/update/admin/${email}`, {
+      await axios.put(`https://desafio-exe.onrender.com/api/candidate/${email}`, {
         id_status: parseInt(e.target.value),
         active: profile.active
       });
@@ -38,7 +38,7 @@ const Profile = () => {
 
   const handleActiveToggle = async () => {
     try {
-      await axios.put(`/candidates/update/admin/${email}`, {
+      await axios.put(`https://desafio-exe.onrender.com/api/candidate/${email}`, {
         id_status: statuses.find(s => s.name_status === profile.name_status).id_status,
         active: !profile.active
       });

@@ -1,24 +1,36 @@
 import React from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
-import LoginGoogle from "./LoginGoogle/LoginGoogle";
-import Candidates from "./Candidates/Candidates";
-import UserHome from "./UserHome/UserHome";
-import Dashboard from "./Dashboard/Dashboard";
-import Details from './Details';
-import Grades from './Details/Grades';
-import Profile from './Details/Grades';
+import { Route, Routes} from "react-router-dom";
+import Candidates from "../../pages/Candidates";
+import UserHome from "../../pages/UserHome";
+import Dashboard from "../../pages/Dashboard";
+import Login from "../../pages/Login";
+import Register from "../../pages/Register";
+import UnauthorizedPage from "../../pages/UnauthorizedPage"
+// import PrivateRoute from "../../components/PrivateRoute"
+import Details from '../../pages/Details';
 
 const Main = () => {
   return (
   <main className="main">
     <Routes>
-      <Route path="/login" element={<LoginGoogle />} />
+      <Route path="/" element={<Register />}/>
       <Route path="/candidatos" element={<Candidates />} />
-      <Route path="/userhome" element={<UserHome />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/profile" element={<UserHome />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/details/:email" element={<Details />} />
-      <Route path="/grades/:email" element={<Grades />} />
-      <Route path="/profile/:email" element={<Profile />} />
+      <Route path="/*" element={<UnauthorizedPage />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+
+      
+      {/* <Route
+        path="/admin"
+        element={
+            <PrivateRoute roles={['admin']}>
+                <Dashboard/>
+            </PrivateRoute>
+        }
+      /> */}
     </Routes>
   </main>
   );

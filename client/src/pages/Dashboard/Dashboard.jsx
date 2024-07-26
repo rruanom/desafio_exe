@@ -22,7 +22,7 @@ const Dashboard = () => {
         setStatuses(statusesResponse.data);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching data:', err);
+        console.error('Error al hacer la petición:', err);
         setError('Error al cargar los datos');
         setLoading(false);
       }

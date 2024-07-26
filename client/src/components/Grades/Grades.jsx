@@ -12,22 +12,22 @@ const Grades = () => {
       try {
         const gradesResponse = await axios.get(`https://desafio-exe.onrender.com/api/grades/${email}`);
         setGrades(gradesResponse.data);
-
+        console.log(gradesResponse.data)
         const assessmentsResponse = await axios.get('https://desafio-exe.onrender.com/api/assessment');
         setAssessments(assessmentsResponse.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error al hacer la petición:', error);
       }
     };
 
     fetchGrades();
-  }, []);
+  }, [email]);
 
-  if (grades.length === 0) return <div>Cargando...</div>;
+  if (grades.length === 0) return <div>No existen resultados aún.</div>;
 
   return (
     <div>
-      <h2>Grades for {grades[0]?.first_name} {grades[0]?.last_name}</h2>
+      <h2>Resultados de {grades[0]?.first_name} {grades[0]?.last_name}</h2>
       {assessments.map((assessment) => {
         const grade = grades.find(g => g.name_assessment === assessment.name_assessment);
 
@@ -36,17 +36,17 @@ const Grades = () => {
             <div key={assessment.id_assessment}>
               <h3>{grade.name_assessment} - {new Date(grade.assessment_date).toLocaleDateString()}</h3>
               <ul>
-                <li>Professionality: {grade.professionality}</li>
-                <li>Domain: {grade.domain}</li>
-                <li>Resilience: {grade.resilience}</li>
-                <li>Social Habits: {grade.social_hab}</li>
-                <li>Leadership: {grade.leadership}</li>
-                <li>Collaboration: {grade.collaboration}</li>
-                <li>Commitment: {grade.commitment}</li>
-                <li>Initiative: {grade.initiative}</li>
+                <li>Profesionalidad: {grade.professionality}</li>
+                <li>Dominio: {grade.domain}</li>
+                <li>Resiliencia: {grade.resilience}</li>
+                <li>Habilidades Sociales: {grade.social_hab}</li>
+                <li>Liderazgo: {grade.leadership}</li>
+                <li>Colaboración: {grade.collaboration}</li>
+                <li>Compromiso: {grade.commitment}</li>
+                <li>Iniciativa: {grade.initiative}</li>
               </ul>
-              <p><strong>Recruiter:</strong> {grade.recruiter}</p>
-              <p><strong>Feedback:</strong> {grade.feedback}</p>
+              <p><strong>Reclutador:</strong> {grade.recruiter}</p>
+              <p><strong>Comentarios:</strong> {grade.feedback}</p>
             </div>
           );
         } else {

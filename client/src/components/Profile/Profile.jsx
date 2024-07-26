@@ -16,7 +16,7 @@ const Profile = () => {
         const statusesResponse = await axios.get('https://desafio-exe.onrender.com/api/status');
         setStatuses(statusesResponse.data);
       } catch (error) {
-        console.error('Error fetching profile or statuses:', error);
+        console.error('Error al hacer la peticón:', error);
       }
     };
 
@@ -53,10 +53,10 @@ const Profile = () => {
 
   return (
     <div>
-      <h2>Profile for {profile.first_name} {profile.last_name}</h2>
+      <h2>Perfil de {profile.first_name} {profile.last_name}</h2>
       <p>Email: {profile.email}</p>
-      <p>Gender: {profile.gender}</p>
-      <p>Registration Date: {new Date(profile.registration_date).toLocaleDateString()}</p>
+      <p>Género: {profile.gender}</p>
+      <p>Fecha de registro: {new Date(profile.registration_date).toLocaleDateString()}</p>
       
       <select value={statuses.find(s => s.name_status === profile.name_status)?.id_status} onChange={handleStatusChange}>
         {statuses.map(status => (

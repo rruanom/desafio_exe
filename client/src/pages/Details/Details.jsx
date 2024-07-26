@@ -16,27 +16,27 @@ const Details = () => {
         const response = await axios.get(`https://desafio-exe.onrender.com/api/candidate/${email}`);
         setCandidate(response.data);
       } catch (error) {
-        console.error('Error fetching candidate details:', error);
+        console.error('Error al hacer la petición:', error);
       }
     };
 
     fetchCandidate();
   }, [email]);
 
-  if (!candidate) return <div>Loading...</div>;
+  if (!candidate) return <div>Cargando...</div>;
 
   return (
     <div>
       <h2>{candidate.first_name} {candidate.last_name}</h2>
-      <p>Fecha de registro: {candidate.registration_date}</p>
+      <p>Fecha de registro: {new Date(candidate.registration_date).toLocaleDateString()}</p>
       
       <button onClick={() => setShowGrades(!showGrades)}>
-        {showGrades ? 'Hide Grades' : 'Show Grades'}
+        {showGrades ? 'Ocultar Notas' : 'Notas'}
       </button>
       {showGrades && <Grades />}
 
       <button onClick={() => setShowProfile(!showProfile)}>
-        {showProfile ? 'Hide Profile' : 'Show Profile'}
+        {showProfile ? 'Ocultar Perfil' : 'Perfil'}
       </button>
       {showProfile && <Profile />}
     </div>

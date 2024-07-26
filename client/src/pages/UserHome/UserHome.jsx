@@ -3,9 +3,9 @@ import axios from 'axios';
 import * as jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import Welcome from './Welcome';
-import Process from './Process/Process';
-import Editor from './Editor/Editor';
+import Welcome from '../../components/Welcome';
+import Process from '../../components/Process/Process';
+import Editor from '../../components/Editor/Editor';
 
 const UserHome = () => {
   const [candidateData, setCandidateData] = useState(null);

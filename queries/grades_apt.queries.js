@@ -4,14 +4,14 @@ const queriesGrades = {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?)
     `,
     readGrades: `
-    SELECT c.first_name, c.last_name, c.email, ga.professionality, ga.domain, ga.resilience, ga.social_hab, ga.leadership, ga.collaboration, ga.commitment, ga.initiative, a.name_assessment, ga.assessment_date, s.first_name
+    SELECT c.first_name, c.last_name, c.email, ga.professionality, ga.domain, ga.resilience, ga.social_hab, ga.leadership, ga.collaboration, ga.commitment, ga.initiative, a.name_assessment, ga.assessment_date, s.first_name AS recruiter, ga.feedback
     FROM grades_apt AS ga
     INNER JOIN candidate AS c ON ga.id_candidate = c.id_candidate
     INNER JOIN assessment AS a ON ga.id_assessment = a.id_assessment
     INNER JOIN staff AS s ON ga.id_staff = s.id_staff
     `,
     readGradesByEmail: `
-    SELECT c.first_name, c.last_name, c.email, ga.professionality, ga.domain, ga.resilience, ga.social_hab, ga.leadership, ga.collaboration, ga.commitment, ga.initiative, a.name_assessment, ga.assessment_date, s.first_name
+    SELECT c.first_name, c.last_name, c.email, ga.professionality, ga.domain, ga.resilience, ga.social_hab, ga.leadership, ga.collaboration, ga.commitment, ga.initiative, a.name_assessment, ga.assessment_date, s.first_name AS recruiter, ga.feedback
     FROM grades_apt AS ga
     INNER JOIN candidate AS c ON ga.id_candidate = c.id_candidate
     INNER JOIN assessment AS a ON ga.id_assessment = a.id_assessment

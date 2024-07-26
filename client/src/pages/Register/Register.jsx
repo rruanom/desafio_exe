@@ -47,8 +47,17 @@ const Register = () => {
                 <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
             </div>
             <div>
-                <label>Gender (if candidate):</label>
-                <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} />
+                <label>Gender</label>
+                <select name="" id="" onChange={(e) => setGender(e.target.value)}>
+                    <option value={gender}>Female</option>
+                    <option value={gender}>Male</option>
+                    <option value={gender}>Genderfluid</option>
+                    <option value={gender}>Genderqueer</option>
+                    <option value={gender}>Polygender</option>
+                    <option value={gender}>Agender</option>
+                    <option value={gender}>Non-binary</option>
+                    <option value={gender}>Bigender</option>
+                </select>
             </div>
             <button type="submit">Register</button>
             {message && <p>{message}</p>}

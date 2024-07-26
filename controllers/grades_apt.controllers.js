@@ -34,14 +34,14 @@ const createGrades = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, id_staff, feedback } = req.body;
+    const gradeData = req.body;
 
-    if (!id_candidate || !professionality || !domain || !resilience || !social_hab || !leadership || !collaboration || !commitment || !initiative || !id_assessment || !id_staff || !feedback) {
+    if (!gradeData.id_candidate || !gradeData.professionality || !gradeData.domain || !gradeData.resilience || !gradeData.social_hab || !gradeData.leadership || !gradeData.collaboration || !gradeData.commitment || !gradeData.initiative || !gradeData.id_assessment || !gradeData.id_staff || !gradeData.feedback) {
         return res.status(400).json({ error: 'Todos los campos son requeridos' });
     }
 
     try {
-        const result = await gradesModels.createGrades(id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, id_staff, feedback);
+        const result = await gradesModels.createGrades(gradeData);
         if (result === 0) {
             return res.status(500).json({ error: 'Error al crear las notas' });
         }

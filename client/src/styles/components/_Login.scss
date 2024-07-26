@@ -1,0 +1,61 @@
+@import '../utils/variables.scss';
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: $dark_blue;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba($black, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+  
+    div {
+      display: flex;
+      flex-direction: column;
+  
+      label {
+        color: $white;
+        margin-bottom: 0.5rem;
+      }
+  
+      input, select {
+        padding: 0.5rem;
+        border: 2px solid $yellow;
+        border-radius: 50px;
+        background-color: $white;
+        color: $black;
+        cursor: pointer;
+  
+        &:focus {
+          outline: none;
+          border-color: $green;
+          box-shadow: 0 0 0 2px rgba($green, 0.2);
+        }
+      }
+      
+    }
+
+    button {
+      padding: 0.75rem;
+      border: none;
+      border-radius: 50px;
+      background-color: $yellow;
+      color: $dark_blue;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+  
+      &:hover {
+        background-color: $yellow_ligth;
+      }
+    }
+  
+    p {
+      margin-top: 1rem;
+      color: $yellow;
+      font-weight: bold;
+    }
+  }

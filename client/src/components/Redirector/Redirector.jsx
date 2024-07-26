@@ -8,7 +8,7 @@ const Redirector = () => {
         <button>Ver Candidatos</button>
       </Link>
       <Link to="/insights" className="redirector-button">
-        <button>Ver Insights</button>
+        <button>Ver Análisis</button>
       </Link>
     </section>
   );

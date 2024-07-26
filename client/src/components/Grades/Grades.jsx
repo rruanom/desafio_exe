@@ -1,33 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React from "react";
 
-const Grades = () => {
-  const [grades, setGrades] = useState([]);
-  const [assessments, setAssessments] = useState([]);
-  const { email } = useParams();
-
-  useEffect(() => {
-    const fetchGrades = async () => {
-      try {
-        const gradesResponse = await axios.get(`https://desafio-exe.onrender.com/api/grades/${email}`);
-        setGrades(gradesResponse.data);
-        console.log(gradesResponse.data)
-        const assessmentsResponse = await axios.get('https://desafio-exe.onrender.com/api/assessment');
-        setAssessments(assessmentsResponse.data);
-      } catch (error) {
-        console.error('Error al hacer la petición:', error);
-      }
-    };
-
-    fetchGrades();
-  }, [email]);
-
+const Grades = ({ grades, assessments, candidateName }) => {
   if (grades.length === 0) return <div>No existen resultados aún.</div>;
 
   return (
     <div>
-      <h2>Resultados de {grades[0]?.first_name} {grades[0]?.last_name}</h2>
+      <h2>Resultados de {candidateName}</h2>
       {assessments.map((assessment) => {
         const grade = grades.find(g => g.name_assessment === assessment.name_assessment);
 

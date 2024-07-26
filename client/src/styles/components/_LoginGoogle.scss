@@ -1,0 +1,26 @@
+@import '../utils/variables.scss';
+
+.google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  border: 1px solid $yellow;
+  border-radius: 50px;
+  background-color: $white;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 1rem;
+
+  img {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5rem;
+    border-radius: 10px;
+  }
+
+  &:hover {
+    background-color: $yellow;
+  }
+}

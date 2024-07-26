@@ -45,7 +45,7 @@ const pool = require('../config/db_mysql');
  * });
  * console.log(newGradeId); // ID de la calificación creada
  */
-    const createGrades = async (gradeData) => {
+const createGrades = async (gradeData) => {
     const { id_candidate, professionality, domain, resilience, social_hab, leadership, collaboration, commitment, initiative, id_assessment, id_staff, feedback } = gradeData;
     let connection, result;
     try {
@@ -54,6 +54,7 @@ const pool = require('../config/db_mysql');
             id_candidate, professionality, domain, resilience, social_hab, leadership, 
             collaboration, commitment, initiative, id_assessment, id_staff, feedback
         ]);
+        console.log(data)
         result = data.insertId;
     } catch (err) {
         console.log(err);

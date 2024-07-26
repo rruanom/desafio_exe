@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import CandidatesList from "./CandidatesList";
+import CandidatesList from "../../components/CandidatesList";
 
 const Candidates = () => {
 

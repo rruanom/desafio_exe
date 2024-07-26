@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/Authcontext';
+import LoginGoogle from '../../components/LoginGoogle';
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -27,6 +28,7 @@ const Register = () => {
     };
 
     return (
+        <>
         <form onSubmit={handleSubmit}>
             <div>
                 <label>Email:</label>
@@ -51,6 +53,8 @@ const Register = () => {
             <button type="submit">Register</button>
             {message && <p>{message}</p>}
         </form>
+        <LoginGoogle />
+        </>
     );
 };
 

@@ -1,34 +1,51 @@
-const supertest = require('supertest');
-const server = require('../index');
-const pool = require('../config/db_mysql');
-const request =supertest(server);
+const request = require('supertest');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const assessmentRoutes = require('../routes/assessment.routes');
+const { pool } = require('../config/db_mysql');
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use('/api/assessment', assessmentRoutes);
 
 afterAll(async () => {
-  await pool.end();
+    await pool.end();
 });
 
 describe('Assessment Routes', () => {
-  test('GET /api/assessments should return all assessments', async () => {
-    const response = await request(app).get('/api/assessments');
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual([
-      { id_assessment: 1, name_assessment: 'Evaluación 1' },
-    ]);
-  });
+    test('GET /api/assessment - debe devolver todas las evaluaciones', async () => {
+        const response = await request(app).get('/api/assessment');
+        expect(response.status).toBe(200);
+        expect(response.body).toBeInstanceOf(Array);
+    });
 
-  test('POST /api/assessments/add should create an assessment', async () => {
-    const response = await request(app)
-      .post('/api/assessments/add')
-      .send({ name_assessment: 'Evaluación Nueva' });
-    expect(response.status).toBe(201);
-    expect(response.body).toEqual({ message: 'Evaluación creada exitosamente', id: expect.any(Number) });
-  });
+    test('DELETE /api/assessment/delete - debe eliminar una evaluación existente', async () => {
+        const postResponse = await request(app)
+            .post('/api/assessment/add')
+            .send({ name_assessment: 'Evaluación para Eliminar' });
+        const idToDelete = postResponse.body.id;
 
-  test('DELETE /api/assessments/delete should delete an assessment', async () => {
-    const response = await request(app)
-      .delete('/api/assessments/delete')
-      .send({ name_assessment: 'Evaluación a Eliminar' });
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual({ message: 'Evaluación eliminada exitosamente' });
-  });
+        const deleteResponse = await request(app)
+            .delete('/api/assessment/delete')
+            .send({ name_assessment: 'Evaluación para Eliminar' });
+        expect(deleteResponse.status).toBe(200);
+        expect(deleteResponse.body).toHaveProperty('message', 'Evaluación eliminada exitosamente');
+
+        const getResponse = await request(app).get('/api/assessment');
+        const assessments = getResponse.body;
+        const deletedAssessment = assessments.find(a => a.id === idToDelete);
+        expect(deletedAssessment).toBeUndefined();
+    });
+
+    test('DELETE /api/assessment/delete - debe responder con error si la evaluación no existe', async () => {
+        const response = await request(app)
+            .delete('/api/assessment/delete')
+            .send({ name_assessment: 'Evaluación Inexistente' });
+        expect(response.status).toBe(404);
+        expect(response.body).toHaveProperty('error', 'Evaluación no encontrada');
+    });
 });

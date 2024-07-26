@@ -1,64 +1,70 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const Profile = () => {
-  const [profile, setProfile] = useState(null);
+const Profile = ({ candidate }) => {
   const [statuses, setStatuses] = useState([]);
-  const { email } = useParams();
+
+  const genderTranslations = {
+    'Female': 'Femenino',
+    'Male': 'Masculino',
+    'Genderfluid': 'Género fluido',
+    'Genderqueer': 'Género queer',
+    'Polygender': 'Poligénero',
+    'Agender': 'Agénero',
+    'Non-binary': 'No binario',
+    'Bigender': 'Bigénero'
+  };
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchStatuses = async () => {
       try {
-        const profileResponse = await axios.get(`https://desafio-exe.onrender.com/api/candidate/${email}`);
-        setProfile(profileResponse.data);
-
         const statusesResponse = await axios.get('https://desafio-exe.onrender.com/api/status');
         setStatuses(statusesResponse.data);
       } catch (error) {
-        console.error('Error fetching profile or statuses:', error);
+        console.error('Error al obtener los estados:', error);
       }
     };
 
-    fetchProfile();
-  }, [email]);
+    fetchStatuses();
+  }, []);
 
   const handleStatusChange = async (e) => {
     try {
-      await axios.put(`https://desafio-exe.onrender.com/api/candidate/${email}`, {
+      await axios.put(`https://desafio-exe.onrender.com/api/candidate/${candidate.email}`, {
         id_status: parseInt(e.target.value),
-        active: profile.active
+        active: candidate.active
       });
-      // Update local state
-      setProfile({...profile, name_status: e.target.options[e.target.selectedIndex].text});
+      
+      candidate.name_status = e.target.options[e.target.selectedIndex].text;
     } catch (error) {
-      console.error('Error updating status:', error);
+      console.error('Error actualizando el status:', error);
     }
   };
 
   const handleActiveToggle = async () => {
     try {
-      await axios.put(`https://desafio-exe.onrender.com/api/candidate/${email}`, {
-        id_status: statuses.find(s => s.name_status === profile.name_status).id_status,
-        active: !profile.active
+      await axios.put(`https://desafio-exe.onrender.com/api/candidate/${candidate.email}`, {
+        id_status: statuses.find(s => s.name_status === candidate.name_status).id_status,
+        active: !candidate.active
       });
-      // Update local state
-      setProfile({...profile, active: !profile.active});
+      
+      candidate.active = !candidate.active;
     } catch (error) {
-      console.error('Error toggling active status:', error);
+      console.error('Error al cambiar el estado activo:', error);
     }
   };
 
-  if (!profile) return <div>Loading...</div>;
-
   return (
     <div>
-      <h2>Profile for {profile.first_name} {profile.last_name}</h2>
-      <p>Email: {profile.email}</p>
-      <p>Gender: {profile.gender}</p>
-      <p>Registration Date: {new Date(profile.registration_date).toLocaleDateString()}</p>
+      <h2>Perfil de {candidate.first_name} {candidate.last_name}</h2>
+      <p>Email: {candidate.email}</p>
+      <p>Género: {genderTranslations[candidate.gender] || candidate.gender}</p>
+      <p>Fecha de registro: {new Date(candidate.registration_date).toLocaleDateString()}</p>
       
-      <select value={statuses.find(s => s.name_status === profile.name_status)?.id_status} onChange={handleStatusChange}>
+      <select 
+        value={statuses.find(s => s.name_status === candidate.name_status)?.id_status} 
+        onChange={handleStatusChange}
+      >
         {statuses.map(status => (
           <option key={status.id_status} value={status.id_status}>
             {status.name_status}
@@ -67,7 +73,7 @@ const Profile = () => {
       </select>
       
       <button onClick={handleActiveToggle}>
-        {profile.active ? 'Desactivar' : 'Activar'}
+        {candidate.active ? 'Desactivar' : 'Activar'}
       </button>
     </div>
   );

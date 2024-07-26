@@ -6,7 +6,8 @@ import Dashboard from "../../pages/Dashboard";
 import Login from "../../pages/Login";
 import Register from "../../pages/Register";
 import UnauthorizedPage from "../../pages/UnauthorizedPage"
-import PrivateRoute from "../../components/PrivateRoute"
+// import PrivateRoute from "../../components/PrivateRoute"
+import Details from '../../pages/Details';
 
 const Main = () => {
   return (
@@ -17,15 +18,19 @@ const Main = () => {
       <Route path="/profile" element={<UserHome />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/details/:email" element={<Details />} />
       <Route path="/*" element={<UnauthorizedPage />} />
-      <Route
+      <Route path="/dashboard" element={<Dashboard />} />
+
+      
+      {/* <Route
         path="/admin"
         element={
             <PrivateRoute roles={['admin']}>
                 <Dashboard/>
             </PrivateRoute>
         }
-      />
+      /> */}
     </Routes>
   </main>
   );

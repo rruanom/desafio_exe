@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Redirector = () => {
   return (
     <section className="redirector">
-      <Link to="/candidates" className="redirector-button">
+      <Link to="/candidatos" className="redirector-button">
         <button>Ver Candidatos</button>
       </Link>
       <Link to="/insights" className="redirector-button">

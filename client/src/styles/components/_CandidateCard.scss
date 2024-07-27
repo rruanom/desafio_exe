@@ -1,2 +1,55 @@
 @import '../utils/mixins.scss';
 @import '../utils/variables.scss';
+
+.candidateCard {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color: white;
+    margin-bottom: 11px;
+    width: 186px;
+    align-items: center;
+    box-sizing: border-box;
+    box-shadow: 0 0px 8px rgba(68, 68, 255, 0.144);
+}
+
+.iconClock {
+    width: 14.5px;
+    height: 14.5px;
+    margin-bottom: -2px;
+}
+
+.iconRegister {
+    width: 15px;
+    height: 15px;
+    margin-bottom: -2px;
+}
+
+.titleCard {
+    display: block;
+    margin-right: auto;
+    margin-left: 15px;
+    margin-top: 11px;
+    font-size: 15.5px;
+    color: $dark_blue;
+}
+
+.divDatesCard {
+    display: flex;
+    margin-top: -23px;
+    align-items: center;
+    margin-right: auto;
+    margin-bottom: -2px;
+}
+
+.dateCard {
+    margin-left: 15px;
+    font-size: 14px;
+    color: $dark_blue;
+}
+
+.dateCard2 {
+    margin-left: 10px;
+    font-size: 14px;
+    color: $dark_blue;
+}

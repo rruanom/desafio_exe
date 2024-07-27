@@ -1,2 +1,23 @@
 @import '../utils/mixins.scss';
 @import '../utils/variables.scss';
+
+.candidatesContainer {
+    margin-left: -80px;
+    margin-right: -80px;
+}
+
+.btnCandidates {
+    background-color: $yellow;
+    color: $dark_blue;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    padding: 7px 13px;
+    margin-right: 13px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.btnCandidates:hover {
+    background-color: #f8d700;
+}

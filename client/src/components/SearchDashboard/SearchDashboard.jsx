@@ -1,8 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-const SearchDashboard = ({ candidates }) => {
+const SearchDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [candidates, setCandidates] = useState([]);
+
+  useEffect(() => {
+    fetchCandidates();
+  }, []);
+
+  const fetchCandidates = async () => {
+    try {
+      const response = await fetch('https://desafio-exe.onrender.com/api/candidate');
+      const data = await response.json();
+      setCandidates(data);
+    } catch (error) {
+      console.error('Error al hacer la petición:', error);
+    }
+  };
 
   const handleSearch = (event) => {
     const term = event.target.value.toLowerCase();
@@ -29,7 +45,9 @@ const SearchDashboard = ({ candidates }) => {
         <ul>
           {searchResults.map(candidate => (
             <li key={candidate.id_candidate}>
-              {candidate.first_name} {candidate.last_name} - {candidate.email}
+              <Link to={`/details/${encodeURIComponent(candidate.email)}`}>
+                {candidate.first_name} {candidate.last_name} - {candidate.email}
+              </Link>
             </li>
           ))}
         </ul>

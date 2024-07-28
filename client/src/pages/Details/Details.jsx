@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Card, CardContent, CardActions, Button, Typography, Modal } from '@mui/material';
 import Grades from '../../components/Grades';
 import Profile from '../../components/Profile';
 
@@ -20,7 +21,6 @@ const Details = () => {
           axios.get(`https://desafio-exe.onrender.com/api/grades/${email}`),
           axios.get('https://desafio-exe.onrender.com/api/assessment')
         ]);
-
         setCandidate(candidateResponse.data);
         setGrades(gradesResponse.data);
         setAssessments(assessmentsResponse.data);
@@ -28,42 +28,64 @@ const Details = () => {
         console.error('Error al hacer las peticiones:', error);
       }
     };
-
     fetchData();
   }, [email]);
 
   const getDaysSinceLastAssessment = () => {
     if (grades.length === 0) return null;
-
     const lastAssessmentDate = new Date(Math.max(...grades.map(g => new Date(g.assessment_date))));
     const today = new Date();
     const diffTime = Math.abs(today - lastAssessmentDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
     return diffDays;
   };
 
-  if (!candidate) return <div>Cargando...</div>;
+  if (!candidate) return <Typography>Cargando...</Typography>;
 
   const daysSinceLastAssessment = getDaysSinceLastAssessment();
 
   return (
-    <div>
-      <h2>{candidate.first_name} {candidate.last_name}</h2>
-      <p>Fecha de registro: {new Date(candidate.registration_date).toLocaleDateString()}</p>
-      {daysSinceLastAssessment && (
-        <p>Días desde la última evaluación: {daysSinceLastAssessment}</p>
-      )}
-
-      <button onClick={() => setShowGrades(!showGrades)}>
-        {showGrades ? 'Ocultar Notas' : 'Notas'}
-      </button>
-      {showGrades && <Grades grades={grades} assessments={assessments} candidateName={`${candidate.first_name} ${candidate.last_name}`} />}
-
-      <button onClick={() => setShowProfile(!showProfile)}>
-        {showProfile ? 'Ocultar Perfil' : 'Perfil'}
-      </button>
-      {showProfile && <Profile candidate={candidate} />}
+    <div className="details-container">
+      <Card className="details-card">
+        <CardContent>
+          <Typography variant="h5" component="div">
+            {candidate.first_name} {candidate.last_name}
+          </Typography>
+          <Typography color="text.secondary">
+            Fecha de registro: {new Date(candidate.registration_date).toLocaleDateString()}
+          </Typography>
+          {daysSinceLastAssessment && (
+            <Typography color="text.secondary">
+              Días desde la última evaluación: {daysSinceLastAssessment}
+            </Typography>
+          )}
+        </CardContent>
+        <CardActions className="card-actions">
+          <Button
+            className="button-grades"
+            onClick={() => setShowGrades(!showGrades)}
+          >
+            {showGrades ? 'Ocultar Notas' : 'Notas'}
+          </Button>
+          <Button
+            className="button-profile"
+            onClick={() => setShowProfile(true)}
+          >
+            Perfil
+          </Button>
+        </CardActions>
+        {showGrades && <Grades grades={grades} assessments={assessments} candidateName={`${candidate.first_name} ${candidate.last_name}`} />}
+        <Modal
+          open={showProfile}
+          onClose={() => setShowProfile(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <div className="modal-content">
+            <Profile candidate={candidate} />
+          </div>
+        </Modal>
+      </Card>
     </div>
   );
 };

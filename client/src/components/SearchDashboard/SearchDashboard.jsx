@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Autocomplete, TextField } from '@mui/material';
 
 const SearchDashboard = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
   const [candidates, setCandidates] = useState([]);
+  const [value, setValue] = useState(null);
 
   useEffect(() => {
     fetchCandidates();
@@ -20,38 +20,28 @@ const SearchDashboard = () => {
     }
   };
 
-  const handleSearch = (event) => {
-    const term = event.target.value.toLowerCase();
-    setSearchTerm(term);
-
-    const filteredCandidates = candidates.filter(candidate =>
-      candidate.first_name.toLowerCase().includes(term) ||
-      candidate.last_name.toLowerCase().includes(term) ||
-      candidate.email.toLowerCase().includes(term)
-    );
-
-    setSearchResults(filteredCandidates);
-  };
-
   return (
     <div className="search-dashboard">
-      <input
-        type="text"
-        placeholder="Buscar candidato..."
-        value={searchTerm}
-        onChange={handleSearch}
+      <Autocomplete
+        options={candidates}
+        getOptionLabel={(option) => `${option.first_name} ${option.last_name} - ${option.email}`}
+        renderInput={(params) => <TextField {...params} label="Buscar candidato" />}
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        clearOnEscape
+        renderOption={(props, option) => (
+          <li {...props}>
+            <Link 
+              to={`/details/${encodeURIComponent(option.email)}`}
+              className="candidate-link" 
+            >
+              {option.first_name} {option.last_name}
+            </Link>
+          </li>
+        )}
       />
-      {searchTerm && (
-        <ul>
-          {searchResults.map(candidate => (
-            <li key={candidate.id_candidate}>
-              <Link to={`/details/${encodeURIComponent(candidate.email)}`}>
-                {candidate.first_name} {candidate.last_name} - {candidate.email}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 };

@@ -38,9 +38,10 @@ const Nav = () => {
   return (
     <section className="nav">
       <div className="logo">
-        <a href="https://empiezaporeducar.org/" target="_blank" rel="noopener noreferrer">
+        {/* <a href="https://empiezaporeducar.org/" target="_blank" rel="noopener noreferrer">
           <img src="../../../../public/logo_exe.png" alt="Logo Exe" />
-        </a>
+        </a> */}
+        <Link to="/"><img src="../../../../public/logo_exe.png" alt="Logo Exe" /></Link>
       </div>
 
       {windowWidth <= 800 && (

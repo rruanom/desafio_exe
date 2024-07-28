@@ -1,2 +1,53 @@
 @import '../utils/mixins.scss';
 @import '../utils/variables.scss';
+
+.overview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: $font_principal;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+
+  h2 {
+    text-align: center;
+    color: $dark_blue;
+    margin-bottom: 20px;
+  }
+
+  .overview-section, .progress-section {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .overview-item, .progress-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .MuiTypography-root {
+      &:first-child {
+        text-align: left;
+        flex: 1;
+      }
+
+      &:last-child {
+        text-align: right;
+        flex: 0 0 auto;
+        min-width: 50px;
+      }
+    }
+  }
+
+  .progress-item {
+    .MuiTypography-root {
+      margin-right: 20px;
+    }
+
+    .MuiCircularProgress-root {
+      color: $green;
+    }
+  }
+}

@@ -1,2 +1,55 @@
-@import '../utils/mixins.scss';
 @import '../utils/variables.scss';
+
+.search-dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: $font_principal;
+
+  .MuiAutocomplete-root {
+    width: 300px;
+
+    .MuiInputBase-root {
+      font-family: $font_principal;
+
+      &.Mui-focused {
+        .MuiOutlinedInput-notchedOutline {
+          border-color: $green;
+        }
+      }
+    }
+
+    .MuiInputLabel-root {
+      &.Mui-focused {
+        color: $green;
+      }
+    }
+
+    .MuiAutocomplete-option {
+      padding: 0;
+    }
+  }
+
+  // Estilos adicionales para el input cuando está enfocado
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: $green;
+  }
+
+  // Estilos para el texto de las opciones
+  .MuiAutocomplete-popper {
+    .MuiAutocomplete-option {
+      .candidate-link {
+        display: block;
+        width: 100%;
+        padding: 6px 16px;
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

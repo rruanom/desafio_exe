@@ -5,4 +5,11 @@ body {
     min-height: 100vh;
     background-color: $white;
     margin: 0;
+    font-family: $font_principal;
+  }
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    color: $dark_blue;
   }

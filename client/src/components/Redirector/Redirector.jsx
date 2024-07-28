@@ -1,16 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button } from '@mui/material';
 
 const Redirector = () => {
   return (
-    <section className="redirector">
-      <Link to="/candidatos" className="redirector-button">
-        <button>Ver Candidatos</button>
-      </Link>
-      <Link to="/insights" className="redirector-button">
-        <button>Ver Análisis</button>
-      </Link>
-    </section>
+    <div className="redirector">
+      <Button
+        component={Link}
+        to="/candidatos"
+        variant="contained"
+        size="medium"
+      >
+        Candidatos
+      </Button>
+      <Button
+        component={Link}
+        to="/insights"
+        variant="contained"
+        size="medium"
+      >
+        Estadísticas
+      </Button>
+    </div>
   );
 };
 

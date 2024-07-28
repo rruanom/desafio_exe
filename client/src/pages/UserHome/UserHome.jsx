@@ -17,7 +17,7 @@ const UserHome = () => {
     const fetchCandidateData = async () => {
       try {
         const token = Cookies.get('access-token');
-        
+        console.log(token)
         if (!token) {
           throw new Error('No se encontró el token de acceso');
         }
@@ -26,7 +26,7 @@ const UserHome = () => {
         const userEmail = decodedToken.email;
         console.log(userEmail)
 
-        const response = await axios.get(`http://localhost:5000/api/candidate/${userEmail}`, {
+        const response = await axios.get(`https://desafio-exe.onrender.com/api/candidate/${userEmail}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 

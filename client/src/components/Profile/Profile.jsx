@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { Card, CardContent, Typography, Select, MenuItem, FormControl, InputLabel, Button } from '@mui/material';
 
 const Profile = ({ candidate }) => {
   const [statuses, setStatuses] = useState([]);
@@ -24,7 +25,6 @@ const Profile = ({ candidate }) => {
         console.error('Error al obtener los estados:', error);
       }
     };
-
     fetchStatuses();
   }, []);
 
@@ -34,7 +34,6 @@ const Profile = ({ candidate }) => {
         id_status: parseInt(e.target.value),
         active: candidate.active
       });
-      
       candidate.name_status = e.target.options[e.target.selectedIndex].text;
     } catch (error) {
       console.error('Error actualizando el status:', error);
@@ -47,7 +46,6 @@ const Profile = ({ candidate }) => {
         id_status: statuses.find(s => s.name_status === candidate.name_status).id_status,
         active: !candidate.active
       });
-      
       candidate.active = !candidate.active;
     } catch (error) {
       console.error('Error al cambiar el estado activo:', error);
@@ -55,27 +53,45 @@ const Profile = ({ candidate }) => {
   };
 
   return (
-    <div>
-      <h2>Perfil de {candidate.first_name} {candidate.last_name}</h2>
-      <p>Email: {candidate.email}</p>
-      <p>Género: {genderTranslations[candidate.gender] || candidate.gender}</p>
-      <p>Fecha de registro: {new Date(candidate.registration_date).toLocaleDateString()}</p>
-      
-      <select 
-        value={statuses.find(s => s.name_status === candidate.name_status)?.id_status} 
-        onChange={handleStatusChange}
-      >
-        {statuses.map(status => (
-          <option key={status.id_status} value={status.id_status}>
-            {status.name_status}
-          </option>
-        ))}
-      </select>
-      
-      <button onClick={handleActiveToggle}>
-        {candidate.active ? 'Desactivar' : 'Activar'}
-      </button>
-    </div>
+    <Card className="profile-card">
+      <CardContent className="profile-content">
+        <Typography variant="h5" component="div">
+          Perfil de {candidate.first_name} {candidate.last_name}
+        </Typography>
+        <Typography color="text.secondary">
+          Email: {candidate.email}
+        </Typography>
+        <Typography color="text.secondary">
+          Género: {genderTranslations[candidate.gender] || candidate.gender}
+        </Typography>
+        <Typography color="text.secondary">
+          Fecha de registro: {new Date(candidate.registration_date).toLocaleDateString()}
+        </Typography>
+        <FormControl fullWidth>
+          <InputLabel id="status-select-label">Status</InputLabel>
+          <Select
+            labelId="status-select-label"
+            id="status-select"
+            value={statuses.find(s => s.name_status === candidate.name_status)?.id_status || ''}
+            label="Status"
+            onChange={handleStatusChange}
+            className="status-select"
+          >
+            {statuses.map(status => (
+              <MenuItem key={status.id_status} value={status.id_status}>
+                {status.name_status}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Button
+          className="button-toggle"
+          onClick={handleActiveToggle}
+        >
+          {candidate.active ? 'Desactivar' : 'Activar'}
+        </Button>
+      </CardContent>
+    </Card>
   );
 };
 

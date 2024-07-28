@@ -9,7 +9,7 @@ const Nav = () => {
   return (
     <section className="nav">
       <div className="logo">
-        <img src="../../../assets/logo.jpeg" alt="Logo Exe" />
+        <img src="../../../assets/logo_exe.png" alt="Logo Exe" />
       </div>
 
       <nav className="menu">

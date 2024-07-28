@@ -4,6 +4,7 @@
     align-items: center;
     padding: 1rem;
     background-color: #f8f9fa;
+    flex-wrap: wrap;
   }
   
   .logo img {
@@ -11,8 +12,9 @@
   }
   
   .menu {
-    display: flex;
-    gap: 1rem;
+    display: none;
+    width: 100%;
+    order: 3;
   }
   
   .menu a {
@@ -24,10 +26,11 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    order: 2;
   }
   
   .hamburger {
-    display: none;
+    display: block;
     background: none;
     border: none;
     cursor: pointer;
@@ -35,6 +38,7 @@
     width: 30px;
     height: 20px;
     position: relative;
+    order: 1;
   }
   
   .hamburger span {
@@ -77,38 +81,42 @@
     transform: rotate(-135deg);
   }
   
-  @media (max-width: 800px) {
+  .logo {
+    order: 0;
+  }
+  
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 1rem;
+  }
+  
+  .mobile-menu a {
+    margin-bottom: 0.5rem;
+  }
+  
+  @media (min-width: 800px) {
     .nav {
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
   
     .hamburger {
-      display: block;
-      order: 1;
+      display: none;
     }
   
-    .logo {
-      order: 0;
+    .menu {
+      display: flex;
+      gap: 1rem;
+      width: auto;
+      order: 1;
     }
   
     .user-section {
       order: 2;
     }
   
-    .menu {
-      display: none;
-      width: 100%;
-      order: 3;
-    }
-  
     .mobile-menu {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      padding-top: 1rem;
-    }
-  
-    .mobile-menu a {
-      margin-bottom: 0.5rem;
+      display: none;
     }
   }

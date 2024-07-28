@@ -1,2 +1,31 @@
 @import '../utils/mixins.scss';
 @import '../utils/variables.scss';
+
+.candidatesContainer {
+    margin-left: -25px;
+    margin-right: -16px;
+}
+
+.btnCandidates {
+    color: $dark_blue;
+    font-weight: 600;
+    border: none;
+    background-color: white;
+    padding: 4px 3px;
+    margin-right: 13px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.btnCandidates:hover {
+    border-bottom: 2px solid $dark_blue;
+    margin-bottom: -2px;
+}
+
+@media screen and (min-width: 900px) {
+    .candidatesContainer {
+        margin-left: -80px;
+        margin-right: -80px;
+    }
+    
+}

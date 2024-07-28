@@ -4,13 +4,13 @@
 .candidateCard {
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
     background-color: white;
-    margin-bottom: 11px;
-    width: 186px;
+    width: 100%;
     align-items: center;
+    justify-content: flex-start;
     box-sizing: border-box;
-    box-shadow: 0 0px 8px rgba(68, 68, 255, 0.144);
+    border-top: 1px solid rgba(128, 128, 128, 0.201);
+    margin: 0;
 }
 
 .iconClock {
@@ -26,24 +26,24 @@
 }
 
 .titleCard {
-    display: block;
+    display: inline-block;
     margin-right: auto;
-    margin-left: 15px;
+    margin-left: 5px;
     margin-top: 11px;
-    font-size: 15.5px;
+    font-size: 14.5px;
     color: $dark_blue;
 }
 
 .divDatesCard {
     display: flex;
-    margin-top: -23px;
+    margin-top: -21px;
     align-items: center;
     margin-right: auto;
     margin-bottom: -2px;
 }
 
 .dateCard {
-    margin-left: 15px;
+    margin-left: 4px;
     font-size: 14px;
     color: $dark_blue;
 }
@@ -52,4 +52,13 @@
     margin-left: 10px;
     font-size: 14px;
     color: $dark_blue;
+}
+
+.iconFlechaDcha {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-top: -16px;
+    margin-left: auto;
+    margin-bottom: 6px;
 }

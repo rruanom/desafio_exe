@@ -130,7 +130,10 @@ const Database = () => {
 
   return (
     <div>
-      <div className="searchDatabase">
+      {candidatesToDisplay.length > 0 ? (
+        <>
+          <section className="sectionDatabase">
+          <div className="searchDatabase">
         <input
           type="text"
           placeholder="Buscar candidato..."
@@ -139,49 +142,52 @@ const Database = () => {
           className="inputDatabase"
         />
       </div>
-      {candidatesToDisplay.length > 0 ? (
-        <>
-          <section className="sectionDatabase">
+      <button className="btnNoFilter" onClick={handleRemoveSort}>
+                    <img src={nofilterDatabase} alt="Quitar filtro" className="nofilterDatabaseIcon" />
+                  </button>
             <article className="headDatabase">
-              <div className="divDatabase">
-                <button className="btnfilter" onClick={() => handleSortCriteria('name')}>
-                  <img src={filterDatabase} alt="Ordenar por Nombre" className="filterDatabaseIcon" />
-                </button>
-                <p className="titleDatabase">NOMBRE</p>
+            <div className="divDatabase3">
+                <p className="titleDatabaseId">#ID</p>
               </div>
               <div className="divDatabase">
-                <button className="btnfilter" onClick={() => handleSortCriteria('email')}>
+              <button className="btnfilter0" onClick={() => handleSortCriteria('name')}>
                   <img src={filterDatabase} alt="Ordenar por Email" className="filterDatabaseIcon" />
                 </button>
-                <p className="titleDatabase">EMAIL</p>
+                <p className="titleDatabase">Nombre</p>
+              </div>
+              <div className="divDatabase">
+                <button className="btnfilter0" onClick={() => handleSortCriteria('email')}>
+                  <img src={filterDatabase} alt="Ordenar por Email" className="filterDatabaseIcon" />
+                </button>
+                <p className="titleDatabase">Email</p>
               </div>
               <div className="divDatabase2">
                 <button className="btnfilter" onClick={() => handleSortCriteria('registration_date')}>
                   <img src={filterDatabase} alt="Ordenar por Registro" className="filterDatabaseIcon" />
                 </button>
-                  <p className="titleDatabase">REGISTRO</p>
+                  <p className="titleDatabase">Registro</p>
               </div>
               <div className="divDatabase2">
                 <button className="btnfilter" onClick={() => handleSortCriteria('phase')}>
                   <img src={filterDatabase} alt="Ordenar por Fase" className="filterDatabaseIcon" />
                 </button>
-                  <p className="titleDatabase">FASE</p>
+                  <p className="titleDatabase">Fase</p>
               </div>
               <div className="divDatabase2">
                 <button className="btnfilter" onClick={() => handleSortCriteria('status')}>
                   <img src={filterDatabase} alt="Ordenar por Estado" className="filterDatabaseIcon" />
                 </button>
-                  <p className="titleDatabase">ESTADO</p>
+                  <p className="titleDatabase">Estado</p>
               </div>
               <div className="divDatabase2">
-                  <p className="titleDatabase">DETALLES</p>
+                  <p className="titleDatabase">Acciones</p>
               </div>
-              <button className="btnfilter" onClick={handleRemoveSort}>
-                    <img src={nofilterDatabase} alt="Quitar filtro" className="nofilterDatabaseIcon" />
-                  </button>
             </article>
             {currentCandidates.map(candidate => (
               <article className="cardDatabase" key={candidate.id_candidate}>
+                <div className="divDatabase3">
+                  <p className="pDatabase">#{candidate.id_candidate}</p>
+                </div>
                 <div className="divDatabase">
                   <p className="pDatabase">{candidate.first_name} {candidate.last_name}</p>
                 </div>

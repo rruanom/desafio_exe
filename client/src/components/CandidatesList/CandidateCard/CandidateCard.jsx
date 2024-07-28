@@ -61,6 +61,7 @@ const CandidateCard = ({ details }) => {
     <Link to={`/details/${details.email}`}>
       <article className="candidateCard">
         <p className="titleCard">{details.first_name} {details.last_name}</p>
+        <img className="iconFlechaDcha" src="/flechaderecha.png" alt="flecha derecha" />
         <div className="divDatesCard">
         {lastDays? (
           <p className="dateCard"><img className="iconClock" src="/reloj.png" alt="clock" /> {lastDays}d</p>

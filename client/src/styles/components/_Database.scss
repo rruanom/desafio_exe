@@ -2,12 +2,13 @@
 @import '../utils/variables.scss';
 
 .sectionDatabase {
-    border: none;
     border-radius: 5px;
     box-sizing: border-box;
-    box-shadow: 0 0px 4px rgba(0, 0, 95, 0.281);
+    border: 1.3px solid rgba(128, 128, 128, 0.331);
     overflow: hidden;
     padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 15px;
     margin-bottom: 20px;
 }
 
@@ -15,9 +16,9 @@
     display: flex;
     padding-left: 25px;
     padding-right: 25px;
-    background-color: $dark_blue;
-    margin-left: -20px;
-    margin-right: -20px;
+    margin-right: 0px;
+    background-color: #f6f7fb;
+    border-radius: 10px;
 }
 
 .divDetalles {
@@ -31,11 +32,7 @@
     align-items: center;
     box-sizing: border-box;
     padding-left: 35px;
-    margin-left: -20px;
-}
-
-.cardDatabase:nth-child(even) {
-    background-color: #eff4f9;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.201);
 }
 
 .divDatabase {
@@ -52,18 +49,45 @@
     margin: 0;
 }
 
-.divDatabas2 a{
-    text-decoration: none;
+.divDatabase3 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 0.5;
+    margin: 0;
+}
+
+.titleDatabase0 {
+    display: flex;
+    font-size: 15.5px;
+    font-weight: 600;
+    color: $dark_blue;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 0;
 }
 
 .titleDatabase {
     display: flex;
-    font-size: 14px;
+    font-size: 15.5px;
     font-weight: 600;
-    color: white;
+    color: $dark_blue;
     margin-left: 40px;
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-right: 20px;
+}
+
+.titleDatabaseId {
+    display: flex;
+    font-size: 15.5px;
+    font-weight: 600;
+    color: $dark_blue;
+    margin-left: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 20px;
 }
 
 .btnfilter {
@@ -71,6 +95,26 @@
     border: none;
     cursor: pointer;
     padding: 0;
+    margin-left: 50px;
+}
+
+.btnfilter0 {
+    background-color: $dark_blue;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: -10px;
+}
+
+.btnNoFilter {
+    background-color: #f6f7fb;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 7px;
+    margin-left: 10px;
+    margin-top: 15px;
+    margin-bottom: -25px;
 }
 
 .filterDatabaseIcon {
@@ -83,8 +127,8 @@
 .nofilterDatabaseIcon {
     width: 15px;
     height: 15px;
-    margin-left: -40px;
-    margin-top: 5px;
+    margin-left: 0px;
+    margin-top: 0px;
 }
 
 .pDatabase {
@@ -113,15 +157,17 @@
 }
 
 .searchDatabase {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: -30px;
+    display: inline-flex;
+    justify-content: flex-start;
+    margin-top: 10px;
     margin-bottom: 15px;
 }
 
 .inputDatabase {
     height: 25px;
     padding-left: 10px;
+    border: 1.3px solid rgba(128, 128, 128, 0.687);
+    border-radius: 5px;
 }
 
 .btnPage {

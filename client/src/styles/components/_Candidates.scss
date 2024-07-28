@@ -7,17 +7,17 @@
 }
 
 .btnCandidates {
-    background-color: $yellow;
     color: $dark_blue;
     font-weight: 600;
     border: none;
-    border-radius: 5px;
-    padding: 7px 13px;
+    background-color: white;
+    padding: 4px 3px;
     margin-right: 13px;
     margin-top: 15px;
     cursor: pointer;
 }
 
 .btnCandidates:hover {
-    background-color: #f8d700;
+    border-bottom: 2px solid $dark_blue;
+    margin-bottom: -2px;
 }

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import filterDatabase from '/filterDatabase.png'; // Importa la imagen para el filtro
-import nofilterDatabase from '/nofilterDatabase.png'; // Importa la imagen para quitar el filtro
+import filterDatabase from '/filterDatabase.png';
+import nofilterDatabase from '/nofilterDatabase.png';
 
 const Database = () => {
   const [allCandidates, setAllCandidates] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const candidatesPerPage = 20;
+  const [candidatesPerPage, setCandidatesPerPage] = useState(20);
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortCriteria, setSortCriteria] = useState('none'); // 'none', 'name', 'email', 'registration_date', 'phase', 'status'
-  const [sortOrder, setSortOrder] = useState('none'); // 'none', 'asc', 'desc'
+  const [sortCriteria, setSortCriteria] = useState('none');
+  const [sortOrder, setSortOrder] = useState('none');
 
   useEffect(() => {
     const fetchAllCandidates = async () => {
@@ -31,7 +31,7 @@ const Database = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm, allCandidates]);
+  }, [searchTerm, allCandidates, candidatesPerPage]);
 
   const handleSearch = (event) => {
     const term = event.target.value.toLowerCase();
@@ -46,10 +46,8 @@ const Database = () => {
     setSearchResults(filteredCandidates);
   };
 
-  // Determine which candidates to display based on search term
   const candidatesToDisplay = searchTerm ? searchResults : allCandidates;
 
-  // Apply sorting
   const sortedCandidates = [...candidatesToDisplay].sort((a, b) => {
     if (sortOrder === 'none') return 0;
 
@@ -89,7 +87,6 @@ const Database = () => {
     return 0;
   });
 
-  // Logic for pagination
   const indexOfLastCandidate = currentPage * candidatesPerPage;
   const indexOfFirstCandidate = indexOfLastCandidate - candidatesPerPage;
   const currentCandidates = sortedCandidates.slice(indexOfFirstCandidate, indexOfLastCandidate);
@@ -106,18 +103,18 @@ const Database = () => {
 
   const handleSortCriteria = (criteria) => {
     if (sortCriteria === criteria) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc'); // Toggle sort order if same criteria
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     } else {
       setSortCriteria(criteria);
-      setSortOrder('asc'); // Default to ascending order when criteria changes
+      setSortOrder('asc');
     }
-    setCurrentPage(1); // Reset to first page when sorting criteria changes
+    setCurrentPage(1);
   };
 
   const handleRemoveSort = () => {
     setSortCriteria('none');
     setSortOrder('none');
-    setCurrentPage(1); // Reset to first page when sorting is removed
+    setCurrentPage(1);
   };
 
   const formatDate = (dateString) => {
@@ -128,30 +125,45 @@ const Database = () => {
     return `${year}/${month}/${day}`;
   };
 
+  const handleCandidatesPerPageChange = (event) => {
+    setCandidatesPerPage(parseInt(event.target.value));
+  };
+
   return (
     <div>
       {candidatesToDisplay.length > 0 ? (
         <>
           <section className="sectionDatabase">
-          <div className="searchDatabase">
-        <input
-          type="text"
-          placeholder="Buscar candidato..."
-          value={searchTerm}
-          onChange={handleSearch}
-          className="inputDatabase"
-        />
-      </div>
-      <button className="btnNoFilter" onClick={handleRemoveSort}>
-                    <img src={nofilterDatabase} alt="Quitar filtro" className="nofilterDatabaseIcon" />
-                  </button>
+            <div className="searchDatabase">
+              <input
+                type="text"
+                placeholder="Buscar candidato..."
+                value={searchTerm}
+                onChange={handleSearch}
+                className="inputDatabase"
+              />
+              <p className="pSelect">Mostrando</p>
+              <select
+                value={candidatesPerPage}
+                onChange={handleCandidatesPerPageChange}
+                className="selectDatabase"
+              >
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+              </select>
+              <p className="pNoFilter">Quitar filtros</p>
+              <button className="btnNoFilter" onClick={handleRemoveSort}>
+                <img src={nofilterDatabase} alt="Quitar filtro" className="nofilterDatabaseIcon" />
+              </button>
+            </div>
             <article className="headDatabase">
-            <div className="divDatabase3">
+              <div className="divDatabase3">
                 <p className="titleDatabaseId">#ID</p>
               </div>
               <div className="divDatabase">
-              <button className="btnfilter0" onClick={() => handleSortCriteria('name')}>
-                  <img src={filterDatabase} alt="Ordenar por Email" className="filterDatabaseIcon" />
+                <button className="btnfilter0" onClick={() => handleSortCriteria('name')}>
+                  <img src={filterDatabase} alt="Ordenar por Nombre" className="filterDatabaseIcon" />
                 </button>
                 <p className="titleDatabase">Nombre</p>
               </div>
@@ -165,22 +177,22 @@ const Database = () => {
                 <button className="btnfilter" onClick={() => handleSortCriteria('registration_date')}>
                   <img src={filterDatabase} alt="Ordenar por Registro" className="filterDatabaseIcon" />
                 </button>
-                  <p className="titleDatabase">Registro</p>
+                <p className="titleDatabase">Registro</p>
               </div>
               <div className="divDatabase2">
                 <button className="btnfilter" onClick={() => handleSortCriteria('phase')}>
                   <img src={filterDatabase} alt="Ordenar por Fase" className="filterDatabaseIcon" />
                 </button>
-                  <p className="titleDatabase">Fase</p>
+                <p className="titleDatabase">Fase</p>
               </div>
               <div className="divDatabase2">
                 <button className="btnfilter" onClick={() => handleSortCriteria('status')}>
                   <img src={filterDatabase} alt="Ordenar por Estado" className="filterDatabaseIcon" />
                 </button>
-                  <p className="titleDatabase">Estado</p>
+                <p className="titleDatabase">Estado</p>
               </div>
               <div className="divDatabase2">
-                  <p className="titleDatabase">Acciones</p>
+                <p className="titleDatabase">Acciones</p>
               </div>
             </article>
             {currentCandidates.map(candidate => (
@@ -201,7 +213,7 @@ const Database = () => {
                   <p className="pDatabase">{candidate.name_status}</p>
                 </div>
                 <div className="divDatabase2">
-                  <p className="pDatabase">{candidate.active ? <p>Activo</p> : <p>No Activo</p>}</p>
+                {candidate.active ? <p className="pDatabase">Activo</p> : <p className="pDatabase">No Activo</p>}
                 </div>
                 <Link to={`/details/${candidate.email}`} className="details-button">
                   <div className="divDatabase2">
@@ -211,13 +223,13 @@ const Database = () => {
               </article>
             ))}
           </section>
-          <div>
+          <div className="divPage">
             <button className="btnPage" onClick={handlePrevPage} disabled={currentPage === 1}>
-              Previous
+              <img className="iconPrev" src="/flechaizquierda.png" alt="izquierda" />
             </button>
-            <span> Page {currentPage} of {totalPages} </span>
+            <span> Página {currentPage} de {totalPages} </span>
             <button className="btnPage" onClick={handleNextPage} disabled={currentPage === totalPages}>
-              Next
+              <img className="iconNext" src="/flechaderecha.png" alt="derecha" />
             </button>
           </div>
         </>

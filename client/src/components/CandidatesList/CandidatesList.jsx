@@ -9,20 +9,29 @@ const CandidatesList = ({ status, candidates }) => {
   useEffect(() => {
     // Function to adjust the height of the columns
     const adjustHeight = () => {
-      const lists = document.querySelectorAll('.candidatesList');
-      let maxHeight = 0;
+      // Check if the viewport width is at least 900px
+      if (window.innerWidth >= 900) {
+        const lists = document.querySelectorAll('.candidatesList');
+        let maxHeight = 0;
 
-      // Find the maximum height
-      lists.forEach(list => {
-        if (list.offsetHeight > maxHeight) {
-          maxHeight = list.offsetHeight;
-        }
-      });
+        // Find the maximum height
+        lists.forEach(list => {
+          if (list.offsetHeight > maxHeight) {
+            maxHeight = list.offsetHeight;
+          }
+        });
 
-      // Set all lists to the maximum height
-      lists.forEach(list => {
-        list.style.height = `${maxHeight}px`;
-      });
+        // Set all lists to the maximum height
+        lists.forEach(list => {
+          list.style.height = `${maxHeight}px`;
+        });
+      } else {
+        // Reset height if viewport width is less than 900px
+        const lists = document.querySelectorAll('.candidatesList');
+        lists.forEach(list => {
+          list.style.height = 'auto';
+        });
+      }
     };
 
     // Adjust height after the component mounts

@@ -2,8 +2,8 @@
 @import '../utils/variables.scss';
 
 .candidatesContainer {
-    margin-left: -80px;
-    margin-right: -80px;
+    margin-left: -25px;
+    margin-right: -16px;
 }
 
 .btnCandidates {
@@ -20,4 +20,12 @@
 .btnCandidates:hover {
     border-bottom: 2px solid $dark_blue;
     margin-bottom: -2px;
+}
+
+@media screen and (min-width: 900px) {
+    .candidatesContainer {
+        margin-left: -80px;
+        margin-right: -80px;
+    }
+    
 }

@@ -131,111 +131,109 @@ const Database = () => {
 
   return (
     <div>
-      {candidatesToDisplay.length > 0 ? (
-        <>
-          <section className="sectionDatabase">
-            <div className="searchDatabase">
-              <input
-                type="text"
-                placeholder="Buscar candidato..."
-                value={searchTerm}
-                onChange={handleSearch}
-                className="inputDatabase"
-              />
-              <p className="pSelect">Mostrando</p>
-              <select
-                value={candidatesPerPage}
-                onChange={handleCandidatesPerPageChange}
-                className="selectDatabase"
-              >
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-              </select>
-              <p className="pNoFilter">Quitar filtros</p>
-              <button className="btnNoFilter" onClick={handleRemoveSort}>
-                <img src={nofilterDatabase} alt="Quitar filtro" className="nofilterDatabaseIcon" />
-              </button>
-            </div>
-            <article className="headDatabase">
-              <div className="divDatabase3">
-                <p className="titleDatabaseId">#ID</p>
-              </div>
-              <div className="divDatabase">
-                <button className="btnfilter0" onClick={() => handleSortCriteria('name')}>
-                  <img src={filterDatabase} alt="Ordenar por Nombre" className="filterDatabaseIcon" />
-                </button>
-                <p className="titleDatabase">Nombre</p>
-              </div>
-              <div className="divDatabase">
-                <button className="btnfilter0" onClick={() => handleSortCriteria('email')}>
-                  <img src={filterDatabase} alt="Ordenar por Email" className="filterDatabaseIcon" />
-                </button>
-                <p className="titleDatabase">Email</p>
-              </div>
-              <div className="divDatabase2">
-                <button className="btnfilter" onClick={() => handleSortCriteria('registration_date')}>
-                  <img src={filterDatabase} alt="Ordenar por Registro" className="filterDatabaseIcon" />
-                </button>
-                <p className="titleDatabase">Registro</p>
-              </div>
-              <div className="divDatabase2">
-                <button className="btnfilter" onClick={() => handleSortCriteria('phase')}>
-                  <img src={filterDatabase} alt="Ordenar por Fase" className="filterDatabaseIcon" />
-                </button>
-                <p className="titleDatabase">Fase</p>
-              </div>
-              <div className="divDatabase2">
-                <button className="btnfilter" onClick={() => handleSortCriteria('status')}>
-                  <img src={filterDatabase} alt="Ordenar por Estado" className="filterDatabaseIcon" />
-                </button>
-                <p className="titleDatabase">Estado</p>
-              </div>
-              <div className="divDatabase2">
-                <p className="titleDatabase">Acciones</p>
-              </div>
-            </article>
-            {currentCandidates.map(candidate => (
-              <article className="cardDatabase" key={candidate.id_candidate}>
-                <div className="divDatabase3">
-                  <p className="pDatabase">#{candidate.id_candidate}</p>
-                </div>
-                <div className="divDatabase">
-                  <p className="pDatabase">{candidate.first_name} {candidate.last_name}</p>
-                </div>
-                <div className="divDatabase">
-                  <p className="pDatabase">{candidate.email}</p>
-                </div>
-                <div className="divDatabase2">
-                  <p className="pDatabase">{formatDate(candidate.registration_date)}</p>
-                </div>
-                <div className="divDatabase2">
-                  <p className="pDatabase">{candidate.name_status}</p>
-                </div>
-                <div className="divDatabase2">
-                {candidate.active ? <p className="pDatabase">Activo</p> : <p className="pDatabase">No Activo</p>}
-                </div>
-                <Link to={`/details/${candidate.email}`} className="details-button">
-                  <div className="divDatabase2">
-                    <button className="btnDatabase">Ver detalles</button>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </section>
-          <div className="divPage">
-            <button className="btnPage" onClick={handlePrevPage} disabled={currentPage === 1}>
-              <img className="iconPrev" src="/flechaizquierda.png" alt="izquierda" />
-            </button>
-            <span> Página {currentPage} de {totalPages} </span>
-            <button className="btnPage" onClick={handleNextPage} disabled={currentPage === totalPages}>
-              <img className="iconNext" src="/flechaderecha.png" alt="derecha" />
-            </button>
+      <section className="sectionDatabase">
+        <div className="searchDatabase">
+          <input
+            type="text"
+            placeholder="Buscar candidato..."
+            value={searchTerm}
+            onChange={handleSearch}
+            className="inputDatabase"
+          />
+          <p className="pSelect">Mostrando</p>
+          <select
+            value={candidatesPerPage}
+            onChange={handleCandidatesPerPageChange}
+            className="selectDatabase"
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+          </select>
+          <p className="pNoFilter">Quitar filtros</p>
+          <button className="btnNoFilter" onClick={handleRemoveSort}>
+            <img src={nofilterDatabase} alt="Quitar filtro" className="nofilterDatabaseIcon" />
+          </button>
+        </div>
+        <article className="headDatabase">
+          <div className="divDatabase3">
+            <p className="titleDatabaseId">#ID</p>
           </div>
-        </>
-      ) : (
-        <p>No hay candidatos que mostrar.</p>
-      )}
+          <div className="divDatabase">
+            <button className="btnfilterName" onClick={() => handleSortCriteria('name')}>
+              <img src={filterDatabase} alt="Ordenar por Nombre" className="filterDatabaseIcon" />
+            </button>
+            <p className="titleDatabase">Nombre</p>
+          </div>
+          <div className="divDatabase">
+            <button className="btnfilterEmail" onClick={() => handleSortCriteria('email')}>
+              <img src={filterDatabase} alt="Ordenar por Email" className="filterDatabaseIcon" />
+            </button>
+            <p className="titleDatabase">Email</p>
+          </div>
+          <div className="divDatabase2">
+            <button className="btnfilterReg" onClick={() => handleSortCriteria('registration_date')}>
+              <img src={filterDatabase} alt="Ordenar por Registro" className="filterDatabaseIcon" />
+            </button>
+            <p className="titleDatabase">Registro</p>
+          </div>
+          <div className="divDatabase2">
+            <button className="btnfilterPhase" onClick={() => handleSortCriteria('phase')}>
+              <img src={filterDatabase} alt="Ordenar por Fase" className="filterDatabaseIcon" />
+            </button>
+            <p className="titleDatabase">Fase</p>
+          </div>
+          <div className="divDatabase2">
+            <button className="btnfilterState" onClick={() => handleSortCriteria('status')}>
+              <img src={filterDatabase} alt="Ordenar por Estado" className="filterDatabaseIcon" />
+            </button>
+            <p className="titleDatabase">Estado</p>
+          </div>
+          <div className="divDatabase2">
+            <p className="titleActions">Acciones</p>
+          </div>
+        </article>
+        {currentCandidates.length > 0 ? (
+          currentCandidates.map(candidate => (
+            <article className="cardDatabase" key={candidate.id_candidate}>
+              <div className="divDatabase3">
+                <p className="pDatabase">#{candidate.id_candidate}</p>
+              </div>
+              <div className="divDatabase">
+                <p className="pDatabase">{candidate.first_name} {candidate.last_name}</p>
+              </div>
+              <div className="divDatabase">
+                <p className="pDatabase">{candidate.email}</p>
+              </div>
+              <div className="divDatabase2">
+                <p className="pDatabase">{formatDate(candidate.registration_date)}</p>
+              </div>
+              <div className="divDatabase2">
+                <p className="pDatabase">{candidate.name_status}</p>
+              </div>
+              <div className="divDatabase2">
+                {candidate.active ? <p className="pDatabase">Activo</p> : <p className="pDatabase">No Activo</p>}
+              </div>
+              <Link to={`/details/${candidate.email}`} className="details-button">
+                <div className="divDatabase2">
+                  <button className="btnDatabase">Ver detalles</button>
+                </div>
+              </Link>
+            </article>
+          ))
+        ) : (
+          <p>No hay candidatos que mostrar.</p>
+        )}
+      </section>
+      <div className="divPage">
+        <button className="btnPage" onClick={handlePrevPage} disabled={currentPage === 1}>
+          <img className="iconPrev" src="/flechaizquierda.png" alt="izquierda" />
+        </button>
+        <span> Página {currentPage} de {totalPages} </span>
+        <button className="btnPage" onClick={handleNextPage} disabled={currentPage === totalPages}>
+          <img className="iconNext" src="/flechaderecha.png" alt="derecha" />
+        </button>
+      </div>
     </div>
   );
 };

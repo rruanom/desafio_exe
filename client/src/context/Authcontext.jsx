@@ -1,51 +1,108 @@
-import React, { createContext, useState, useEffect } from 'react';
-import authService from '../services/Authservices';
+// AuthContext.jsx
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 import Cookies from 'js-cookie';
-const API_URL = 'https://desafio-exe.onrender.com/api';
 
+const API_URL = 'http://localhost:5000/api';
 const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
+    const [token, setToken] = useState(Cookies.get('access_token'));
     const [userType, setUserType] = useState(null);
     const [name, setName] = useState(null);
-    const [rol, setRol] = useState(null);
+    const [role, setRole] = useState(null);
     const [status, setStatus] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const token = Cookies.get('access_token')
-    
-    useEffect(() => {
-        const fetchUser = async () => {
-            if (userType == 'candidate'){
-                const response = await fetch(`${API_URL}/candidates/me`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ token })
-                    }
-                )
-                setName(user.first_name)
-                setStatus(user.status)
-            } else if (userType == 'staff'){
-                const response = await fetch(`${API_URL}/staff/me`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ token })
-                    }
-                )
-                setName(user.first_name)
-                setStatus(user.id_role)
+    const fetchUser = useCallback(async () => {
+        if (!token) {
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_URL}/candidate/me`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (!response.ok) throw new Error('Failed to fetch user data');
+
+            const data = await response.json();
+            const userFetch = await fetch(`${API_URL}/candidate/${data.user.email}`)
+            const user = await userFetch.json();
+            if (!user.rol) {
+                setUserType("candidate");
+                setName(user.first_name);
+                setEmail(user.email);
+                setStatus(user.name_status);
+            } else {
+                setUserType("staff")
             }
-        };
-        fetchUser();
-    }, [userType]);
 
+            if (data.userType === 'candidate') {
+                setStatus(data.status);
+            } else if (data.userType === 'staff') {
+                setRole(data.id_role);
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            logout();
+        } finally {
+            setLoading(false);
+        }
+    }, [token]);
+
+    useEffect(() => {
+        fetchUser();
+    }, [fetchUser]);
+
+    const login = (userData) => {
+        Cookies.set('access_token', userData.token, {
+            expires: 1,
+            path: '/',
+            secure: true,
+            sameSite: 'strict'
+        });
+        setToken(userData.token);
+        setUserType(userData.userType);
+        setName(userData.first_name);
+        setEmail(userData.email);
+        if (userData.userType === 'candidate') {
+            setStatus(userData.status);
+        } else if (userData.userType === 'staff') {
+            setRole(userData.id_role);
+        }
+    };
+
+    const logout = () => {
+        Cookies.remove('access_token');
+        setToken(null);
+        setUserType(null);
+        setName(null);
+        setRole(null);
+        setStatus(null);
+        setEmail(null);
+    };
+
+    const value = {
+        token,
+        userType,
+        name,
+        role,
+        status,
+        email,
+        loading,
+        login,
+        logout
+    };
+
+    return (
+        <AuthContext.Provider value={value}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
-const useAuth = () => React.useContext(AuthContext);
-
-export { AuthProvider, useAuth };
+export const useAuth = () => React.useContext(AuthContext);

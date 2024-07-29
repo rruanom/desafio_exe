@@ -32,6 +32,7 @@ const ExperienceForm = ({ onSubmit, academicData }) => {
           name="experience"
           value={experienceData.experience}
           onChange={handleChange}
+          placeholder='Escribe sobre tu experiencia profesional'
         />
       </div>
       <div>
@@ -40,6 +41,7 @@ const ExperienceForm = ({ onSubmit, academicData }) => {
           name="about_you"
           value={experienceData.about_you}
           onChange={handleChange}
+          placeholder='Escribe sobre ti'
         ></textarea>
       </div>
       <button type="submit">Submit</button>

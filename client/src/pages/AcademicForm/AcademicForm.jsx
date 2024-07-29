@@ -24,12 +24,12 @@ const AcademicForm = ({ onNext }) => {
     <form onSubmit={handleSubmit}>
       <div>
         <label>Academic Degree:</label>
-        <input
-          type="text"
-          name="academic_degree"
-          value={academicData.academic_degree}
-          onChange={handleChange}
-        />
+                <select name="academic_degree" id="" onChange={handleChange}>
+                    <option value={academicData.academic_degree}>FP</option>
+                    <option value={academicData.academic_degree}>Grado</option>
+                    <option value={academicData.academic_degree}>Master</option>
+                    <option value={academicData.academic_degree}>Doctorado</option>
+                </select>
       </div>
       <div>
         <label>Average Grade:</label>
@@ -38,18 +38,21 @@ const AcademicForm = ({ onNext }) => {
           name="average_grade"
           value={academicData.average_grade}
           onChange={handleChange}
+          placeholder='7.2'
         />
       </div>
       <div>
-        <label>Languages:</label>
-        <input
-          type="text"
-          name="languages"
-          value={academicData.languages}
-          onChange={handleChange}
-        />
+        <label>Nivel de Ingles</label>
+        <select name="languages" id="" onChange={handleChange}>
+                    <option value={academicData.languages}>A1</option>
+                    <option value={academicData.languages}>A2</option>
+                    <option value={academicData.languages}>B1</option>
+                    <option value={academicData.languages}>B2</option>
+                    <option value={academicData.languages}>C1</option>
+                    <option value={academicData.languages}>C2</option>
+                </select>
       </div>
-      <button type="submit">Next</button>
+      <button type="submit">Siguiente</button>
     </form>
   );
 };

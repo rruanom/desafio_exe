@@ -10,8 +10,8 @@ const {
 } = require('../validators/candidate.validators');
 
 router.get('/', candidateController.readCandidate);
-router.get('/:email', validateReadCandidateByEmail, candidateController.readCandidateByEmail);
 router.get('/me', candidateController.getCandidateFromToken);
+router.get('/:email', validateReadCandidateByEmail, candidateController.readCandidateByEmail);
 router.post('/add', validateCreateCandidate, candidateController.createCandidate);
 router.post('/login', candidateController.loginCandidate);
 router.put('/', validateUpdateCandidateByCandidate, candidateController.updateCandidateByCandidate);

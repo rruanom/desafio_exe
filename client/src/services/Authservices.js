@@ -47,9 +47,29 @@ const getCurrentUser = async () => {
     return null;
 };
 
+const submitCandidateData = async (data) => {
+    try {
+      const response = await fetch('/api/form/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    } catch (error) {
+      console.error('Error:', error);
+      throw error;
+    }
+  };
+
 export default {
     login,
     register,
     logout,
     getCurrentUser,
+    submitCandidateData
 };

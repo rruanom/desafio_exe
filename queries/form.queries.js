@@ -11,6 +11,13 @@ const queriesForm = {
     `,
     deleteForm: `
     DELETE FROM form WHERE id_form = ?
+    `,
+    getFormAndCandidateDataByEmail: `
+    SELECT c.id_candidate, c.first_name, c.last_name, c.email, c.gender,
+         f.id_form, f.academic_degree, f.average_grade, f.languages, f.experience, f.about_you
+    FROM candidate c
+    LEFT JOIN form f ON c.id_candidate = f.id_candidate
+    WHERE c.email = ?
     `
 };
 

@@ -6,5 +6,6 @@ const { validateCreateForm, validateGetFormByEmail, validateDeleteForm } = requi
 router.post('/add', validateCreateForm, formController.createForm);
 router.get('/:email', validateGetFormByEmail, formController.getFormByEmail);
 router.delete('/:id_form', validateDeleteForm, formController.deleteForm);
+router.get('/candidate-form/:email', formController.getFormAndCandidateDataByEmail);
 
 module.exports = router;

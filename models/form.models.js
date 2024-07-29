@@ -110,10 +110,26 @@ const deleteForm = async (id_form) => {
     return result;
 };
 
+const getFormAndCandidateDataByEmail = async (email) => {
+    let connection, result;
+    try {
+        connection = await pool.getConnection();
+        const [rows] = await connection.query(queries.getFormAndCandidateDataByEmail, [email]);
+        result = rows[0];
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        if (connection) connection.release();
+    }
+    return result;
+};
+
 const form = {
     createForm,
     readFormByEmail,
-    deleteForm
+    deleteForm,
+    getFormAndCandidateDataByEmail
 };
 
 module.exports = form;

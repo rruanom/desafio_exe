@@ -89,7 +89,7 @@ const Analytics = () => {
           },
           plugins: {
             legend: {
-              position: 'bottom',
+              position: 'none',
               labels: {
                 font: {
                   size: 10
@@ -136,8 +136,8 @@ const Analytics = () => {
                   size: 10
                 },
                 boxWidth: 10,
-                boxHeight: 10
-              }
+                boxHeight: 10,
+              },
             }
           }
         }
@@ -146,7 +146,7 @@ const Analytics = () => {
 
     const createBarChart = (ctx, data) => {
       return new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
           labels: data.labels,
           datasets: [{
@@ -158,6 +158,7 @@ const Analytics = () => {
           }]
         },
         options: {
+          maintainAspectRatio: false,
           scales: {
             x: {
               beginAtZero: true
@@ -168,7 +169,7 @@ const Analytics = () => {
           },
           plugins: {
             legend: {
-              position: 'bottom',
+              position: 'none',
               labels: {
                 font: {
                   size: 10
@@ -343,55 +344,61 @@ const Analytics = () => {
 
   return (
     <>
-      <section className="sectionAnalytics">
-        <span className="spanTitleAnalytics">
-          <h2 className="titleAnalytics">Estadísticas de Candidatos</h2>
+    <div className="divChart3">
+      <section className="sectionAnalyticsInd">
+      <span className="spanTitleAnalytics">
+          <h2 className="titleAnalytics">Géneros</h2>
         </span>
         <div className="divGrafica">
           <article className="canvasContainerPie">
-            <h3 className="titleChart">Géneros</h3>
             {error && <p style={{ color: 'red' }}>Error: {error}</p>}
             <canvas ref={pieChartRef} style={{ width: '100%', height: '400px' }}></canvas>
           </article>
+          </div>
+          </section>
+          <section className="sectionAnalyticsInd">
+          <span className="spanTitleAnalytics">
+          <h2 className="titleAnalytics">Nivel de Educación</h2>
+        </span>
+          <div className="divGrafica">
           <article className="canvasContainerPie2">
-          <h3 className="titleChart">Nivel de Educación</h3>
             {error && <p style={{ color: 'red' }}>Error: {error}</p>}
             <canvas ref={pieChartAcademicRef} style={{ width: '100%', height: '400px' }}></canvas>
           </article>
+          </div>
+          </section>
+          <section className="sectionAnalyticsInd2">
+          <span className="spanTitleAnalytics">
+          <h2 className="titleAnalytics">Nivel de Inglés</h2>
+        </span>
+          <div className="divGrafica">
           <article className="canvasContainerPie">
-          <h3 className="titleChart">Nivel de Inglés</h3>
             {error && <p style={{ color: 'red' }}>Error: {error}</p>}
             <canvas ref={pieChartNivelInglesRef} style={{ width: '100%', height: '400px' }}></canvas>
           </article>
         </div>
       </section>
+      </div>
       <div className="divBarPolar">
       <section className="sectionAnalytics2">
         <span className="spanTitleAnalytics">
-          <h2 className="titleAnalytics">Leads</h2>
+          <h2 className="titleAnalytics">Cantidatos nuevos por Mes</h2>
         </span>
         <div className="divGraficaBar">
           <article className="canvasContainerBar">
-          <h3 className="titleChart">Candidatos por mes</h3>
             {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-            <canvas ref={barChartRef} style={{ width: '100%', height: '400px' }}></canvas>
+            <canvas ref={barChartRef} style={{ width: '100%', height: '400px', flex: '1' }}></canvas>
           </article>
         </div>
       </section>
-      <section className="sectionAnalytics3">
+      <section className="sectionAnalyticsInd2">
         <span className="spanTitleAnalytics">
-          <h2 className="titleAnalytics">Procesos</h2>
+          <h2 className="titleAnalytics">Status por Candidatos Activos</h2>
         </span>
-        <div className="divGraficaPolar">
+        <div className="divGrafica">
           <article className="canvasContainerPolar">
-          <h3 className="titleChart">Status por Candidatos Activos</h3>
             {error && <p style={{ color: 'red' }}>Error: {error}</p>}
             <canvas ref={polarAreaRef} style={{ width: '100%', height: '400px' }}></canvas>
-          </article>
-          <article className="canvasContainerPolar">
-          <h3 className="titleChart">Actividad por Reclutador</h3>
-            {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-            <canvas ref={newChartRef} style={{ width: '100%', height: '400px' }}></canvas>
           </article>
         </div>
       </section>

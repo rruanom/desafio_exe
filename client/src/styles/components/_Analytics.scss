@@ -15,6 +15,42 @@
     margin-right: -25px;
 }
 
+.sectionAnalyticsInd {
+    display: inline-block;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1.3px solid rgba(128, 128, 128, 0.331);
+    background-color: white;
+    overflow: hidden;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    margin-bottom: -2px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+}
+
+.sectionAnalyticsInd2 {
+    display: inline-block;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1.3px solid rgba(128, 128, 128, 0.331);
+    background-color: white;
+    overflow: hidden;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    margin-bottom: -2px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+}
+
 .sectionAnalytics2 {
     display: inline-block;
     border-radius: 5px;
@@ -34,6 +70,16 @@
 }
 
 .divBarPolar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-left: -25px;
+    margin-right: -25px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.divChart3 {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -65,7 +111,7 @@
 .titleAnalytics {
     text-align: left;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 19px;
     margin-bottom: 0;
 }
 
@@ -194,7 +240,25 @@
         margin-right: -80px;
     }
 
-    .sectionAnalytics2 {
+    .sectionAnalyticsInd {
+        display: inline-block;
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 1.3px solid rgba(128, 128, 128, 0.331);
+        background-color: white;
+        overflow: hidden;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 10px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-right: 20px;
+        width: 32%;
+    }
+
+    .sectionAnalyticsInd2 {
         display: inline-block;
         border-radius: 5px;
         box-sizing: border-box;
@@ -209,10 +273,36 @@
         margin-bottom: -2px;
         margin-left: 0px;
         margin-right: 0px;
-        width: 38%;
+        width: 32%;
+    }
+
+    .sectionAnalytics2 {
+        display: inline-block;
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 1.3px solid rgba(128, 128, 128, 0.331);
+        background-color: white;
+        overflow: hidden;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 10px;
+        margin-bottom: -2px;
+        margin-left: 0px;
+        margin-right: 20px;
+        width: 65.5%;
     }
 
     .divBarPolar {
+        display: block;
+        margin-left: -80px;
+        margin-right: -80px;
+        box-sizing: border-box;
+        flex: 1;
+    }
+
+    .divChart3 {
         display: block;
         margin-left: -80px;
         margin-right: -80px;
@@ -241,7 +331,7 @@
     .titleAnalytics {
         text-align: left;
         font-weight: 600;
-        font-size: 18px;
+        font-size: 15px;
         margin-bottom: 0;
         margin-top: 6px;
     }
@@ -264,8 +354,10 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 300px;
-        height: 278px;
+        width: 950px;
+        height: 251px;
+        margin-bottom: -10px;
+        margin-top: 10px;
 
     }
 
@@ -273,9 +365,10 @@
         display: inline-flex;
         flex-direction: column;
         align-items: center;
-        width: 230px;
-        height: 230px;
-        margin-top: 30px;
+        width: 200px;
+        height: 200px;
+        margin-top: 10px;
+        margin-bottom: 0;
 
 
     }
@@ -284,9 +377,9 @@
         display: inline-flex;
         flex-direction: column;
         align-items: center;
-        width: 225px;
-        height: 225px;
-        margin-top: 30px;
+        width: 200px;
+        height: 200px;
+        margin-top: 10px;
 
 
     }
@@ -304,13 +397,13 @@
 
     .divGrafica {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         flex-direction: row;
         gap: 0px;
-        padding-left: 30px;
-        padding-right: 30px;
-        margin-bottom: 25px;
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-bottom: 0px;
     }
 
     .divGraficaPolar {
@@ -330,10 +423,10 @@
         justify-content: center;
         flex-direction: row;
         gap: 0px;
-        padding-left: 30px;
-        padding-right: 30px;
-        margin-bottom: 25px;
-        margin-top: 7px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-bottom: 15px;
+        margin-top: 19px;
     }
 
     .titleChart {

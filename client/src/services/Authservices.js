@@ -1,14 +1,14 @@
 import Cookies from 'js-cookie';
 
-const API_URL = 'https://desafio-exe.onrender.com/api/candidates';
+const API_URL = 'https://desafio-exe.onrender.com/api';
 
 const candidateLogin = async (email, password) => {
-    const response = await fetch(`${API_URL}/login`, {
+    const response = await fetch(`${API_URL}/candidate/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password_hash: password })
+        body: JSON.stringify({ email, password })
     });
     const data = await response.json();
     if (response.ok) {
@@ -18,7 +18,7 @@ const candidateLogin = async (email, password) => {
 };
 
 const candidateRegister = async (userData) => {
-    const response = await fetch(`${API_URL}/add`, {
+    const response = await fetch(`${API_URL}/candidates/add`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -32,10 +32,10 @@ const logout = () => {
     Cookies.remove('access-token');
 };
 
-const getCurrentUser = async () => {
+const getCurrentCandidate = async () => {
     const token = Cookies.get('access-token');
     if (token) {
-        const response = await fetch(`${API_URL}`, {
+        const response = await fetch(`${API_URL}/me`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -51,5 +51,5 @@ export default {
     candidateLogin,
     candidateRegister,
     logout,
-    getCurrentUser,
+    getCurrentCandidate,
 };

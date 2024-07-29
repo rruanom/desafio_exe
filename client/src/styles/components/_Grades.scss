@@ -1,6 +1,13 @@
 @import '../utils/mixins.scss';
 @import '../utils/variables.scss';
 
+.no-grades-response {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
 .grades-container {
     display: flex;
     flex-direction: column;

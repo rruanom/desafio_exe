@@ -5,7 +5,7 @@ import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler,
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
 const Grades = ({ grades, assessments, candidateName }) => {
-  if (grades.length === 0) return <div>No existen resultados aún.</div>;
+  if (grades.length === 0) return <div className="no-grades-response">No existen resultados aún.</div>;
 
   const getChartData = (grade) => {
     const data = {

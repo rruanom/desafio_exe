@@ -6,6 +6,8 @@
 
 const staffModels = require('../models/staff.models');
 const { validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 /**
  * @function createStaff
@@ -34,14 +36,16 @@ const createStaff = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { first_name, last_name, email, password } = req.body;
+    const { first_name, last_name, email, password, id_role } = req.body;
 
-    if (!first_name || !last_name || !email || !password) {
+    /* if (!first_name || !last_name || !email || !password || !id_role) {
         return res.status(400).json({ error: 'Todos los campos son requeridos' });
-    }
+    } */
 
     try {
-        const result = await staffModels.createStaff(first_name, last_name, email, password);
+        const saltRounds = 10;
+        const passwordHash = await bcrypt.hash(password, saltRounds);
+        const result = await staffModels.createStaff(first_name, last_name, email, passwordHash, id_role);
         if (result === 0) {
             return res.status(500).json({ error: 'Error al crear el miembro del personal' });
         }
@@ -99,15 +103,11 @@ const readStaff = async (req, res) => {
  * // Respuesta: { "error": "Miembro del personal no encontrado" }
  */
 const readStaffByEmail = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
 
     const { email } = req.params;
-
     try {
         const staff = await staffModels.readStaffByEmail(email);
+        console.log(staff);
         if (!staff) {
             return res.status(404).json({ error: 'Miembro del personal no encontrado' });
         }
@@ -208,11 +208,53 @@ const updateStaffbyAdmin = async (req, res) => {
     }
 };
 
+
+const loginStaff = async (req, res) => {
+    const { email, password } = req.body;
+    
+    try {
+      let user = await staffModels.readStaffByEmail(email);
+  
+      if (!user) {
+        return res.status(400).json({ message: 'Usuario no encontrado' });
+      }
+  
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: 'Contraseña incorrecta' });
+      }
+  
+      await staffModels.loginStaff(email)
+  
+      const token = jwt.sign(
+        { id: user.id_staff, 
+          email: user.email,
+          rol: user.id_role
+         },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' }
+      );
+  
+      const userData = {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName
+      };
+  
+      res.json({ token, user: userData });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error del servidor' });
+    }
+  };
+
 module.exports = {
     createStaff,
     readStaff,
     readStaffByEmail,
     updateStaffbyStaff,
-    updateStaffbyAdmin
+    updateStaffbyAdmin,
+    loginStaff
 };
 

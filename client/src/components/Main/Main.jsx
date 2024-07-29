@@ -8,6 +8,7 @@ import Register from "../../pages/Register";
 import UnauthorizedPage from "../../pages/UnauthorizedPage"
 // import PrivateRoute from "../../components/PrivateRoute"
 import Details from '../../pages/Details';
+import Analytics from '../../pages/Analytics';
 
 const Main = () => {
   return (
@@ -21,6 +22,7 @@ const Main = () => {
       <Route path="/details/:email" element={<Details />} />
       <Route path="/*" element={<UnauthorizedPage />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/analytics" element={<Analytics />} />
 
       
       {/* <Route

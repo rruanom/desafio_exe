@@ -67,7 +67,7 @@ const Pipeline = () => {
         ) : null
       ))}
       <div className="pipelineContainer">
-        <button className="btnCandidates" onClick={() => setShowDiscarded(!showDiscarded)}>
+        <button className="btnCandidatesDiscarded" onClick={() => setShowDiscarded(!showDiscarded)}>
           {showDiscarded ? 'Ocultar candidatos descartados' : 'Ver candidatos descartados'}
         </button>
       </div>

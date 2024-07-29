@@ -12,16 +12,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const response = await axios.post('http://localhost:5000/api/candidate/login', { email, password });
       const { token, user } = response.data;
       Cookies.set('access-token', token, { expires: 1, path: '/' });
-      Cookies.set('user', JSON.stringify(user), { expires: 1, path: '/' });
-      
-      if (user.isStaff) {
-        navigate('/staff-home');
-      } else {
-        navigate('/candidate-home');
-      }
+      Cookies.set('user', JSON.stringify(user.email), { expires: 1, path: '/' });
+      navigate('/userHome');
     } catch (error) {
       console.error('Error de inicio de sesión:', error);
       setError(error.response?.data?.message || 'Error al iniciar sesión');

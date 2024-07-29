@@ -93,27 +93,35 @@ const deleteCandidate = async (email) => {
     return result;
 };
 
-const findOne = async (options) => {
+const loginCandidate = async (email)=> {
     let connection, result;
     try {
         connection = await pool.getConnection();
-        const where = options.where || {};
-        const email = where.email;
-        
-        if (!email) {
-            throw new Error('Se requiere un email para buscar el candidato');
-        }
-
-        const [rows] = await connection.query(queries.readCandidateByEmail, [email]);
-        result = rows[0] || null;
+        const [data] = await connection.query(queries.loginCandidate, [email]);
+        result = data.affectedRows;
     } catch (err) {
-        console.error('Error en findOne:', err);
+        console.error(err);
         throw err;
     } finally {
         if (connection) connection.release();
     }
     return result;
-};
+}
+
+const logoutCandidate = async (email)=> {
+    let connection, result;
+    try {
+        connection = await pool.getConnection();
+        const [data] = await connection.query(queries.logoutCandidate, [email]);
+        result = data.affectedRows;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    } finally {
+        if (connection) connection.release();
+    }
+    return result;
+}
 
 const Candidate = {
     createCandidate,
@@ -121,8 +129,9 @@ const Candidate = {
     readCandidateByEmail,
     updateCandidateByCandidate,
     updateCandidateByAdmin,
-    deleteCandidate,
-    findOne
+    deleteCandidate, 
+    loginCandidate,
+    logoutCandidate
 };
 
 module.exports = Candidate;

@@ -11,6 +11,7 @@ const {
 router.get('/', staffController.readStaff);
 router.get('/:email', validateReadStaffByEmail, staffController.readStaffByEmail);
 router.post('/add', validateCreateStaff, staffController.createStaff);
+router.post('/login', staffController.loginStaff);
 router.put('/', validateUpdateStaffByStaff, staffController.updateStaffbyStaff);
 router.put('/:email', validateUpdateStaffByAdmin, staffController.updateStaffbyAdmin);
 

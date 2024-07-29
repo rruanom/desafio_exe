@@ -6,6 +6,8 @@
 
 const candidateModels = require('../models/candidate.models');
 const { validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 /**
  * @function createCandidate
@@ -50,7 +52,9 @@ const createCandidate = async (req, res) => {
     }
 
     try {
-        const result = await candidateModels.createCandidate(first_name, last_name, email, password, gender);
+        const saltRounds = 10;
+        const passwordHash = await bcrypt.hash(password, saltRounds);
+        const result = await candidateModels.createCandidate(first_name, last_name, email, passwordHash, gender);
         if (result === 0) {
             return res.status(500).json({ error: 'Error al crear el candidato' });
         }
@@ -342,12 +346,55 @@ const deleteCandidate = async (req, res) => {
     }
 };
 
+const loginCandidate = async (req, res) => {
+    const { email, password } = req.body;
+    
+    try {
+      let user = await candidateModels.readCandidateByEmail(email);
+  
+      if (!user) {
+        return res.status(400).json({ message: 'Usuario no encontrado' });
+      }
+  
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: 'Contraseña incorrecta' });
+      }
+  
+      await candidateModels.loginCandidate(email)
+  
+      const token = jwt.sign(
+        { id: user.id, 
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          status: user.name_status
+         },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' }
+      );
+  
+      const userData = {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName
+      };
+  
+      res.json({ token, user: userData });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error del servidor' });
+    }
+  };
+
 module.exports = {
     createCandidate,
     readCandidate,
     readCandidateByEmail,
     updateCandidateByCandidate,
     updateCandidateByAdmin,
-    deleteCandidate
+    deleteCandidate,
+    loginCandidate
 };
 

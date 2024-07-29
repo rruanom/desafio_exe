@@ -105,6 +105,7 @@ const readStaffByEmail = async (email) => {
         connection = await pool.getConnection();
         const [rows] = await connection.query(queries.readStaffByEmail, [email]);
         result = rows[0];
+        console.log(result)
     } catch (err) {
         console.log(err);
         throw err;
@@ -202,12 +203,45 @@ const updateStaffByAdmin = async (staff) => {
     return result;
 };
 
+
+const loginStaff = async (email)=> {
+    let connection, result;
+    try {
+        connection = await pool.getConnection();
+        const [data] = await connection.query(queries.loginStaff, [email]);
+        result = data.affectedRows;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    } finally {
+        if (connection) connection.release();
+    }
+    return result;
+}
+
+const logoutStaff = async (email)=> {
+    let connection, result;
+    try {
+        connection = await pool.getConnection();
+        const [data] = await connection.query(queries.logoutStaff, [email]);
+        result = data.affectedRows;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    } finally {
+        if (connection) connection.release();
+    }
+    return result;
+}
+
 const staff = {
     createStaff,
     readStaff,
     readStaffByEmail,
     updateStaffByStaff,
-    updateStaffByAdmin
+    updateStaffByAdmin,
+    loginStaff,
+    logoutStaff
 };
 
 module.exports = staff;

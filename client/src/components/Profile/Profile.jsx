@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Card, CardContent, Typography, Select, MenuItem, FormControl, InputLabel, Button } from '@mui/material';
 
-const Profile = ({ candidate }) => {
+const Profile = ({ candidate: initialCandidate }) => {
+  const [candidate, setCandidate] = useState(initialCandidate);
   const [statuses, setStatuses] = useState([]);
 
   const genderTranslations = {
@@ -34,7 +35,10 @@ const Profile = ({ candidate }) => {
         id_status: parseInt(e.target.value),
         active: candidate.active
       });
-      candidate.name_status = e.target.options[e.target.selectedIndex].text;
+      setCandidate(prev => ({
+        ...prev,
+        name_status: e.target.options[e.target.selectedIndex].text
+      }));
     } catch (error) {
       console.error('Error actualizando el status:', error);
     }
@@ -42,11 +46,15 @@ const Profile = ({ candidate }) => {
 
   const handleActiveToggle = async () => {
     try {
+      const newActiveState = !candidate.active;
       await axios.put(`https://desafio-exe.onrender.com/api/candidate/${candidate.email}`, {
         id_status: statuses.find(s => s.name_status === candidate.name_status).id_status,
-        active: !candidate.active
+        active: newActiveState
       });
-      candidate.active = !candidate.active;
+      setCandidate(prev => ({
+        ...prev,
+        active: newActiveState
+      }));
     } catch (error) {
       console.error('Error al cambiar el estado activo:', error);
     }
@@ -84,12 +92,14 @@ const Profile = ({ candidate }) => {
             ))}
           </Select>
         </FormControl>
-        <Button
-          className="button-toggle"
-          onClick={handleActiveToggle}
-        >
-          {candidate.active ? 'Desactivar' : 'Activar'}
-        </Button>
+        <div className="button-container">
+          <Button
+            className="button-toggle"
+            onClick={handleActiveToggle}
+          >
+            {candidate.active ? 'Desactivar' : 'Activar'}
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

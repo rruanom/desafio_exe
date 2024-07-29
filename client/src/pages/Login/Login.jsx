@@ -1,5 +1,7 @@
 // Login.jsx
 import React, { useState } from 'react';
+
+import { Card, TextField, Button, Typography } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/Authcontext';
 
@@ -36,23 +38,38 @@ const Login = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-            />
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-            />
-            <button type="submit">Login</button>
-        </form>
+        <div className="login-container">
+            <Card className="login-card">
+                <form onSubmit={handleSubmit}>
+                    <h2>Iniciar Sesión</h2>
+                    <TextField
+                        label="Email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        fullWidth
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Contraseña"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        fullWidth
+                        margin="normal"
+                    />
+                    <div className="button-container">
+                    <Button type="submit" variant="contained" className="login-button">
+                        Iniciar Sesión
+                    </Button>
+                    </div>
+                    {message && <Typography color="error">{message}</Typography>}
+                </form>
+                <LoginGoogle />
+            </Card>
+        </div>
     );
 };
 

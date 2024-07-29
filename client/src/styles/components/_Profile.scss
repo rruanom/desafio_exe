@@ -23,11 +23,18 @@
     }
   }
 
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+
   .button-toggle {
     background-color: $yellow;
     color: $black;
+    width: auto;
+    min-width: 120px;
     &:hover {
-      background-color:$yellow-light;
+      background-color: $yellow-light;
     }
   }
 }

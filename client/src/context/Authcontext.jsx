@@ -1,51 +1,49 @@
 import React, { createContext, useState, useEffect } from 'react';
 import authService from '../services/Authservices';
 import Cookies from 'js-cookie';
+const API_URL = 'https://desafio-exe.onrender.com/api';
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [userType, setUserType] = useState(null);
+    const [name, setName] = useState(null);
+    const [rol, setRol] = useState(null);
+    const [status, setStatus] = useState(null);
 
+    const token = Cookies.get('access_token')
+    
     useEffect(() => {
         const fetchUser = async () => {
-            const token = Cookies.get('access-token');
-            const userData = Cookies.get('user');
-            if (token && userData) {
-                setUser(JSON.parse(userData));
-            } else {
-                const currentUser = await authService.getCurrentUser();
-                setUser(currentUser);
+            if (userType == 'candidate'){
+                const response = await fetch(`${API_URL}/candidates/me`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ token })
+                    }
+                )
+                setName(user.first_name)
+                setStatus(user.status)
+            } else if (userType == 'staff'){
+                const response = await fetch(`${API_URL}/staff/me`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ token })
+                    }
+                )
+                setName(user.first_name)
+                setStatus(user.id_role)
             }
-            setLoading(false);
         };
         fetchUser();
-    }, []);
+    }, [userType]);
 
-    const login = async (email, password, userType) => {
-        const data = await authService.login(email, password, userType);
-        Cookies.set('access-token', data.token, { expires: 1, path: '/' });
-        Cookies.set('user', JSON.stringify(data.user), { expires: 1, path: '/' });
-        setUser(data.user);
-    };
-
-    const register = async (userData) => {
-        await authService.register(userData);
-    };
-
-    const logout = () => {
-        authService.logout();
-        Cookies.remove('access-token');
-        Cookies.remove('user');
-        setUser(null);
-    };
-
-    return (
-        <AuthContext.Provider value={{ user, loading, login, register, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
 };
 
 const useAuth = () => React.useContext(AuthContext);

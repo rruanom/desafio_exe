@@ -364,7 +364,7 @@ const loginCandidate = async (req, res) => {
       await candidateModels.loginCandidate(email)
   
       const token = jwt.sign(
-        { id: user.id, 
+        { id: user.id_candidate, 
           email: user.email,
           firstName: user.firstName,
           lastName: user.lastName,
@@ -388,6 +388,21 @@ const loginCandidate = async (req, res) => {
     }
   };
 
+  const getCandidateFromToken = (req, res) => {
+    const token = req.headers.authorization ? req.headers.authorization.split(' ')[1] : null;
+    if (!token) {
+        return res.status(401).send({ message: 'No token provided' });
+    }
+
+    jsonwebtoken.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).send({ message: 'Failed to authenticate token' });
+        }
+
+        res.status(200).send({ user: decoded });
+    });
+};
+
 module.exports = {
     createCandidate,
     readCandidate,
@@ -395,6 +410,7 @@ module.exports = {
     updateCandidateByCandidate,
     updateCandidateByAdmin,
     deleteCandidate,
-    loginCandidate
+    loginCandidate,
+    getCandidateFromToken
 };
 

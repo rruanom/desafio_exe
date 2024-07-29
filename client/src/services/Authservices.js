@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 
-const API_URL = 'https://desafio-exe.onrender.com/api/auth';
+const API_URL = 'https://desafio-exe.onrender.com/api/candidates';
 
-const login = async (email, password) => {
+const candidateLogin = async (email, password) => {
     const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: {
@@ -17,8 +17,8 @@ const login = async (email, password) => {
     return data;
 };
 
-const register = async (userData) => {
-    const response = await fetch(`${API_URL}/register`, {
+const candidateRegister = async (userData) => {
+    const response = await fetch(`${API_URL}/add`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ const logout = () => {
 const getCurrentUser = async () => {
     const token = Cookies.get('access-token');
     if (token) {
-        const response = await fetch(`${API_URL}/me`, {
+        const response = await fetch(`${API_URL}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -48,8 +48,8 @@ const getCurrentUser = async () => {
 };
 
 export default {
-    login,
-    register,
+    candidateLogin,
+    candidateRegister,
     logout,
     getCurrentUser,
 };

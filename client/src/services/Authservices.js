@@ -1,3 +1,4 @@
+
 import Cookies from 'js-cookie';
 
 const API_URL = 'https://desafio-exe.onrender.com/api';

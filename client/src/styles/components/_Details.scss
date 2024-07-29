@@ -1,2 +1,50 @@
 @import '../utils/mixins.scss';
 @import '../utils/variables.scss';
+
+.details-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: $font_principal;
+
+  .details-card {
+    margin: 20px;
+    max-width: 600px;
+    width: 70%;
+    font-family: $font_principal;
+  }
+
+  .card-actions {
+    justify-content: center;
+    gap: 15px;
+    padding: 16px;
+  }
+
+  .button {
+    &-grades {
+      background-color: $yellow;
+      color: $black;
+      &:hover {
+        background-color: $yellow-light;
+      }
+    }
+    &-profile {
+      background-color: $yellow;
+      color: $black;
+      &:hover {
+        background-color: $yellow-light;
+      }
+    }
+  }
+}
+
+.modal-content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $white;
+  padding: 20px;
+  border-radius: 8px;
+  outline: none;
+}

@@ -36,14 +36,12 @@ const Login = () => {
 
             setUserType("candidate");
 
-            // Fetch candidate status
-            const statusResponse = await fetch(`http://localhost:5000/api/candidate/${email}`);
+            const statusResponse = await fetch(`${API_URL}/candidate/${email}`);
             if (!statusResponse.ok) {
                 throw new Error('Failed to fetch candidate status');
             }
             const statusData = await statusResponse.json();
 
-            // Redirect based on status
             if (statusData.name_status === 'Registro') {
                 navigate('/form', { replace: true });
             } else {

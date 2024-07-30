@@ -21,6 +21,14 @@ const Redirector = () => {
       >
         Estadísticas
       </Button>
+      <Button
+        component={Link}
+        to="/staff"
+        variant="contained"
+        size="medium"
+      >
+        Staff
+      </Button>
     </div>
   );
 };

@@ -1,17 +1,13 @@
 const express = require("express");
+const path = require('path');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
-// const cors = require('cors');
-// const path = require('path');
 const app = express();
 const morgan = require("./middlewares/morgan");
 const manage404 = require('./middlewares/error404');
-// const swaggerUi = require('swagger-ui-express');
-// const swaggerDocument = require('./swagger.json');
 require('./config/db_mysql');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
-
 const session = require("express-session");
 const passport = require("passport");
 require("./config/passport");
@@ -30,11 +26,12 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 
-app.use(express.urlencoded({ extended: true }));
-
+// API routes
 app.use('/api/role', roleRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/status', statusRoutes);
@@ -43,12 +40,19 @@ app.use('/api/grades', gradesRoutes);
 app.use('/api/form', formRoutes);
 app.use('/api/candidate', candidateRoutes);
 
-app.use(express.json());
-app.use(cookieParser());
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+});
+
+// Error handling
 app.use(manage404);
-//app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
+// app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
 
 app.listen(port, () => {
-    console.log(`Example app listening on http://localhost:${port}`);
-  });
+  console.log(`Server listening on http://localhost:${port}`);
+});

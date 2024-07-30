@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(Cookies.get('access_token'));
     const [userType, setUserType] = useState(null);
     const [name, setName] = useState(null);
+    const [id, setId] = useState(null);
     const [role, setRole] = useState(null);
     const [status, setStatus] = useState(null);
     const [email, setEmail] = useState(null);
@@ -31,6 +32,7 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
             setEmail(data.user.email);
+            setId(data.user.id);
             console.log(data.user)
 
 
@@ -95,6 +97,7 @@ export const AuthProvider = ({ children }) => {
     const value = {
         token,
         userType,
+        id,
         setUserType,
         name,
         role,

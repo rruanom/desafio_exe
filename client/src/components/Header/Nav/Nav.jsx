@@ -4,7 +4,7 @@ import { useAuth } from '../../../context/Authcontext';
 import ClipLoader from "react-spinners/ClipLoader";
 
 const Nav = () => {
-  const { user, logout, loading } = useAuth();
+  const { user, logout, loading, token, userType, name } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -26,18 +26,18 @@ const Nav = () => {
 
   const menuItems = (
     <>
-      {!user ? (
+      {!token ? (
         <>
           <Link to="/register" onClick={toggleMenu}>Registro</Link>
           <Link to="/login" onClick={toggleMenu}>Login</Link>
         </>
-      ) : user.role === 'candidate' ? (
+      ) : userType === 'candidate' ? (
         <Link to="/" onClick={toggleMenu}>Home</Link>
-      ) : user.role === 'staff' ? (
+      ) : userType === 'staff' ? (
         <>
           <Link to="/dashboard" onClick={toggleMenu}>Dashboard</Link>
           <Link to="/candidatos" onClick={toggleMenu}>Candidatos</Link>
-          <Link to="/insights" onClick={toggleMenu}>Estadísticas</Link>
+          <Link to="/analytics" onClick={toggleMenu}>Estadísticas</Link>
         </>
       ) : null}
     </>
@@ -64,9 +64,9 @@ const Nav = () => {
       )}
 
       <div className="user-section">
-        {user ? (
+        {token ? (
           <>
-            <span>{user.first_name}</span>
+            <span>{name}</span>
             <button onClick={logout}>Logout</button>
           </>
         ) : (

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, TextField, Button, Typography, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { useAuth } from '../../context/Authcontext';
 import LoginGoogle from '../../components/LoginGoogle';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -10,20 +11,39 @@ const Register = () => {
     const [lastName, setLastName] = useState('');
     const [gender, setGender] = useState('');
     const [message, setMessage] = useState('');
-    const { register } = useAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setMessage('');
+        const registerData = {
+            email: email,
+            password: password,
+            first_name: firstName,
+            last_name: lastName,
+            gender: gender
+        }
         try {
-            await register({
-                email,
-                password_hash: password,
-                first_name: firstName,
-                last_name: lastName,
-                gender
+            const response = await fetch('http://localhost:5000/api/candidate/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(registerData),
             });
-            window.location.href = '/login';
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Error durante el registro');
+            }
+
+            setMessage('Registro exitoso. Redirigiendo al login...');
+            setTimeout(() => {
+                navigate('/login');
+            }, 2000);
         } catch (error) {
+            console.error('Error en el registro:', error);
             setMessage(error.message || 'Error durante el registro');
         }
     };
@@ -87,11 +107,11 @@ const Register = () => {
                         </Select>
                     </FormControl>
                     <div className="button-container">
-                    <Button type="submit" variant="contained" className="register-button">
-                        Registrarse
-                    </Button>
+                        <Button type="submit" variant="contained" className="register-button">
+                            Registrarse
+                        </Button>
                     </div>
-                    {message && <Typography color="error">{message}</Typography>}
+                    {message && <Typography color={message.includes('exitoso') ? 'primary' : 'error'}>{message}</Typography>}
                 </form>
                 <LoginGoogle />
             </Card>

@@ -11,6 +11,7 @@ import CandidateHome from "../CandidatesHome/CandidatesHome";
 import StaffHome from "../StaffHome";
 import PrivateRoute from "../PrivateRoute";
 import { useAuth } from "../../context/Authcontext";
+import CandidateForm from "../../pages/CandidateForm/CandidateForm";
 
 const Main = () => {
   const { userType } = useAuth();
@@ -57,6 +58,14 @@ const Main = () => {
           element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/form" 
+          element={
+            <PrivateRoute>
+              <CandidateForm />
             </PrivateRoute>
           } 
         />

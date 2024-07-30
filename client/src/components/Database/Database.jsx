@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import filterDatabase from '/filterDatabase.png';
 import nofilterDatabase from '/nofilterDatabase.png';
+import GeneratePDF from "../GeneratedPDF/GeneratedPDF";
 
 
 const Database = () => {
@@ -249,9 +250,7 @@ const Database = () => {
                   </div>
                 </Link>
                 <div>
-                  <button className="btnDatabase">
-                    <img className="iconActivate" src={"/on.png"} alt="toggle active" />
-                  </button>
+                <GeneratePDF Email={candidate.email} />
                 </div>
                 <div>
                   <button className="btnDatabase" onClick={() => handleToggleActive(candidate)}>

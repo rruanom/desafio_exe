@@ -1,9 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from '@mui/material';
+import SearchDashboard from "../SearchDashboard/SearchDashboard";
+import { useAuth } from '../../context/Authcontext';
 
-const Redirector = () => {
+const Redirector = ({candidates}) => {
+  const { user, logout, token, userType, name } = useAuth();
+
   return (
+    <div className="divChart4">
+      <section className="sectionDashboard" style={{
+          backgroundImage: 'url(/banner.png)',
+          backgroundSize: 'cover', // Opcional, para ajustar el tamaño de la imagen de fondo
+          backgroundPosition: 'center', // Opcional, para centrar la imagen de fondo
+        }}>
+      <p>Hola, {name}!</p>
+      <SearchDashboard candidates={candidates} />
     <div className="redirector">
       <Button
         component={Link}
@@ -29,6 +41,8 @@ const Redirector = () => {
       >
         Staff
       </Button>
+    </div>
+    </section>
     </div>
   );
 };

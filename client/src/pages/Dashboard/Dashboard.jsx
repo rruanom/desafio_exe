@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import SearchDashboard from "../../components/SearchDashboard/SearchDashboard";
 import Redirector from '../../components/Redirector';
 import Overview from '../../components/Overview';
 import Candidates from '../Candidates';
@@ -52,9 +51,9 @@ const Dashboard = () => {
       <article>
         {view === 'overview' && (
           <>
-            <SearchDashboard candidates={candidates} />
-            <Redirector />
-            <Overview 
+            
+            <Redirector candidates={candidates}/>
+            <Overview
               totalCandidates={totalCandidates}
               newCandidatesLastWeek={newCandidatesLastWeek}
               offeredPercentage={offeredPercentage}

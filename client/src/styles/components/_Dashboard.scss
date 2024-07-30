@@ -14,4 +14,22 @@
       width: 100%;
       margin-bottom: 20px;
     }
+
+    .sectionDashboard {
+      display: inline-block;
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 1.3px solid rgba(128, 128, 128, 0.331);
+        background-color: #f6f7fb;
+        overflow: hidden;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 10px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-right: 20px;
+        width: 100%;
+    }
   }

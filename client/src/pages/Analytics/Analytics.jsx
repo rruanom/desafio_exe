@@ -5,6 +5,7 @@ import Chart from 'chart.js/auto';
 const Analytics = () => {
   const [candidates, setCandidates] = useState([]);
   const [statuses, setStatuses] = useState([]);
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   const polarAreaRef = useRef(null);
   const polarAreaChartInstanceRef = useRef(null);
@@ -43,8 +44,8 @@ const Analytics = () => {
     const fetchCandidatesData = async () => {
       try {
         const [candidatesResponse, statusesResponse] = await Promise.all([
-          axios.get('https://desafio-exe.onrender.com/api/candidate'),
-          axios.get('https://desafio-exe.onrender.com/api/status')
+          axios.get(`${API_URL}/candidate`),
+          axios.get(`${API_URL}//status`)
         ]);
 
         setCandidates(candidatesResponse.data);

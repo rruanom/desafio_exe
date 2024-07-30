@@ -2,7 +2,7 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import Cookies from 'js-cookie';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api'
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {

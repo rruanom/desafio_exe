@@ -9,6 +9,7 @@ const CandidateForm = () => {
   const [step, setStep] = useState(1);
   const [academicData, setAcademicData] = useState({});
   const { id, email, status } = useAuth();
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
   const navigate = useNavigate();
 
   const handleNext = (data) => {
@@ -20,7 +21,7 @@ const CandidateForm = () => {
     const formData = { ...academicData, ...experienceData, id_candidate: id };
     console.log(formData);
     try {
-      const formResponse = await fetch('http://localhost:5000/api/form/add', {
+      const response = await fetch(`${API_URL}/form/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

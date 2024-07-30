@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import filterDatabase from '/filterDatabase.png';
 import nofilterDatabase from '/nofilterDatabase.png';
+import GeneratePDF from "../GeneratedPDF/GeneratedPDF";
 
 
 const Database = () => {
@@ -12,11 +13,12 @@ const Database = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortCriteria, setSortCriteria] = useState('none');
   const [sortOrder, setSortOrder] = useState('none');
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
     const fetchAllCandidates = async () => {
       try {
-        const response = await fetch('https://desafio-exe.onrender.com/api/candidate');
+        const response = await fetch(`${API_URL}/candidate`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -133,7 +135,7 @@ const Database = () => {
   const handleToggleActive = async (candidate) => {
     const newActiveStatus = candidate.active ? 0 : 1;
     try {
-      const response = await fetch(`https://desafio-exe.onrender.com/api/candidate/${candidate.email}`, {
+      const response = await fetch(`${API_URL}/candidate/${candidate.email}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -249,9 +251,7 @@ const Database = () => {
                   </div>
                 </Link>
                 <div>
-                  <button className="btnDatabase">
-                    <img className="iconActivate" src={"/on.png"} alt="toggle active" />
-                  </button>
+                <GeneratePDF Email={candidate.email} />
                 </div>
                 <div>
                   <button className="btnDatabase" onClick={() => handleToggleActive(candidate)}>

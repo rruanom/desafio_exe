@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import {
+  TextField,
+  Select,
+  MenuItem,
+  Button,
+  Typography,
+  Box,
+  Card
+} from '@mui/material';
 
 const Editor = ({ candidateData }) => {
   const [formData, setFormData] = useState({
@@ -11,6 +20,17 @@ const Editor = ({ candidateData }) => {
   });
   const [message, setMessage] = useState('');
 
+  const genderTranslations = {
+    'Female': 'Femenino',
+    'Male': 'Masculino',
+    'Genderfluid': 'Género fluido',
+    'Genderqueer': 'Género queer',
+    'Polygender': 'Poligénero',
+    'Agender': 'Agénero',
+    'Non-binary': 'No binario',
+    'Bigender': 'Bigénero'
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -19,7 +39,8 @@ const Editor = ({ candidateData }) => {
     e.preventDefault();
     try {
       const token = Cookies.get('access-token');
-      await axios.put('/api/candidates', formData, {
+      console.log(formData)
+      await axios.put(`http://localhost:5000/api/candidate/${candidateData.email}`, formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessage('Perfil actualizado con éxito');
@@ -28,62 +49,76 @@ const Editor = ({ candidateData }) => {
     }
   };
 
+  const inputProps = {
+    sx: {
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: '#11654D',
+        },
+        '&:hover fieldset': {
+          borderColor: '#11654D',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: '#11654D',
+        },
+      },
+    },
+    className: "custom-input"
+  };
+
   return (
-    <div className="profile-editor">
+    <Card className="profile-editor">
       <h2>Editar perfil</h2>
-      {message && <p className="message">{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="first_name">Nombre:</label>
-          <input
-            type="text"
-            id="first_name"
-            name="first_name"
-            value={formData.first_name}
-            onChange={handleChange}
-            required
-          />
+      {message && <Typography className={message.includes('éxito') ? 'success-message' : 'error-message'}>{message}</Typography>}
+      <Box component="form" onSubmit={handleSubmit} className="editor-form">
+        <TextField
+          label="Nombre"
+          name="first_name"
+          value={formData.first_name}
+          onChange={handleChange}
+          required
+          fullWidth
+          {...inputProps}
+        />
+        <TextField
+          label="Apellido"
+          name="last_name"
+          value={formData.last_name}
+          onChange={handleChange}
+          required
+          fullWidth
+          {...inputProps}
+        />
+        <TextField
+          label="Email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          fullWidth
+          {...inputProps}
+        />
+        <Select
+          label="Género"
+          name="gender"
+          value={formData.gender}
+          onChange={handleChange}
+          required
+          fullWidth
+          {...inputProps}
+        >
+          {Object.entries(genderTranslations).map(([key, value]) => (
+            <MenuItem key={key} value={key}>{value}</MenuItem>
+          ))}
+        </Select>
+        <div className='button-container'>
+        <Button type="submit" variant="contained" className="submit-button">
+          Guardar cambios
+        </Button>
         </div>
-        <div className="form-group">
-          <label htmlFor="last_name">Apellido:</label>
-          <input
-            type="text"
-            id="last_name"
-            name="last_name"
-            value={formData.last_name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="gender">Género:</label>
-          <select
-            id="gender"
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Selecciona una opción</option>
-            <option value="male">Masculino</option>
-            <option value="female">Femenino</option>
-            <option value="other">Otro</option>
-          </select>
-        </div>
-        <button type="submit" className="submit-btn">Guardar cambios</button>
-      </form>
-    </div>
+      </Box>
+    </Card>
   );
 };
 

@@ -1,1 +1,52 @@
 @import '../utils/variables.scss';
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $white;
+    margin-top: 20px;
+}
+
+.register-card {
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.register-button {
+    margin-top: 1rem;
+    background-color: $green;
+    color: $white;
+
+    &:hover {
+        background-color: darken($green, 10%);
+    }
+}
+
+.MuiOutlinedInput-root {
+    .MuiOutlinedInput-notchedOutline {
+        border-color: $green;
+    }
+
+    &:hover .MuiOutlinedInput-notchedOutline {
+        border-color: darken($green, 10%);
+    }
+
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: $green;
+    }
+}
+
+.MuiInputLabel-root {
+    color: $green;
+
+    &.Mui-focused {
+        color: $green;
+    }
+}

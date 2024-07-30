@@ -1,6 +1,6 @@
 // Login.jsx
 import React, { useState } from 'react';
-
+import LoginGoogle from '../../components/LoginGoogle';
 import { Card, TextField, Button, Typography } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/Authcontext';
@@ -8,6 +8,7 @@ import { useAuth } from '../../context/Authcontext';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const { login } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,14 +27,12 @@ const Login = () => {
             if (!response.ok) throw new Error('Login failed');
 
             const data = await response.json();
-            login(data); // Usa la función login del contexto
+            login(data); 
 
-            // Redirige al usuario a la página que intentaba acceder o a la página principal
             const from = location.state?.from?.pathname || "/";
             navigate(from, { replace: true });
         } catch (error) {
             console.error('Login error:', error);
-            // Maneja el error (muestra un mensaje al usuario, etc.)
         }
     };
 
@@ -65,7 +64,7 @@ const Login = () => {
                         Iniciar Sesión
                     </Button>
                     </div>
-                    {message && <Typography color="error">{message}</Typography>}
+                    {error && <Typography color="error">{error}</Typography>}
                 </form>
                 <LoginGoogle />
             </Card>

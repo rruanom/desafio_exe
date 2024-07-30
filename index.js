@@ -24,7 +24,6 @@ const assessmentRoutes = require('./routes/assessment.routes');
 const gradesRoutes = require('./routes/grades_apt.routes')
 const formRoutes = require('./routes/form.routes');
 const candidateRoutes = require('./routes/candidate.routes');
-const authRoutes = require('./routes/auth.routes')
 
 app.use(cors({
   origin: 'http://localhost:5173', // Permite solicitudes solo desde este origen
@@ -43,7 +42,6 @@ app.use('/api/assessment', assessmentRoutes);
 app.use('/api/grades', gradesRoutes);
 app.use('/api/form', formRoutes);
 app.use('/api/candidate', candidateRoutes);
-app.use('/api/auth', authRoutes)
 
 app.use(express.json());
 app.use(cookieParser());

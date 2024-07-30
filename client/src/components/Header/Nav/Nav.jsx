@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../context/Authcontext';
-import Login from '../../../pages/Login/Login';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Nav = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, loading, token, userType, name } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -16,20 +16,28 @@ const Nav = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  if (loading) {
+    return (
+      <div className="spinner-container">
+        <ClipLoader color={"#123abc"} loading={loading} size={50} />
+      </div>
+    );
+  }
+
   const menuItems = (
     <>
-      {!user ? (
+      {!token ? (
         <>
           <Link to="/register" onClick={toggleMenu}>Registro</Link>
           <Link to="/login" onClick={toggleMenu}>Login</Link>
         </>
-      ) : user.role === 'candidate' ? (
+      ) : userType === 'candidate' ? (
         <Link to="/" onClick={toggleMenu}>Home</Link>
-      ) : user.role === 'recruiter' ? (
+      ) : userType === 'staff' ? (
         <>
           <Link to="/dashboard" onClick={toggleMenu}>Dashboard</Link>
           <Link to="/candidatos" onClick={toggleMenu}>Candidatos</Link>
-          <Link to="/insights" onClick={toggleMenu}>Estadísticas</Link>
+          <Link to="/analytics" onClick={toggleMenu}>Estadísticas</Link>
         </>
       ) : null}
     </>
@@ -38,9 +46,6 @@ const Nav = () => {
   return (
     <section className="nav">
       <div className="logo">
-        {/* <a href="https://empiezaporeducar.org/" target="_blank" rel="noopener noreferrer">
-          <img src="../../../../public/logo_exe.png" alt="Logo Exe" />
-        </a> */}
         <Link to="/"><img src="../../../../public/logo_exe.png" alt="Logo Exe" /></Link>
       </div>
 
@@ -59,15 +64,15 @@ const Nav = () => {
       )}
 
       <div className="user-section">
-        {user ? (
+        {token ? (
           <>
-            <span>{user.first_name}</span>
+            <span>{name}</span>
             <button onClick={logout}>Logout</button>
           </>
         ) : (
-          <button onClick={() => <Login />}>
+          <Link to="/login">
             <i className="fas fa-user"></i>
-          </button>
+          </Link>
         )}
       </div>
     </section>

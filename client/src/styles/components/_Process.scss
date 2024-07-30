@@ -1,2 +1,66 @@
 @import '../utils/mixins.scss';
 @import '../utils/variables.scss';
+
+.admission-process {
+  padding: 20px;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .current-step {
+    color: $dark_blue;
+    font-weight: bold;
+    margin-left: 8px;
+  }
+
+  .error-message {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    color: $error-color;
+
+    .error-icon {
+      margin-right: 8px;
+    }
+  }
+
+  .custom-stepper {
+    margin-top: 20px;
+    background-color: transparent;
+
+    .MuiStepLabel-root {
+      &.Mui-active {
+        color: $primary-color;
+      }
+      &.Mui-completed {
+        color: $completed-color;
+      }
+    }
+
+    .MuiStepIcon-root {
+      &.Mui-active {
+        color: $primary-color;
+      }
+      &.Mui-completed {
+        color: $completed-color;
+      }
+    }
+  }
+
+  &.error-state {
+    .custom-stepper {
+      .MuiStepLabel-root {
+        color: $error-color;
+      }
+
+      .MuiStepIcon-root {
+        color: $error-color;
+      }
+
+      .MuiStepConnector-line {
+        border-color: $error-color;
+      }
+    }
+  }
+}

@@ -13,6 +13,7 @@
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5.16.5",
     "@mui/material": "^5.16.5",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
@@ -20,10 +21,13 @@
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "normalize.css": "^8.0.1",
+    "pdf-lib": "^1.17.1",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.25.1",
+    "react-spinners": "^0.14.1",
     "sass": "^1.77.8",
     "uuid": "^10.0.0"
   },

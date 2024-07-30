@@ -23,6 +23,7 @@ const candidateRoutes = require('./routes/candidate.routes');
 
 const allowedOrigins = [
   'http://localhost:5173',
+  'http://localhost:5000',
   'https://desafio-exe-1.onrender.com',
 ];
 

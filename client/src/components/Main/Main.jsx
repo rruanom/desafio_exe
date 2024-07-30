@@ -10,6 +10,7 @@ import Details from '../../pages/Details';
 import CandidateHome from "../CandidatesHome/CandidatesHome";
 import StaffHome from "../StaffHome";
 import PrivateRoute from "../PrivateRoute";
+import Staff from "../../pages/Staff";
 import { useAuth } from "../../context/Authcontext";
 import CandidateForm from "../../pages/CandidateForm/CandidateForm";
 import Analytics from '../../pages/Analytics';
@@ -68,6 +69,14 @@ const Main = () => {
           element={
             <PrivateRoute>
               <CandidateForm />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/staff" 
+          element={
+            <PrivateRoute>
+              <Staff />
             </PrivateRoute>
           } 
         />

@@ -1,7 +1,6 @@
 
 import Cookies from 'js-cookie';
-
-const API_URL = 'https://desafio-exe.onrender.com/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api'
 
 const candidateLogin = async (email, password) => {
     const response = await fetch(`${API_URL}/candidate/login`, {

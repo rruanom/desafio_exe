@@ -1,0 +1,27 @@
+@import '../utils/mixins.scss';
+@import '../utils/variables.scss';
+
+.academic-form-card {
+  .MuiFormLabel-root,
+  .MuiInputBase-root {
+    
+    border-color: $green;
+  }
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $green;
+  }
+  &.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: $green;
+  }
+
+  .submit-button {
+    background-color: $yellow;
+    color: $black;
+    width: auto;
+    margin: 20px auto;
+    display: block;
+    &:hover {
+      background-color:$yellow-light;
+    }
+  }
+}

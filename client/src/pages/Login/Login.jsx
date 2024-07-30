@@ -49,15 +49,15 @@ const Login = () => {
                     onChange={(e, newValue) => setIsStaff(newValue === 1)}
                     centered
                 >
-                    <Tab label="Candidate Login" />
-                    <Tab label="Staff Login" />
+                    <Tab label="Candidatos" />
+                    <Tab label="Staff" />
                 </Tabs>
                 {isStaff ? (
                     <StaffLogin />
                 ) : (
                     <>
                         <form onSubmit={handleSubmit}>
-                            <h2>Candidate Login</h2>
+                            <h2>Acceso de Candidatos</h2>
                             <TextField
                                 label="Email"
                                 type="email"

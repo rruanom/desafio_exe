@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import filterDatabase from '/filterDatabase.png';
 import nofilterDatabase from '/nofilterDatabase.png';
 
+
 const Database = () => {
   const [allCandidates, setAllCandidates] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -129,6 +130,31 @@ const Database = () => {
     setCandidatesPerPage(parseInt(event.target.value));
   };
 
+  const handleToggleActive = async (candidate) => {
+    const newActiveStatus = candidate.active ? 0 : 1;
+    try {
+      const response = await fetch(`https://desafio-exe.onrender.com/api/candidate/${candidate.email}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ active: newActiveStatus })
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      setAllCandidates(prevCandidates =>
+        prevCandidates.map(c =>
+          c.email === candidate.email ? { ...c, active: newActiveStatus } : c
+        )
+      );
+    } catch (error) {
+      console.error('Error updating candidate active status', error);
+    }
+  };
+
   return (
     <div>
       <section className="sectionDatabase">
@@ -152,7 +178,7 @@ const Database = () => {
           </select>
           <p className="pNoFilter">Quitar filtros</p>
           <button className="btnNoFilter" onClick={handleRemoveSort}>
-            <img src={nofilterDatabase} alt="Quitar filtro" className="nofilterDatabaseIcon" />
+            <img src={"/nofilterDatabase.png"} alt="Quitar filtro" className="nofilterDatabaseIcon" />
           </button>
         </div>
         <article className="headDatabase">
@@ -161,31 +187,31 @@ const Database = () => {
           </div>
           <div className="divDatabase">
             <button className="btnfilterName" onClick={() => handleSortCriteria('name')}>
-              <img src={filterDatabase} alt="Ordenar por Nombre" className="filterDatabaseIcon" />
+              <img src={"/filterDatabase.png"} alt="Ordenar por Nombre" className="filterDatabaseIcon" />
             </button>
             <p className="titleDatabase">Nombre</p>
           </div>
           <div className="divDatabase">
             <button className="btnfilterEmail" onClick={() => handleSortCriteria('email')}>
-              <img src={filterDatabase} alt="Ordenar por Email" className="filterDatabaseIcon" />
+              <img src={"/filterDatabase.png"} alt="Ordenar por Email" className="filterDatabaseIcon" />
             </button>
             <p className="titleDatabase">Email</p>
           </div>
           <div className="divDatabase2">
             <button className="btnfilterReg" onClick={() => handleSortCriteria('registration_date')}>
-              <img src={filterDatabase} alt="Ordenar por Registro" className="filterDatabaseIcon" />
+              <img src={"/filterDatabase.png"} alt="Ordenar por Registro" className="filterDatabaseIcon" />
             </button>
             <p className="titleDatabase">Registro</p>
           </div>
           <div className="divDatabase2">
             <button className="btnfilterPhase" onClick={() => handleSortCriteria('phase')}>
-              <img src={filterDatabase} alt="Ordenar por Fase" className="filterDatabaseIcon" />
+              <img src={"/filterDatabase.png"} alt="Ordenar por Fase" className="filterDatabaseIcon" />
             </button>
             <p className="titleDatabase">Fase</p>
           </div>
           <div className="divDatabase2">
             <button className="btnfilterState" onClick={() => handleSortCriteria('status')}>
-              <img src={filterDatabase} alt="Ordenar por Estado" className="filterDatabaseIcon" />
+              <img src={"/filterDatabase.png"} alt="Ordenar por Estado" className="filterDatabaseIcon" />
             </button>
             <p className="titleDatabase">Estado</p>
           </div>
@@ -212,13 +238,27 @@ const Database = () => {
                 <p className="pDatabase">{candidate.name_status}</p>
               </div>
               <div className="divDatabase2">
-                {candidate.active ? <p className="pDatabase">Activo</p> : <p className="pDatabase">No Activo</p>}
+                <p className="pDatabase">{candidate.active ? 'Activo' : 'No Activo'}</p>
               </div>
-              <Link to={`/details/${candidate.email}`} className="details-button">
-                <div className="divDatabase2">
-                  <button className="btnDatabase">Ver detalles</button>
+              <div className="divActions">
+                <Link to={`/details/${candidate.email}`} className="details-button">
+                  <div className="divDatabase2">
+                    <button className="btnDatabase">
+                      <img className="iconEye" src={"/eye.png"} alt="eye" />
+                    </button>
+                  </div>
+                </Link>
+                <div>
+                  <button className="btnDatabase">
+                    <img className="iconActivate" src={"/on.png"} alt="toggle active" />
+                  </button>
                 </div>
-              </Link>
+                <div>
+                  <button className="btnDatabase" onClick={() => handleToggleActive(candidate)}>
+                    <img className="iconActivate" src={candidate.active ? "/on.png" : "/off.png"} alt="toggle active" />
+                  </button>
+                </div>
+              </div>
             </article>
           ))
         ) : (
@@ -227,11 +267,11 @@ const Database = () => {
       </section>
       <div className="divPage">
         <button className="btnPage" onClick={handlePrevPage} disabled={currentPage === 1}>
-          <img className="iconPrev" src="/flechaizquierda.png" alt="izquierda" />
+          <img className="iconPrev" src={"/flechaizquierda.png"} alt="izquierda" />
         </button>
         <span> Página {currentPage} de {totalPages} </span>
         <button className="btnPage" onClick={handleNextPage} disabled={currentPage === totalPages}>
-          <img className="iconNext" src="/flechaderecha.png" alt="derecha" />
+          <img className="iconNext" src={"/flechaderecha.png"} alt="derecha" />
         </button>
       </div>
     </div>

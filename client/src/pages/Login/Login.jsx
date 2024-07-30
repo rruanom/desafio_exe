@@ -1,6 +1,7 @@
 // Login.jsx
 import React, { useState } from 'react';
-import { Card, TextField, Button, Typography, Tab, Tabs } from '@mui/material';
+import LoginGoogle from '../../components/LoginGoogle';
+import { Card, TextField, Button, Typography } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/Authcontext';
 import LoginGoogle from '../../components/LoginGoogle'; 

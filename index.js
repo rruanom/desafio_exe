@@ -21,17 +21,30 @@ const gradesRoutes = require('./routes/grades_apt.routes')
 const formRoutes = require('./routes/form.routes');
 const candidateRoutes = require('./routes/candidate.routes');
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://desafio-exe-1.onrender.com',
+];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: function(origin, callback){
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   credentials: true
 }));
+
+app.options('*', cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-// API routes
 app.use('/api/role', roleRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/status', statusRoutes);
@@ -40,18 +53,13 @@ app.use('/api/grades', gradesRoutes);
 app.use('/api/form', formRoutes);
 app.use('/api/candidate', candidateRoutes);
 
-// Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 });
 
-// Error handling
 app.use(manage404);
-// app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);

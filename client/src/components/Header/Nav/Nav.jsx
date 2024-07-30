@@ -46,7 +46,14 @@ const Nav = () => {
   return (
     <section className="nav">
       <div className="logo">
+      {!token ? (
         <Link to="/"><img src="/logo.png" alt="Logo Exe" /></Link>
+      ) : userType === 'candidate' ? (
+        <Link to="/profile"><img src="/logo.png" alt="Logo Exe" /></Link>
+      ) : userType === 'staff' ? (
+        <Link to="/dashboard"><img src="/logo.png" alt="Logo Exe" /></Link>
+      ) : null}
+        
       </div>
 
       {windowWidth <= 800 && (
@@ -66,7 +73,7 @@ const Nav = () => {
       <div className="user-section">
         {token ? (
           <>
-            <span>{name}</span>
+            <span>Hola {name}</span>
             <button onClick={logout}>Logout</button>
           </>
         ) : (

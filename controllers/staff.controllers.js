@@ -107,7 +107,6 @@ const readStaffByEmail = async (req, res) => {
     const { email } = req.params;
     try {
         const staff = await staffModels.readStaffByEmail(email);
-        console.log(staff);
         if (!staff) {
             return res.status(404).json({ error: 'Miembro del personal no encontrado' });
         }
@@ -229,7 +228,7 @@ const loginStaff = async (req, res) => {
       const token = jwt.sign(
         { id: user.id_staff, 
           email: user.email,
-          rol: user.id_role
+          rol: user.name_role
          },
         process.env.JWT_SECRET,
         { expiresIn: '1d' }

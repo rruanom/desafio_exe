@@ -315,7 +315,7 @@ const Analytics = () => {
           }
         });
     };
-  }, [allChartData]);
+  }, [allChartData, createChart]);
   
     return (
       <>

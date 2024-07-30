@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../../context/Authcontext';
 import axios from 'axios';
 import { Card, CardContent, CardActions, Button, Typography } from '@mui/material';
 import Grades from '../../components/Grades';
@@ -12,6 +13,7 @@ const Details = () => {
   const [showGrades, setShowGrades] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const { email } = useParams();
+  const { id } = useAuth();
   const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
@@ -69,7 +71,7 @@ const Details = () => {
             {showProfile ? 'Ocultar Perfil' : 'Perfil'}
           </Button>
         </CardActions>
-        {showGrades && <Grades grades={grades} assessments={assessments} candidateName={`${candidate.first_name} ${candidate.last_name}`} />}
+        {showGrades && <Grades grades={grades} assessments={assessments} candidateName={`${candidate.first_name} ${candidate.last_name}`} idCandidate={candidate.id_candidate} idStaff={id} email={email}/>}
         {showProfile && <Profile candidate={candidate} />}
       </Card>
     </div>

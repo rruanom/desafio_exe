@@ -27,7 +27,7 @@ const Main = () => {
           path="/" 
           element={
             <PrivateRoute>
-              {userType === 'staff' ? <StaffHome /> : <UserHome />}
+              {userType === 'staff' ? <Dashboard /> : <UserHome />}
             </PrivateRoute>
           } 
         />

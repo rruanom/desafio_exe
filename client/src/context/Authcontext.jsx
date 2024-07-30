@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }) => {
             if (!response.ok) throw new Error('Failed to fetch user data');
 
             const data = await response.json();
+            console.log(data)
             setEmail(data.user.email);
             setId(data.user.id);
 

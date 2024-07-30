@@ -18,12 +18,13 @@ const Profile = ({ candidate: initialCandidate }) => {
   };
 
   const API_URL = import.meta.env.VITE_API_URL || '/api'
-
+console.log(statuses)
   useEffect(() => {
     const fetchStatuses = async () => {
       try {
         const statusesResponse = await axios.get(`${API_URL}/status`);
         setStatuses(statusesResponse.data);
+        console.log(statuses)
       } catch (error) {
         console.error('Error al obtener los estados:', error);
       }
@@ -33,9 +34,8 @@ const Profile = ({ candidate: initialCandidate }) => {
 
   const handleStatusChange = async (e) => {
     try {
-      await axios.put(`https://desafio-exe.onrender.com/api/candidate/${candidate.email}`, {
-        id_status: parseInt(e.target.value),
-        active: candidate.active
+      await axios.put(`${API_URL}/candidate/${candidate.email}`, {
+        id_status: parseInt(e.target.value)
       });
       setCandidate(prev => ({
         ...prev,

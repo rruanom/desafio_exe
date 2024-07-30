@@ -12,6 +12,7 @@ import StaffHome from "../StaffHome";
 import PrivateRoute from "../PrivateRoute";
 import { useAuth } from "../../context/Authcontext";
 import CandidateForm from "../../pages/CandidateForm/CandidateForm";
+import Analytics from '../../pages/Analytics';
 
 const Main = () => {
   const { userType } = useAuth();
@@ -21,6 +22,7 @@ const Main = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/analytics" element={<Analytics />} />
         <Route 
           path="/" 
           element={

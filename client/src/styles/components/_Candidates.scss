@@ -1,6 +1,10 @@
 @import '../utils/mixins.scss';
 @import '../utils/variables.scss';
 
+.sectionDatabase {
+    background-color: white;
+}
+
 .candidatesContainer {
     margin-left: -25px;
     margin-right: -16px;
@@ -9,17 +13,41 @@
 .btnCandidates {
     color: $dark_blue;
     font-weight: 600;
+    font-size: 15px;
     border: none;
-    background-color: white;
-    padding: 4px 3px;
+    border-radius: 3px;
+    background-color: $yellow;
+    padding: 6px 12px;
     margin-right: 13px;
     margin-top: 15px;
     cursor: pointer;
 }
 
 .btnCandidates:hover {
-    border-bottom: 2px solid $dark_blue;
+    background-color: $yellow_light;
+    border: 2px solid $yellow_light;
     margin-bottom: -2px;
+    margin-top: -1px;
+}
+
+.btnCandidatesDiscarded {
+    color: $dark_blue;
+    font-weight: 600;
+    font-size: 15px;
+    border: none;
+    border-radius: 3px;
+    background-color: $yellow;
+    padding: 6px 12px;
+    margin-right: 13px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.btnCandidatesDiscarded:hover {
+    background-color: $yellow_light;
+    border: 2px solid $yellow_light;
+    margin-bottom: -2px;
+    margin-top: 13px;
 }
 
 @media screen and (min-width: 900px) {

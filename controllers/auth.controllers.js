@@ -127,18 +127,20 @@ const registerStaff = async (req, res) => {
  * // Respuesta: Redirige a http://localhost:5173/login
  */
 const googleCallback = async (req, res) => {
-  const payload = {
+  try {
+    const payload = {
       email: req.user.emails[0].value
-  };
-  console.log(req.user.emails[0].value);
-  console.log(payload);
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
+    };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
 
-  console.log(token);
-  res.cookie("access-token", token, {
+    res.cookie("access-token", token, {
       expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
       path: "/",
-  }).redirect("http://localhost:5173/login"); // Reemplaza con URL de producción en el despliegue
+    }).redirect("http://localhost:5173/login"); // Redirige a la página de inicio
+  } catch (error) {
+    console.error("Error en googleCallback:", error);
+    res.redirect("/auth/failure");
+  }
 };
 
 /**

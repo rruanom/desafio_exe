@@ -1,8 +1,3 @@
-require('dotenv').config();
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const userModel = require("../models/users.models");
-
 passport.use(new GoogleStrategy({
     clientID: process.env.ID_CLIENT,
     clientSecret: process.env.SECRET_CLIENT,
@@ -22,8 +17,6 @@ passport.use(new GoogleStrategy({
         };
 
         const buscaUsuario = await userModel.getUsersByEmail(user.email);
-        console.log(buscaUsuario);
-
         if (!buscaUsuario) {
             const crearUsuario = await userModel.createUser(user);
             if (crearUsuario > 0) {

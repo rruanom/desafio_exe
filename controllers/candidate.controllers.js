@@ -3,11 +3,13 @@
  * @exports controllers
  * @namespace Candidate_Controllers
  */
-
+require('dotenv').config();
 const candidateModels = require('../models/candidate.models');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
+const transporter = require('../config/nodemailer');
+
 
 /**
  * @function createCandidate
@@ -58,6 +60,23 @@ const createCandidate = async (req, res) => {
         if (result === 0) {
             return res.status(500).json({ error: 'Error al crear el candidato' });
         }
+       
+        const mailOptions = {
+            from: 'no-reply@example.com',
+            to: email,
+            subject: 'Bienvenido a Nuestra Plataforma',
+            text: `Hola ${first_name},\n\nGracias por registrarte en nuestra plataforma. Rellena el formulario de solicitud si aun no lo has hecho aqui\n\nhttps://desafio-exe-1.onrender.com/login\n\nSaludos,\nExe`
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error('Error al enviar el correo:', error);
+                return res.status(500).json({ message: 'Usuario registrado, pero no se pudo enviar el correo electrónico.' });
+            } else {
+                console.log('Correo enviado:', info.response);
+                res.status(201).json({ message: 'Candidato creado exitosamente y correo electrónico enviado.' });
+            }
+        });
         res.status(201).json({ message: 'Candidato creado exitosamente'});
     } catch (err) {
         res.status(500).json({ error: 'Error al crear el Candidato' });

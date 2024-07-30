@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { 
+  Dialog, 
+  DialogTitle, 
+  DialogContent, 
+  DialogActions, 
+  TextField, 
+  Button, 
+  Select, 
+  MenuItem, 
+  FormControl, 
+  InputLabel 
+} from '@mui/material';
 
 const CreateStaffForm = ({ onClose, onCreated }) => {
   const [formData, setFormData] = useState({
@@ -40,58 +52,70 @@ const CreateStaffForm = ({ onClose, onCreated }) => {
   };
 
   return (
-    <div className="create-staff-form">
-      <h3>Create New Staff Member</h3>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="first_name"
-          value={formData.first_name}
-          onChange={handleChange}
-          placeholder="First Name"
-          required
-        />
-        <input
-          type="text"
-          name="last_name"
-          value={formData.last_name}
-          onChange={handleChange}
-          placeholder="Last Name"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Password"
-          required
-        />
-        <select
-          name="id_role"
-          value={formData.id_role}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select Role</option>
-          {roles.map((role) => (
-            <option key={role.id_role} value={role.id_role}>
-              {role.name_role}
-            </option>
-          ))}
-        </select>
-        <button type="submit">Create</button>
-        <button type="button" onClick={onClose}>Cancel</button>
-      </form>
-    </div>
+    <Dialog open={true} onClose={onClose}>
+      <DialogTitle>Nuevo miebro</DialogTitle>
+      <DialogContent>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            name="first_name"
+            label="First Name"
+            value={formData.first_name}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <TextField
+            name="last_name"
+            label="Last Name"
+            value={formData.last_name}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <TextField
+            name="email"
+            label="Email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <TextField
+            name="password"
+            label="Password"
+            type="password"
+            value={formData.password}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <FormControl fullWidth margin="normal">
+            <InputLabel>Role</InputLabel>
+            <Select
+              name="id_role"
+              value={formData.id_role}
+              onChange={handleChange}
+              required
+            >
+              {roles.map((role) => (
+                <MenuItem key={role.id_role} value={role.id_role}>
+                  {role.name_role}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </form>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={handleSubmit} color="primary">Create</Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

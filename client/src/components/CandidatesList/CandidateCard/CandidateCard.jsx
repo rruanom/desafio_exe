@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 
 const CandidateCard = ({ details }) => {
   // STATES
-  const [lastDays, setLastDays] = useState(null); // Cambiar a null para manejar la inicialización
-  const API_URL = import.meta.env.VITE_API_URL || '/api'
-
+  const [lastDays, setLastDays] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL || '/api';
+  const [match, setMatch] = useState(null);
+  console.log(match)
 
   // FUNCTION TO FORMAT DATE
   const formatDate = (dateString) => {
@@ -55,7 +56,44 @@ const CandidateCard = ({ details }) => {
     };
 
     getLastAssessmentDays();
-  }, [details.email]); 
+  }, [details.email]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://filtro-ybp4.onrender.com/candidate/${details.email}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log('Fetched data:', data);
+
+        const number = data.percentage_score;
+        if (number !== undefined && number !== null && !isNaN(number)) {
+          const percentage = Math.floor(number);
+          setMatch(percentage);
+        } else {
+          setMatch(null);
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        setMatch(null);
+      }
+    };
+
+    fetchData();
+  }, [details.email]);
+
+  // FUNCTION TO DETERMINE CSS CLASS BASED ON MATCH VALUE
+  const getMatchClass = (match) => {
+    if (match < 50) {
+      return 'matchRed';
+    } else if (match < 70) {
+      return 'matchYellow';
+    } else {
+      return 'matchGreen';
+    }
+  };
 
   // RETURN
   return (
@@ -64,12 +102,15 @@ const CandidateCard = ({ details }) => {
         <p className="titleCard">{details.first_name} {details.last_name}</p>
         <img className="iconFlechaDcha" src="/flechaderecha.png" alt="flecha derecha" />
         <div className="divDatesCard">
-        {lastDays? (
-          <p className="dateCard"><img className="iconClock" src="/reloj.png" alt="clock" /> {lastDays}d</p>
-        ) : (
-          <p className="dateCard"><img className="iconClock" src="/reloj.png" alt="clock" /> 0d</p>
-        )}
-        <p className="dateCard2"><img className="iconRegister" src="/register.png" alt="register" /> {formattedDate}</p>
+          {lastDays !== null ? (
+            <p className="dateCard"><img className="iconClock" src="/reloj.png" alt="clock" /> {lastDays}d</p>
+          ) : (
+            <p className="dateCard"><img className="iconClock" src="/reloj.png" alt="clock" /> 0d</p>
+          )}
+          <p className="dateCard2"><img className="iconRegister" src="/register.png" alt="register" /> {formattedDate}</p>
+          {match !== null && !isNaN(match) && (
+            <p className={`${getMatchClass(match)}`}>{match}%</p>
+          )}
         </div>
       </article>
     </Link>

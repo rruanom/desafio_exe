@@ -3,13 +3,16 @@ import axios from 'axios';
 import SearchDashboard from "../../components/SearchDashboard/SearchDashboard";
 import Redirector from '../../components/Redirector';
 import Overview from '../../components/Overview';
+import Candidates from '../Candidates';
+import Staff from '../Staff';
 
 const Dashboard = () => {
   const [candidates, setCandidates] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const API_URL = import.meta.env.VITE_API_URL || '/api'
+  const [view, setView] = useState('overview');
+  const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,14 +50,20 @@ const Dashboard = () => {
   return (
     <section className="dashboard">
       <article>
-        <SearchDashboard candidates={candidates} />
-        <Redirector />
-        <Overview 
-          totalCandidates={totalCandidates}
-          newCandidatesLastWeek={newCandidatesLastWeek}
-          offeredPercentage={offeredPercentage}
-          status2AndMorePercentage={status2AndMorePercentage}
-        />
+        {view === 'overview' && (
+          <>
+            <SearchDashboard candidates={candidates} />
+            <Redirector />
+            <Overview 
+              totalCandidates={totalCandidates}
+              newCandidatesLastWeek={newCandidatesLastWeek}
+              offeredPercentage={offeredPercentage}
+              status2AndMorePercentage={status2AndMorePercentage}
+            />
+          </>
+        )}
+        {view === 'candidates' && <Candidates />}
+        {view === 'staff' && <Staff />}
       </article>
     </section>
   );

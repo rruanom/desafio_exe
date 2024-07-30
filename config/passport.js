@@ -7,7 +7,7 @@ const candidateModel = require("../models/candidate.models");
 passport.use(new GoogleStrategy({
     clientID: process.env.ID_CLIENT,
     clientSecret: process.env.SECRET_CLIENT,
-    callbackURL: "http://localhost:5173/api/auth/google/callback" 
+    callbackURL: `${API_URL}/auth/google/callback` 
 }, async function (token, tokenSecret, profile, done) {
     try {
         console.log("profile", profile);

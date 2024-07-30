@@ -39,11 +39,11 @@ const Overview = ({ totalCandidates, newCandidatesLastWeek, offeredPercentage, s
       </div>
       <div className="progress-section">
         <div className="progress-item">
-          <Typography>Candidatos ofertados</Typography>
+          <Typography>Candidatos ofertados:</Typography>
           <CircularProgressWithLabel value={parseFloat(offeredPercentage)} />
         </div>
         <div className="progress-item">
-          <Typography>Candidatos que han pasado el registro</Typography>
+          <Typography>Candidatos que han completado el proceso de registro:</Typography>
           <CircularProgressWithLabel value={parseFloat(status2AndMorePercentage)} />
         </div>
       </div>

@@ -30,7 +30,17 @@ const queriesCandidates = {
     deleteCandidate: `
     DELETE FROM candidate
     WHERE email = ?
-    `
+    `,
+    loginCandidate: `
+    UPDATE candidate
+    SET logged = 1
+    WHERE email = ?
+    `,
+    logoutCandidate: `
+    UPDATE candidate
+    SET logged = 0
+    WHERE email = ?
+    `,
 };
 
 module.exports = queriesCandidates;

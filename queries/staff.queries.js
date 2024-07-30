@@ -20,6 +20,12 @@ const queriesStaff = {
         last_logged_date = COALESCE(?, last_logged_date)
     WHERE email = ?`,
     deleteStaff: `DELETE FROM staff
+    WHERE email = ?`,
+    loginStaff: `UPDATE staff
+    SET logged = 1
+    WHERE email = ?`,
+    logoutStaff: `UPDATE staff
+    SET logged = 0
     WHERE email = ?`
 };
 

@@ -1,39 +1,93 @@
+// Login.jsx
 import React, { useState } from 'react';
+import { Card, TextField, Button, Typography } from '@mui/material';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/Authcontext';
-import LoginGoogle from '../../components/LoginGoogle';
+import LoginGoogle from '../../components/LoginGoogle'; 
+import StaffLogin from './StaffLogin'; 
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
-    const { login } = useAuth();
+    const [error, setError] = useState('');
+    const [isStaff, setIsStaff] = useState(false);
+    const { login, setUserType } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
         try {
-            await login(email, password);
-            window.location.href = '/';
+            const response = await fetch(`http://localhost:5000/api/candidate/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Login failed');
+            }
+
+            const data = await response.json();
+            login(data); 
+            setUserType("candidate");
+            navigate('/', { replace: true });
         } catch (error) {
-            setMessage(error.message || 'Error durante el login');
+            console.error('Login error:', error);
+            setError(error.message || 'An error occurred during login');
         }
     };
 
     return (
-        <>
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Email:</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            </div>
-            <div>
-                <label>Password:</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            </div>
-            <button type="submit">Login</button>
-            {message && <p>{message}</p>}
-        </form>
-        <LoginGoogle />
-        </>
+        <div className="login-container">
+            <Card className="login-card">
+                <Tabs
+                    value={isStaff ? 1 : 0}
+                    onChange={(e, newValue) => setIsStaff(newValue === 1)}
+                    centered
+                >
+                    <Tab label="Candidate Login" />
+                    <Tab label="Staff Login" />
+                </Tabs>
+                {isStaff ? (
+                    <StaffLogin />
+                ) : (
+                    <>
+                        <form onSubmit={handleSubmit}>
+                            <h2>Candidate Login</h2>
+                            <TextField
+                                label="Email"
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                fullWidth
+                                margin="normal"
+                            />
+                            <TextField
+                                label="Password"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                fullWidth
+                                margin="normal"
+                            />
+                            <div className="button-container">
+                                <Button type="submit" variant="contained" className="login-button">
+                                    Login
+                                </Button>
+                            </div>
+                            {error && <Typography color="error">{error}</Typography>}
+                        </form>
+                        <LoginGoogle />
+                    </>
+                )}
+            </Card>
+        </div>
     );
 };
 

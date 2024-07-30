@@ -1,11 +1,10 @@
 // Login.jsx
 import React, { useState } from 'react';
 import LoginGoogle from '../../components/LoginGoogle';
-import { Card, TextField, Button, Typography } from '@mui/material';
+import { Card, TextField, Button, Typography, Tabs, Tab } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../context/Authcontext';
-import LoginGoogle from '../../components/LoginGoogle'; 
-import StaffLogin from './StaffLogin'; 
+import { useAuth } from '../../context/Authcontext'; 
+import StaffLogin from './StaffLogin';
 
 const Login = () => {
     const [email, setEmail] = useState('');

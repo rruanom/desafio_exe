@@ -24,12 +24,17 @@ const AcademicForm = ({ onNext }) => {
     <form onSubmit={handleSubmit}>
       <div>
         <label>Academic Degree:</label>
-                <select name="academic_degree" id="" onChange={handleChange}>
-                    <option value={academicData.academic_degree}>FP</option>
-                    <option value={academicData.academic_degree}>Grado</option>
-                    <option value={academicData.academic_degree}>Master</option>
-                    <option value={academicData.academic_degree}>Doctorado</option>
-                </select>
+        <select 
+          name="academic_degree" 
+          value={academicData.academic_degree} 
+          onChange={handleChange}
+        >
+          <option value="">Selecciona una opción</option>
+          <option value="FP">FP</option>
+          <option value="Grado">Grado</option>
+          <option value="Master">Master</option>
+          <option value="Doctorado">Doctorado</option>
+        </select>
       </div>
       <div>
         <label>Average Grade:</label>
@@ -43,14 +48,19 @@ const AcademicForm = ({ onNext }) => {
       </div>
       <div>
         <label>Nivel de Ingles</label>
-        <select name="languages" id="" onChange={handleChange}>
-                    <option value={academicData.languages}>A1</option>
-                    <option value={academicData.languages}>A2</option>
-                    <option value={academicData.languages}>B1</option>
-                    <option value={academicData.languages}>B2</option>
-                    <option value={academicData.languages}>C1</option>
-                    <option value={academicData.languages}>C2</option>
-                </select>
+        <select 
+          name="languages" 
+          value={academicData.languages} 
+          onChange={handleChange}
+        >
+          <option value="">Selecciona una opción</option>
+          <option value="A1">A1</option>
+          <option value="A2">A2</option>
+          <option value="B1">B1</option>
+          <option value="B2">B2</option>
+          <option value="C1">C1</option>
+          <option value="C2">C2</option>
+        </select>
       </div>
       <button type="submit">Siguiente</button>
     </form>
@@ -58,4 +68,3 @@ const AcademicForm = ({ onNext }) => {
 };
 
 export default AcademicForm;
-

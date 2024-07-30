@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import AcademicForm from '../AcademicForm';
 import ExperienceForm from '../ExperienceForm';
+import { useAuth } from '../../context/Authcontext';
+
 
 const CandidateForm = () => {
   const [step, setStep] = useState(1);
   const [academicData, setAcademicData] = useState({});
+  const {id}=useAuth();
 
   const handleNext = (data) => {
     setAcademicData(data);
@@ -12,9 +15,10 @@ const CandidateForm = () => {
   };
 
   const handleSubmit = async (experienceData) => {
-    const formData = { ...academicData, ...experienceData, id_candidate: 993 };
+    const formData = { ...academicData, ...experienceData, id_candidate:id};
+    console.log(formData)
     try {
-      const response = await fetch('https://desafio-exe.onrender.com/api/form/add', {
+      const response = await fetch('http://localhost:5000/api/form/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

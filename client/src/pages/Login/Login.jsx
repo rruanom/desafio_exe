@@ -1,6 +1,6 @@
 // Login.jsx
 import React, { useState } from 'react';
-import { Card, TextField, Button, Typography } from '@mui/material';
+import { Card, TextField, Button, Typography, Tabs, Tab } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/Authcontext';
 import LoginGoogle from '../../components/LoginGoogle'; 
@@ -49,15 +49,15 @@ const Login = () => {
                     onChange={(e, newValue) => setIsStaff(newValue === 1)}
                     centered
                 >
-                    <Tab label="Candidate Login" />
-                    <Tab label="Staff Login" />
+                    <Tab label="Candidatos" />
+                    <Tab label="Staff" />
                 </Tabs>
                 {isStaff ? (
                     <StaffLogin />
                 ) : (
                     <>
                         <form onSubmit={handleSubmit}>
-                            <h2>Candidate Login</h2>
+                            <h2>Acceso de Candidatos</h2>
                             <TextField
                                 label="Email"
                                 type="email"

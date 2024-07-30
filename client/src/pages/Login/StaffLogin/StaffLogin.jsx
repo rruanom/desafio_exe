@@ -51,9 +51,8 @@ const StaffLogin = () => {
     };
 
     return (
-        <Card className="login-card">
             <form onSubmit={handleSubmit}>
-                <h2>Staff Login</h2>
+                <h2>Acceso de Staff</h2>
                 <TextField
                     label="Email"
                     type="email"
@@ -74,12 +73,11 @@ const StaffLogin = () => {
                 />
                 <div className="button-container">
                     <Button type="submit" variant="contained" className="login-button">
-                        Login as Staff
+                        Staff Login
                     </Button>
                 </div>
                 {error && <Typography color="error">{error}</Typography>}
             </form>
-        </Card>
     );
 };
 

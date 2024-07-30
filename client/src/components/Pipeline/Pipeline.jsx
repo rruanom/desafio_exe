@@ -17,11 +17,13 @@ const Pipeline = () => {
     'Ofertado'
   ];
 
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
+
   // FUNCTIONS
   useEffect(() => {
     const getActiveCandidatesByStatus = async () => {
       try {
-        const response = await fetch('https://desafio-exe.onrender.com/api/candidate');
+        const response = await fetch(`${API_URL}/candidate`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

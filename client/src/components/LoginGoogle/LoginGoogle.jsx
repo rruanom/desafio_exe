@@ -3,10 +3,11 @@ import { Button } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 
 const LoginGoogle = () => {
+    const API_URL = import.meta.env.VITE_API_URL || '/api'
     return (
         <div className="login-google-container">
             <Button
-                href="http://localhost:5000/api/auth/google"
+                href={`${API_URL}/auth/google`}
                 variant="outlined"
                 startIcon={<GoogleIcon />}
                 fullWidth

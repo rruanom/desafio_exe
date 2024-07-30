@@ -5,6 +5,7 @@ import { Autocomplete, TextField } from '@mui/material';
 const SearchDashboard = () => {
   const [candidates, setCandidates] = useState([]);
   const [value, setValue] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
     fetchCandidates();
@@ -12,7 +13,7 @@ const SearchDashboard = () => {
 
   const fetchCandidates = async () => {
     try {
-      const response = await fetch('https://desafio-exe.onrender.com/api/candidate');
+      const response = await fetch(`${API_URL}/candidate`);
       const data = await response.json();
       setCandidates(data);
     } catch (error) {

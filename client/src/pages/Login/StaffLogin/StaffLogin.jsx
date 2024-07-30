@@ -11,12 +11,13 @@ const StaffLogin = () => {
     const { login, setUserType } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const API_URL = import.meta.env.VITE_API_URL || '/api'
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         try {
-            const response = await fetch('http://localhost:5000/api/staff/login', {
+            const response = await fetch(`${API_URL}/staff/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

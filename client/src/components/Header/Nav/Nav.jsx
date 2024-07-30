@@ -46,7 +46,7 @@ const Nav = () => {
   return (
     <section className="nav">
       <div className="logo">
-        <Link to="/"><img src="/logo_exe.png" alt="Logo Exe" /></Link>
+        <Link to="/"><img src="/logo.png" alt="Logo Exe" /></Link>
       </div>
 
       {windowWidth <= 800 && (

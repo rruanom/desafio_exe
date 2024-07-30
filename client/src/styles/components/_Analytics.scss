@@ -15,6 +15,42 @@
     margin-right: -25px;
 }
 
+.sectionAnalyticsIntro {
+    display: inline-block;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1.3px solid rgba(128, 128, 128, 0.331);
+    background-color: white;
+    overflow: hidden;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    margin-bottom: -2px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+}
+
+.sectionAnalyticsIntro2 {
+    display: inline-block;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1.3px solid rgba(128, 128, 128, 0.331);
+    background-color: white;
+    overflow: hidden;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    margin-bottom: -2px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+}
+
 .sectionAnalyticsInd {
     display: inline-block;
     border-radius: 5px;
@@ -72,9 +108,23 @@
 .divBarPolar {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     margin-left: -25px;
     margin-right: -25px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.divChart4 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: -25px;
+    margin-right: -25px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     box-sizing: border-box;
     flex: 1;
 }
@@ -82,7 +132,7 @@
 .divChart3 {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     margin-left: -25px;
     margin-right: -25px;
     box-sizing: border-box;
@@ -106,6 +156,14 @@
     margin-right: 0px;
     ;
     width: 100%;
+}
+
+.titleTop {
+    text-align: left;
+    font-weight: 600;
+    font-size: 25px;
+    margin-bottom: -5px;
+    margin-top: 16px;
 }
 
 .titleAnalytics {
@@ -240,6 +298,42 @@
         margin-right: -80px;
     }
 
+    .sectionAnalyticsIntro {
+        display: inline-block;
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 1.3px solid rgba(128, 128, 128, 0.331);
+        background-color: #f6f7fb;
+        overflow: hidden;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 10px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-right: 20px;
+        width: 23.4%;
+    }
+
+    .sectionAnalyticsIntro2 {
+        display: inline-block;
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 1.3px solid rgba(128, 128, 128, 0.331);
+        background-color: #f6f7fb;
+        overflow: hidden;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 10px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        width: 24%;
+    }
+
     .sectionAnalyticsInd {
         display: inline-block;
         border-radius: 5px;
@@ -298,8 +392,20 @@
         display: block;
         margin-left: -80px;
         margin-right: -80px;
+        margin-top: 5px;
+        margin-bottom: 5px;
         box-sizing: border-box;
         flex: 1;
+    }
+
+    .divChart4 {
+        display: block;
+        margin-left: -80px;
+        margin-right: -80px;
+        box-sizing: border-box;
+        flex: 1;
+        margin-top: 11px;
+        margin-bottom: 0px;
     }
 
     .divChart3 {
@@ -308,6 +414,8 @@
         margin-right: -80px;
         box-sizing: border-box;
         flex: 1;
+        margin-top: 5px;
+        margin-bottom: 0px;
     }
 
     .sectionAnalytics3 {
@@ -328,6 +436,14 @@
         width: 60%;
     }
 
+    .titleTop {
+        text-align: left;
+        font-weight: 600;
+        font-size: 25px;
+        margin-bottom: -5px;
+        margin-top: 16px;
+    }
+
     .titleAnalytics {
         text-align: left;
         font-weight: 600;
@@ -343,10 +459,12 @@
     .canvasContainer {
         display: inline-flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         width: 300px;
         height: 300px;
+        margin-top: -10px;
+        margin-bottom: -25px;
     }
 
     .canvasContainerBar {
@@ -367,7 +485,7 @@
         align-items: center;
         width: 200px;
         height: 200px;
-        margin-top: 10px;
+        margin-top: 20px;
         margin-bottom: 0;
 
 
@@ -379,7 +497,7 @@
         align-items: center;
         width: 200px;
         height: 200px;
-        margin-top: 10px;
+        margin-top: 20px;
 
 
     }

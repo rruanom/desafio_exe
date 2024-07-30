@@ -19,6 +19,7 @@ const Editor = ({ candidateData }) => {
     gender: candidateData.gender
   });
   const [message, setMessage] = useState('');
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   const genderTranslations = {
     'Female': 'Femenino',
@@ -40,7 +41,7 @@ const Editor = ({ candidateData }) => {
     try {
       const token = Cookies.get('access-token');
       console.log(formData)
-      await axios.put(`http://localhost:5000/api/candidate/${candidateData.email}`, formData, {
+      await axios.put(`${API_URL}/candidate/${candidateData.email}`, formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessage('Perfil actualizado con éxito');

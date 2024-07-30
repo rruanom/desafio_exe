@@ -12,6 +12,7 @@ const Register = () => {
     const [gender, setGender] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL || '/api'
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,7 +25,7 @@ const Register = () => {
             gender: gender
         }
         try {
-            const response = await fetch('http://localhost:5000/api/candidate/add', {
+            const response = await fetch(`${API_URL}/candidate/add`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

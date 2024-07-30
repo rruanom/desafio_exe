@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 const CandidateCard = ({ details }) => {
   // STATES
   const [lastDays, setLastDays] = useState(null); // Cambiar a null para manejar la inicialización
-  console.log(lastDays);
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
+
 
   // FUNCTION TO FORMAT DATE
   const formatDate = (dateString) => {
@@ -31,22 +32,22 @@ const CandidateCard = ({ details }) => {
       }
     }
 
-    const diffTime = Math.abs(today - mostRecentDate); // Diferencia en milisegundos
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); // Convertir a días (redondear hacia abajo)
+    const diffTime = Math.abs(today - mostRecentDate); 
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
     return diffDays;
   };
 
   useEffect(() => {
     const getLastAssessmentDays = async () => {
       try {
-        const response = await fetch(`https://desafio-exe.onrender.com/api/grades/${details.email}`);
+        const response = await fetch(`${API_URL}/grades/${details.email}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const assessments = await response.json();
         console.log('All Assessments:', assessments);
 
-        const days = calculateLastDays(assessments); // Calcular días desde la última fecha
+        const days = calculateLastDays(assessments);
         setLastDays(days);
       } catch (error) {
         console.error('Fetch error in Filter by Category', error);
@@ -54,7 +55,7 @@ const CandidateCard = ({ details }) => {
     };
 
     getLastAssessmentDays();
-  }, [details.email]); // Añadir detalles.email como dependencia
+  }, [details.email]); 
 
   // RETURN
   return (

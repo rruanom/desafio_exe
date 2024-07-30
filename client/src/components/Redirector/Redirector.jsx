@@ -15,7 +15,7 @@ const Redirector = () => {
       </Button>
       <Button
         component={Link}
-        to="/insights"
+        to="/analytics"
         variant="contained"
         size="medium"
       >

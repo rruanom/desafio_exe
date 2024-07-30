@@ -18,24 +18,56 @@ const Main = () => {
   const { userType } = useAuth();
 
   return (
-  <main className="main">
-    <Routes>
-      <Route path="/" element={<UserHome />}/>
-      <Route path="/candidatos" element={<Candidates />} />
-      <Route path="/profile" element={<UserHome />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/details/:email" element={<Details />} />
-      <Route path="/*" element={<UnauthorizedPage />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/analytics" element={<Analytics />} />
-
-      
-      {/* <Route
-        path="/admin"
-        element={
-            <PrivateRoute roles={['admin']}>
-                <Dashboard/>
+    <main className="main">
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/analytics" element={<Analytics />} />
+        <Route 
+          path="/" 
+          element={
+            <PrivateRoute>
+              {userType === 'staff' ? <StaffHome /> : <CandidateHome />}
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/candidatos" 
+          element={
+            <PrivateRoute>
+              <Candidates />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/profile" 
+          element={
+            <PrivateRoute>
+              <UserHome />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/details/:email" 
+          element={
+            <PrivateRoute>
+              <Details />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/dashboard" 
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/form" 
+          element={
+            <PrivateRoute>
+              <CandidateForm />
             </PrivateRoute>
           } 
         />

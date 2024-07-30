@@ -19,7 +19,7 @@ const Profile = ({ candidate: initialCandidate }) => {
   };
 
   const API_URL = import.meta.env.VITE_API_URL || '/api'
-
+console.log(statuses)
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);

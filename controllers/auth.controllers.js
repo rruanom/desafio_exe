@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Candidate = require('../models/candidate.models');
 const Staff = require('../models/staff.models');
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 const loginCandidate = async (req, res) => {
   const { email, password } = req.body;
@@ -127,18 +128,17 @@ const registerStaff = async (req, res) => {
  */
 const googleCallback = async (req, res) => {
   const payload = {
-      email: req.user.emails[0].value,
-      role_id: 2
+      email: req.user.emails[0].value
   };
   console.log(req.user.emails[0].value);
   console.log(payload);
-  const token = jsonwebtoken.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
 
   console.log(token);
   res.cookie("access-token", token, {
       expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
       path: "/",
-  }).redirect("http://localhost:5173/login"); 
+  }).redirect("http://localhost:5173/login"); // Reemplaza con URL de producción en el despliegue
 };
 
 /**

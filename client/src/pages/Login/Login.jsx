@@ -1,9 +1,8 @@
-// Login.jsx
 import React, { useState } from 'react';
 import LoginGoogle from '../../components/LoginGoogle';
 import { Card, TextField, Button, Typography, Tabs, Tab } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../context/Authcontext'; 
+import { useAuth } from '../../context/Authcontext';
 import StaffLogin from './StaffLogin';
 
 const Login = () => {
@@ -32,9 +31,23 @@ const Login = () => {
             }
 
             const data = await response.json();
-            login(data); 
+            login(data);
+
             setUserType("candidate");
-            navigate('/', { replace: true });
+
+            // Fetch candidate status
+            const statusResponse = await fetch(`http://localhost:5000/api/candidate/${email}`);
+            if (!statusResponse.ok) {
+                throw new Error('Failed to fetch candidate status');
+            }
+            const statusData = await statusResponse.json();
+
+            // Redirect based on status
+            if (statusData.name_status === 'Registro') {
+                navigate('/form', { replace: true });
+            } else {
+                navigate('/profile', { replace: true });
+            }
         } catch (error) {
             console.error('Login error:', error);
             setError(error.message || 'An error occurred during login');

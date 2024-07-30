@@ -3,10 +3,11 @@ import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
 const GeneratePDF = ({ Email }) => {
   const [candidateData, setCandidateData] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:5000/api/form/candidate-form/${Email}`);
+      const response = await fetch(`${API_URL}/form/candidate-form/${Email}`);
       const data = await response.json();
       setCandidateData(data);
     };

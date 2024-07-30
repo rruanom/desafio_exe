@@ -1,83 +1,77 @@
-import { useEffect, useState } from "react";
-import CandidatesList from "../../components/CandidatesList";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import SearchDashboard from "../../components/SearchDashboard/SearchDashboard";
+import Redirector from '../../components/Redirector';
+import Overview from '../../components/Overview';
+import Candidates from '../../pages/Candidates';
+import Staff from '../../pages/Staff';
 
-const Pipeline = () => {
+const Dashboard = () => {
+  const [candidates, setCandidates] = useState([]);
+  const [statuses, setStatuses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [view, setView] = useState('overview');
+  const API_URL = import.meta.env.VITE_API_URL || '/api';
 
-  // STATES
-  const [candidatesByStatus, setCandidatesByStatus] = useState({});
-  const [candidatesDiscarded, setCandidatesDiscarded] = useState([]);
-  const [showDiscarded, setShowDiscarded] = useState(false);
-
-  const statusOrder = [
-    'Registro',
-    'Solicitud',
-    'CentroEvaluacion',
-    'Entrevista1',
-    'Entrevista2',
-    'Ofertado'
-  ];
-
-  const API_URL = import.meta.env.VITE_API_URL || '/api'
-
-  // FUNCTIONS
   useEffect(() => {
-    const getActiveCandidatesByStatus = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(`${API_URL}/candidate`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const allCandidates = await response.json();
-        console.log('All Candidates:', allCandidates);
+        const [candidatesResponse, statusesResponse] = await Promise.all([
+          axios.get(`${API_URL}/candidate`),
+          axios.get(`${API_URL}/status`)
+        ]);
 
-        // filter active candidates
-        const activeCandidates = allCandidates.filter(candidate => candidate.active === 1);
-        console.log('Active Candidates:', activeCandidates);
-
-        // separate "discarded" candidates
-        const discardedCandidates = activeCandidates.filter(candidate => candidate.name_status === 'Descartado');
-        console.log('Discarded Candidates:', discardedCandidates);
-
-        const groupedByStatus = activeCandidates.reduce((accumulator, candidate) => {
-          const status = candidate.name_status;
-          if (status !== 'Descartado' && status !== 'Abandona' && status !== 'Registro') {
-            if (!accumulator[status]) {
-              accumulator[status] = [];
-            }
-            accumulator[status].push(candidate);
-          }
-          return accumulator;
-        }, {});
-
-        setCandidatesByStatus(groupedByStatus);
-        setCandidatesDiscarded(discardedCandidates);
-
-      } catch (error) {
-        console.error('Fetch error in Filter by Category', error);
+        setCandidates(candidatesResponse.data);
+        setStatuses(statusesResponse.data);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error al hacer la petición:', err);
+        setError('Error al cargar los datos');
+        setLoading(false);
       }
     };
 
-    getActiveCandidatesByStatus();
+    fetchData();
   }, []);
 
-  // RETURN
+  if (loading) return <div>Cargando...</div>;
+  if (error) return <div>{error}</div>;
+
+  const totalCandidates = candidates.length;
+  const newCandidatesLastWeek = candidates.filter(
+    c => new Date(c.registration_date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+  ).length;
+  const offeredCandidates = candidates.filter(c => c.name_status === 'Ofertado').length;
+  const offeredPercentage = (offeredCandidates / totalCandidates * 100).toFixed(2);
+  const status2AndMoreCandidates = candidates.filter(c => ['Solicitud', 'CentroEvaluacion', 'Entrevista1', 'Entrevista2', 'Ofertado'].includes(c.name_status)).length;
+  const status2AndMorePercentage = (status2AndMoreCandidates / totalCandidates * 100).toFixed(2);
+
   return (
-    <section className="pipelineContainer">
-      {statusOrder.map(status => (
-        candidatesByStatus[status] ? (
-          <CandidatesList key={status} status={status} candidates={candidatesByStatus[status]} />
-        ) : null
-      ))}
-      <div className="pipelineContainer">
-        <button className="btnCandidatesDiscarded" onClick={() => setShowDiscarded(!showDiscarded)}>
-          {showDiscarded ? 'Ocultar candidatos descartados' : 'Ver candidatos descartados'}
-        </button>
-      </div>
-      {showDiscarded && (
-        <CandidatesList status="Discarded" candidates={candidatesDiscarded} />
-      )}
+    <section className="dashboard">
+      <article>
+        <div>
+          <button onClick={() => setView('overview')}>Estadísticas</button>
+          <button onClick={() => setView('candidates')}>Candidatos</button>
+          <button onClick={() => setView('staff')}>Staff</button>
+        </div>
+        {view === 'overview' && (
+          <>
+            <SearchDashboard candidates={candidates} />
+            <Redirector />
+            <Overview 
+              totalCandidates={totalCandidates}
+              newCandidatesLastWeek={newCandidatesLastWeek}
+              offeredPercentage={offeredPercentage}
+              status2AndMorePercentage={status2AndMorePercentage}
+            />
+          </>
+        )}
+        {view === 'candidates' && <Candidates />}
+        {view === 'staff' && <Staff />}
+      </article>
     </section>
   );
 };
 
-export default Pipeline;
+export default Dashboard;

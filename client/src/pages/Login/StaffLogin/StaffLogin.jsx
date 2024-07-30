@@ -1,13 +1,14 @@
 // StaffLogin.jsx
 import React, { useState } from 'react';
+import { Card, TextField, Button, Typography } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../context/Authcontext';
+import { useAuth } from '../../../context/Authcontext';
 
 const StaffLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const { login } = useAuth();
+    const { login, setUserType } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -29,9 +30,8 @@ const StaffLogin = () => {
             }
 
             const data = await response.json();
-            console.log('Staff login response:', data); // Para depuración
+            console.log('Staff login response:', data);
 
-            // Llamamos a la función login del contexto con los datos del staff
             login({
                 token: data.token,
                 userType: 'staff',
@@ -40,9 +40,9 @@ const StaffLogin = () => {
                 email: data.user.email,
                 id_role: data.user.id_role
             });
+            setUserType("staff");
 
-            // Redirigimos al usuario a la página que intentaba acceder o al dashboard del staff
-            const from = location.state?.from?.pathname || "/staff-dashboard";
+            const from = location.state?.from?.pathname || "/dashboard";
             navigate(from, { replace: true });
         } catch (error) {
             console.error('Staff login error:', error);
@@ -51,33 +51,35 @@ const StaffLogin = () => {
     };
 
     return (
-        <div className="staff-login-container">
-            <h2>Staff Login</h2>
-            {error && <p className="error-message">{error}</p>}
+        <Card className="login-card">
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+                <h2>Staff Login</h2>
+                <TextField
+                    label="Email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    fullWidth
+                    margin="normal"
+                />
+                <TextField
+                    label="Password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    fullWidth
+                    margin="normal"
+                />
+                <div className="button-container">
+                    <Button type="submit" variant="contained" className="login-button">
+                        Login as Staff
+                    </Button>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit" className="login-button">Login as Staff</button>
+                {error && <Typography color="error">{error}</Typography>}
             </form>
-        </div>
+        </Card>
     );
 };
 

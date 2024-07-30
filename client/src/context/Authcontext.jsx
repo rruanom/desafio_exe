@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         try {
-            const response = await fetch(`${API_URL}/user/me`, {
+            const response = await fetch(`${API_URL}/candidate/me`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -30,21 +30,24 @@ export const AuthProvider = ({ children }) => {
             if (!response.ok) throw new Error('Failed to fetch user data');
 
             const data = await response.json();
-            setEmail(data.email);
+            setEmail(data.user.email);
+            console.log(data.user)
+
+
 
             let userDetails;
-            if (data.userType === 'candidate') {
-                const candidateResponse = await fetch(`${API_URL}/candidate/${data.email}`);
+            if (!data.user.rol) {
+                const candidateResponse = await fetch(`${API_URL}/candidate/${data.user.email}`);
                 userDetails = await candidateResponse.json();
                 setUserType('candidate');
                 setName(userDetails.first_name);
                 setStatus(userDetails.name_status);
-            } else if (data.userType === 'staff') {
-                const staffResponse = await fetch(`${API_URL}/staff/${data.email}`);
+            } else {
+                const staffResponse = await fetch(`${API_URL}/staff/${data.user.email}`);
                 userDetails = await staffResponse.json();
                 setUserType('staff');
                 setName(userDetails.first_name);
-                setRole(userDetails.id_role);
+                setRole(userDetails.name_role);
             }
 
             console.log('User details:', userDetails); // Para depuración
@@ -61,7 +64,7 @@ export const AuthProvider = ({ children }) => {
     }, [fetchUser]);
 
     const login = (userData) => {
-        console.log('Login data:', userData); // Para depuración
+        console.log('Login data:', userData); 
         Cookies.set('access_token', userData.token, {
             expires: 1,
             path: '/',
@@ -92,6 +95,7 @@ export const AuthProvider = ({ children }) => {
     const value = {
         token,
         userType,
+        setUserType,
         name,
         role,
         status,

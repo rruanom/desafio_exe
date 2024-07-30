@@ -9,13 +9,14 @@ const Dashboard = () => {
   const [statuses, setStatuses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [candidatesResponse, statusesResponse] = await Promise.all([
-          axios.get('https://desafio-exe.onrender.com/api/candidate'),
-          axios.get('https://desafio-exe.onrender.com/api/status')
+          axios.get(`${API_URL}/candidate`),
+          axios.get(`${API_URL}/status`)
         ]);
 
         setCandidates(candidatesResponse.data);

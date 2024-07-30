@@ -2,7 +2,7 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import Cookies from 'js-cookie';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api'
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -33,9 +33,6 @@ export const AuthProvider = ({ children }) => {
             const data = await response.json();
             setEmail(data.user.email);
             setId(data.user.id);
-            console.log(data.user)
-
-
 
             let userDetails;
             if (!data.user.rol) {
@@ -51,8 +48,6 @@ export const AuthProvider = ({ children }) => {
                 setName(userDetails.first_name);
                 setRole(userDetails.name_role);
             }
-
-            console.log('User details:', userDetails); // Para depuración
         } catch (error) {
             console.error('Error fetching user data:', error);
             logout();
@@ -66,7 +61,6 @@ export const AuthProvider = ({ children }) => {
     }, [fetchUser]);
 
     const login = (userData) => {
-        console.log('Login data:', userData); 
         Cookies.set('access_token', userData.token, {
             expires: 1,
             path: '/',

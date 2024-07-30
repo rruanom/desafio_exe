@@ -6,38 +6,22 @@ import { useNavigate } from 'react-router-dom';
 import Welcome from '../../components/Welcome';
 import Process from '../../components/Process/Process';
 import Editor from '../../components/Editor/Editor';
+import { useAuth } from '../../context/Authcontext'
 
 const UserHome = () => {
   const [candidateData, setCandidateData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { email, token } = useAuth();
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
     const fetchCandidateData = async () => {
       try {
-        const token = Cookies.get('access-token');
-        console.log('Token obtenido de las cookies:', token ? 'Presente' : 'No encontrado');
-        
-        if (!token) {
-          throw new Error('No se encontró el token de acceso');
-        }
+        const userEmail = email
 
-        let userEmail;
-        try {
-          const decodedToken = jwtDecode.jwtDecode(token);
-          userEmail = decodedToken.email;
-          console.log('Email decodificado del token:', userEmail);
-        } catch (decodeError) {
-          console.error('Error al decodificar el token:', decodeError);
-          throw new Error('Token inválido');
-        }
-
-        if (!userEmail) {
-          throw new Error('No se pudo obtener el email del usuario del token');
-        }
-
-        const response = await axios.get(`http://localhost:5000/api/candidate/${userEmail}`, {
+        const response = await axios.get(`${API_URL}/candidate/${userEmail}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -62,7 +46,7 @@ const UserHome = () => {
     };
 
     fetchCandidateData();
-  }, [navigate]);
+  }, []);
 
   if (loading) return <div>Cargando...</div>;
   if (error) return <div>{error}</div>;

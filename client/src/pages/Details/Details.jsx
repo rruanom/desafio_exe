@@ -12,14 +12,15 @@ const Details = () => {
   const [showGrades, setShowGrades] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const { email } = useParams();
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [candidateResponse, gradesResponse, assessmentsResponse] = await Promise.all([
-          axios.get(`https://desafio-exe.onrender.com/api/candidate/${email}`),
-          axios.get(`https://desafio-exe.onrender.com/api/grades/${email}`),
-          axios.get('https://desafio-exe.onrender.com/api/assessment')
+          axios.get(`${API_URL}/candidate/${email}`),
+          axios.get(`${API_URL}/grades/${email}`),
+          axios.get(`${API_URL}/assessment`)
         ]);
         setCandidate(candidateResponse.data);
         setGrades(gradesResponse.data);

@@ -17,10 +17,12 @@ const Profile = ({ candidate: initialCandidate }) => {
     'Bigender': 'Bigénero'
   };
 
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
+
   useEffect(() => {
     const fetchStatuses = async () => {
       try {
-        const statusesResponse = await axios.get('https://desafio-exe.onrender.com/api/status');
+        const statusesResponse = await axios.get(`${API_URL}/status`);
         setStatuses(statusesResponse.data);
       } catch (error) {
         console.error('Error al obtener los estados:', error);

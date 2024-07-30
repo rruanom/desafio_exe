@@ -3,8 +3,9 @@ import axios from 'axios';
 import { Card, CardContent, Typography, Select, MenuItem, FormControl, InputLabel, Button } from '@mui/material';
 
 const Profile = ({ candidate: initialCandidate }) => {
-  const [candidate, setCandidate] = useState(initialCandidate);
+  const [candidate, setCandidate] = useState(initialCandidate || {});
   const [statuses, setStatuses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const genderTranslations = {
     'Female': 'Femenino',
@@ -20,47 +21,70 @@ const Profile = ({ candidate: initialCandidate }) => {
   const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
-    const fetchStatuses = async () => {
+    const fetchData = async () => {
+      setLoading(true);
       try {
-        const statusesResponse = await axios.get(`${API_URL}/status`);
+        const [statusesResponse, candidateResponse] = await Promise.all([
+          axios.get(`${API_URL}/status`),
+          axios.get(`${API_URL}/candidate/${initialCandidate.email}`)
+        ]);
         setStatuses(statusesResponse.data);
+        setCandidate(candidateResponse.data);
       } catch (error) {
-        console.error('Error al obtener los estados:', error);
+        console.error('Error al obtener los datos:', error);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchStatuses();
-  }, []);
+    fetchData();
+  }, [initialCandidate.email]);
 
-  const handleStatusChange = async (e) => {
+  const handleStatusChange = async (event) => {
+    const newStatusId = event.target.value;
+    const newStatus = statuses.find(status => status.id_status === newStatusId);
+    if (!newStatus) {
+      console.error('Status not found');
+      return;
+    }
     try {
-      await axios.put(`https://desafio-exe.onrender.com/api/candidate/${candidate.email}`, {
-        id_status: parseInt(e.target.value),
+      await axios.put(`${API_URL}/candidate/${candidate.email}`, {
+        id_status: newStatusId,
         active: candidate.active
       });
       setCandidate(prev => ({
         ...prev,
-        name_status: e.target.options[e.target.selectedIndex].text
+        id_status: newStatusId,
+        name_status: newStatus.name_status
       }));
+      alert(`estatus del candidato cambiado`)
     } catch (error) {
       console.error('Error actualizando el status:', error);
     }
   };
-
   const handleActiveToggle = async () => {
     try {
       const newActiveState = !candidate.active;
-      await axios.put(`https://desafio-exe.onrender.com/api/candidate/${candidate.email}`, {
-        id_status: statuses.find(s => s.name_status === candidate.name_status).id_status,
+      await axios.put(`${API_URL}/candidate/${candidate.email}`, {
+        id_status: candidate.id_status,
         active: newActiveState
       });
       setCandidate(prev => ({
         ...prev,
         active: newActiveState
       }));
+      alert(`estatus del candidato caambiado a ${candidate.name_status}`)
     } catch (error) {
       console.error('Error al cambiar el estado activo:', error);
     }
   };
+
+  if (loading) {
+    return <Typography>Cargando...</Typography>;
+  }
+
+  if (!candidate.email) {
+    return <Typography>No se ha proporcionado información del candidato.</Typography>;
+  }
 
   return (
     <Card className="profile-card">

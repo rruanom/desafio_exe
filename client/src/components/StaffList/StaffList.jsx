@@ -16,7 +16,8 @@ import {
   Select, 
   MenuItem, 
   FormControl, 
-  InputLabel 
+  InputLabel,
+  Typography
 } from '@mui/material';
 
 const StaffList = ({ staffMembers, onUpdate }) => {
@@ -44,9 +45,17 @@ const StaffList = ({ staffMembers, onUpdate }) => {
     try {
       await axios.put(`${API_URL}/staff/${email}`, { id_role: newRoleId });
       onUpdate();
-      setSelectedStaff(null);
     } catch (error) {
       console.error('Error updating staff role:', error);
+    }
+  };
+
+  const handleActiveChange = async (email, newActiveStatus) => {
+    try {
+      await axios.put(`${API_URL}/staff/${email}`, { active: newActiveStatus });
+      onUpdate();
+    } catch (error) {
+      console.error('Error updating staff active status:', error);
     }
   };
 
@@ -65,7 +74,11 @@ const StaffList = ({ staffMembers, onUpdate }) => {
           <TableBody>
             {staffMembers.map((staff) => (
               <TableRow key={staff.id_staff}>
-                <TableCell>{`${staff.first_name} ${staff.last_name}`}</TableCell>
+                <TableCell>
+                  <Typography style={{ color: staff.active ? 'inherit' : 'red' }}>
+                    {`${staff.first_name} ${staff.last_name}`}
+                  </Typography>
+                </TableCell>
                 <TableCell>{staff.email}</TableCell>
                 <TableCell>{staff.name_role}</TableCell>
                 <TableCell>
@@ -80,8 +93,8 @@ const StaffList = ({ staffMembers, onUpdate }) => {
       <Dialog open={!!selectedStaff} onClose={() => setSelectedStaff(null)}>
         <DialogTitle>Staff Details</DialogTitle>
         <DialogContent>
-          <p>Name: {selectedStaff?.first_name} {selectedStaff?.last_name}</p>
-          <p>Email: {selectedStaff?.email}</p>
+          <Typography>Name: {selectedStaff?.first_name} {selectedStaff?.last_name}</Typography>
+          <Typography>Email: {selectedStaff?.email}</Typography>
           <FormControl fullWidth margin="normal">
             <InputLabel id="role-select-label">Role</InputLabel>
             <Select
@@ -95,6 +108,18 @@ const StaffList = ({ staffMembers, onUpdate }) => {
                   {role.name_role}
                 </MenuItem>
               ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="active-select-label">Active</InputLabel>
+            <Select
+              labelId="active-select-label"
+              value={selectedStaff?.active}
+              onChange={(e) => handleActiveChange(selectedStaff?.email, e.target.value)}
+              label="Active"
+            >
+              <MenuItem value={true}>True</MenuItem>
+              <MenuItem value={false}>False</MenuItem>
             </Select>
           </FormControl>
         </DialogContent>

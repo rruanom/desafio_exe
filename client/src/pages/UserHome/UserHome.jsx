@@ -14,13 +14,14 @@ const UserHome = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { email, token } = useAuth();
+  const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
     const fetchCandidateData = async () => {
       try {
         const userEmail = email
 
-        const response = await axios.get(`http://localhost:5000/api/candidate/${userEmail}`, {
+        const response = await axios.get(`${API_URL}/candidate/${userEmail}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 

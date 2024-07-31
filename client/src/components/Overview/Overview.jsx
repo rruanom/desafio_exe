@@ -25,26 +25,26 @@ const CircularProgressWithLabel = (props) => {
 
 const Overview = ({ totalCandidates, newCandidatesLastWeek, offeredPercentage, status2AndMorePercentage }) => {
   return (
-    <div className="divChart4">
-      <section className="sectionAnalyticsIntro">
+    <div className="divData4">
+      <section className="sectionDashboardCard">
         <span className="spanTitleAnalytics">
           <h2 className="titleAnalytics">Total de Candidatos</h2>
         </span>
         <p className="titleTop">{totalCandidates}</p>
       </section>
-      <section className="sectionAnalyticsIntro">
+      <section className="sectionDashboardCard">
         <span className="spanTitleAnalytics">
           <h2 className="titleAnalytics">Nuevos Candidatos</h2>
         </span>
         <p className="titleTop">{newCandidatesLastWeek}</p>
       </section>
-      <section className="sectionAnalyticsIntro">
+      <section className="sectionDashboardCard2">
         <span className="spanTitleAnalytics">
           <h2 className="titleAnalytics">1er Filtro Superado</h2>
         </span>
         <CircularProgressWithLabel value={parseFloat(status2AndMorePercentage)} />
       </section>
-      <section className="sectionAnalyticsIntro2">
+      <section className="sectionDashboardCard3">
         <span className="spanTitleAnalytics">
           <h2 className="titleAnalytics">Candidatos Ofertados</h2>
         </span>

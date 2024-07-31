@@ -1,5 +1,9 @@
 @import '../utils/variables.scss';
 
+p {
+    font-family: $font_principal;
+}
+
 .register-container {
     display: flex;
     justify-content: center;

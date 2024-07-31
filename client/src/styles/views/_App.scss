@@ -17,3 +17,30 @@ body {
     color: $dark_blue;
   }
 
+  body.dark-mode {
+    background-color: $black;
+    color: #ffffff;
+  }
+  
+  body.dark-mode .nav {
+    background-color: $black;
+  }
+  body.dark-mode{
+    p{
+      color: rgb(12, 12, 12);
+    }
+    .footer-info{
+      &>p{
+        color: white;
+      }
+      
+    }
+    nav{
+      &>a{
+        color: white;
+      }
+    }
+  }
+
+  
+

@@ -3,15 +3,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/Authcontext';
 import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from 'js-cookie';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHandPeace } from '@fortawesome/free-solid-svg-icons';
+import { faHandPeace, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import Confetti from 'react-confetti';
+import useSound from 'use-sound';
 
 const Nav = () => {
   const navigate = useNavigate();
   const { user, setEmail, loading, token, userType, name, setUserType, setToken, setName, setRole, setStatus } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [playTrumpet] = useSound('public/looney.mp3');
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -31,6 +35,17 @@ const Nav = () => {
   };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const handleGreetingClick = () => {
+    playTrumpet();
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 18000); 
+  };
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    document.body.classList.toggle('dark-mode', !isDarkMode);
+  };
 
   if (loading) {
     return (
@@ -64,6 +79,7 @@ const Nav = () => {
 
   return (
     <section className="nav">
+      {showConfetti && <Confetti width={windowWidth} height={window.innerHeight} />}
       <div className="logo">
         {!token ? (
           <Link to="/"><img src="/logo.png" alt="Logo Exe" /></Link>
@@ -89,17 +105,20 @@ const Nav = () => {
       )}
 
       <div className="user-section">
+        <button onClick={toggleDarkMode}>
+          <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
+        </button>
         {token ? (
           windowWidth > 800 ? (
             <>
-              <span>
+              <span onClick={handleGreetingClick} style={{ cursor: 'pointer' }}>
                 <FontAwesomeIcon icon={faHandPeace} /> Hola {name}
               </span>
               <button onClick={logout}>Logout</button>
             </>
           ) : (
             <>
-              <span>
+              <span onClick={handleGreetingClick} style={{ cursor: 'pointer' }}>
                 <FontAwesomeIcon icon={faHandPeace} /> Hola {name}
               </span>
             </>

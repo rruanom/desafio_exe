@@ -21,6 +21,10 @@
   text-decoration: none;
   color: #333;
   padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+.menu a:hover{
+  background-color: #e0e0e0;
 }
 
 .user-section {
@@ -84,6 +88,7 @@
 
 .logo {
   order: 0;
+  margin-right: 50px;
 }
 
 .mobile-menu {

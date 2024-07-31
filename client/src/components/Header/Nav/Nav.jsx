@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../context/Authcontext';
 import ClipLoader from "react-spinners/ClipLoader";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHandPeace } from '@fortawesome/free-solid-svg-icons';
 
 const Nav = () => {
   const { user, logout, loading, token, userType, name } = useAuth();
@@ -40,20 +42,22 @@ const Nav = () => {
           <Link to="/analytics" onClick={toggleMenu}>Estadísticas</Link>
         </>
       ) : null}
+      {token && windowWidth <= 800 && (
+        <button onClick={() => { logout(); toggleMenu(); }}>Logout</button>
+      )}
     </>
   );
 
   return (
     <section className="nav">
       <div className="logo">
-      {!token ? (
-        <Link to="/"><img src="/logo.png" alt="Logo Exe" /></Link>
-      ) : userType === 'candidate' ? (
-        <Link to="/profile"><img src="/logo.png" alt="Logo Exe" /></Link>
-      ) : userType === 'staff' ? (
-        <Link to="/dashboard"><img src="/logo.png" alt="Logo Exe" /></Link>
-      ) : null}
-        
+        {!token ? (
+          <Link to="/"><img src="/logo.png" alt="Logo Exe" /></Link>
+        ) : userType === 'candidate' ? (
+          <Link to="/profile"><img src="/logo.png" alt="Logo Exe" /></Link>
+        ) : userType === 'staff' ? (
+          <Link to="/dashboard"><img src="/logo.png" alt="Logo Exe" /></Link>
+        ) : null}
       </div>
 
       {windowWidth <= 800 && (
@@ -72,10 +76,18 @@ const Nav = () => {
 
       <div className="user-section">
         {token ? (
-          <>
-            <span>Hola {name}</span>
-            <button onClick={logout}>Logout</button>
-          </>
+          windowWidth > 800 ? (
+            <>
+              <span>
+                <FontAwesomeIcon icon={faHandPeace} /> Hola {name}
+              </span>
+              <button onClick={logout}>Logout</button>
+            </>
+          ) : (
+            <span>
+              <FontAwesomeIcon icon={faHandPeace} /> Hola {name}
+            </span>
+          )
         ) : (
           <Link to="/login">
             <i className="fas fa-user"></i>

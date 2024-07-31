@@ -29,7 +29,7 @@ const CandidateForm = () => {
         body: JSON.stringify(formData),
       });
 
-      if (!formResponse.ok) {
+      if (!response.ok) {
         throw new Error('Error al enviar los datos del formulario');
       }
 
@@ -53,7 +53,7 @@ const CandidateForm = () => {
     }
   };
 
-  if (status !== 1) {
+  if (status !== "Registro") {
     return (
       <Paper elevation={3} className="candidate-form__paper">
         <h2 className="candidate-form__title">

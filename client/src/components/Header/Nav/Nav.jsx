@@ -27,8 +27,8 @@ const Nav = () => {
     setRole(null);
     setStatus(null);
     setEmail(null);
-    navigate('/login')
-};
+    navigate('/login');
+  };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -98,14 +98,12 @@ const Nav = () => {
               <button onClick={logout}>Logout</button>
             </>
           ) : (
-            <span>
-              <FontAwesomeIcon icon={faHandPeace} /> Hola {name}
-            </span>
+            <>
+              <span>
+                <FontAwesomeIcon icon={faHandPeace} /> Hola {name}
+              </span>
+            </>
           )
-          <>
-            <span><strong>Hola {name}</strong></span>
-            <button onClick={logout}>Logout</button>
-          </>
         ) : (
           <Link to="/login">
             <i className="fas fa-user"></i>

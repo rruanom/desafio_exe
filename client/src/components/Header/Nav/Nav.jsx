@@ -39,7 +39,7 @@ const Nav = () => {
   const handleGreetingClick = () => {
     playTrumpet();
     setShowConfetti(true);
-    setTimeout(() => {setShowConfetti(false), 18000}); 
+    setTimeout(() => setShowConfetti(false), 18000); 
   };
 
   const toggleDarkMode = () => {

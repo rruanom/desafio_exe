@@ -1,4 +1,5 @@
 const express = require("express");
+const helmet = require('helmet');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
@@ -27,6 +28,8 @@ const allowedOrigins = [
   'https://desafio-exe-1.onrender.com',
 ];
 
+app.use(helmet());
+
 app.use(cors({
   origin: function(origin, callback){
     if(!origin) return callback(null, true);
@@ -45,6 +48,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(morgan(':method :host :status - :response-time ms :body'));
 
 app.use('/api/role', roleRoutes);
 app.use('/api/staff', staffRoutes);

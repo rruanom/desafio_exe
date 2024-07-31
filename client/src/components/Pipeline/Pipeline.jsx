@@ -3,7 +3,6 @@ import CandidatesList from "../../components/CandidatesList";
 
 const Pipeline = () => {
 
-  // STATES
   const [candidatesByStatus, setCandidatesByStatus] = useState({});
   const [candidatesDiscarded, setCandidatesDiscarded] = useState([]);
   const [showDiscarded, setShowDiscarded] = useState(false);
@@ -19,7 +18,6 @@ const Pipeline = () => {
 
   const API_URL = import.meta.env.VITE_API_URL || '/api'
 
-  // FUNCTIONS
   useEffect(() => {
     const getActiveCandidatesByStatus = async () => {
       try {
@@ -28,15 +26,10 @@ const Pipeline = () => {
           throw new Error('Network response was not ok');
         }
         const allCandidates = await response.json();
-        console.log('All Candidates:', allCandidates);
 
-        // filter active candidates
         const activeCandidates = allCandidates.filter(candidate => candidate.active === 1);
-        console.log('Active Candidates:', activeCandidates);
 
-        // separate "discarded" candidates
         const discardedCandidates = activeCandidates.filter(candidate => candidate.name_status === 'Descartado');
-        console.log('Discarded Candidates:', discardedCandidates);
 
         const groupedByStatus = activeCandidates.reduce((accumulator, candidate) => {
           const status = candidate.name_status;
@@ -60,7 +53,6 @@ const Pipeline = () => {
     getActiveCandidatesByStatus();
   }, []);
 
-  // RETURN
   return (
     <section className="pipelineContainer">
       {statusOrder.map(status => (

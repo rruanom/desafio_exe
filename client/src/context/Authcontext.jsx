@@ -1,4 +1,3 @@
-// AuthContext.jsx
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import Cookies from 'js-cookie';
 
@@ -14,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     const [status, setStatus] = useState(null);
     const [email, setEmail] = useState(null);
     const [loading, setLoading] = useState(true);
+    
 
     const fetchUser = useCallback(async () => {
         if (!token) {
@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
             if (!response.ok) throw new Error('Failed to fetch user data');
 
             const data = await response.json();
-            console.log(data)
             setEmail(data.user.email);
             setId(data.user.id);
 
@@ -87,13 +86,19 @@ export const AuthProvider = ({ children }) => {
         setRole(null);
         setStatus(null);
         setEmail(null);
+        navigate('/login')
     };
 
     const value = {
         token,
         userType,
         id,
+        setToken,
         setUserType,
+        setName,
+        setRole,
+        setStatus,
+        setEmail,
         name,
         role,
         status,

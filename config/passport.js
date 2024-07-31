@@ -1,16 +1,13 @@
-require('dotenv').config();
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const candidateModel = require("../models/candidate.models");
-
-// Configura Google Strategy
-passport.use(new GoogleStrategy({
+    passport.use(new GoogleStrategy({
     clientID: process.env.ID_CLIENT,
     clientSecret: process.env.SECRET_CLIENT,
-    callbackURL: "http://localhost:5173/api/auth/google/callback" 
+    callbackURL: process.env.NODE_ENV === 'production'
+        ? "https://desafio-exe-1.onrender.com/api/auth/google/callback"
+        : "http://localhost:5000/api/auth/google/callback"
 }, async function (token, tokenSecret, profile, done) {
     try {
-        console.log("profile", profile);
+        console.log("Callback de Google ejecutado");
+        console.log("Perfil:", profile);
 
         const user = {
             email: profile.emails[0].value,
@@ -19,11 +16,9 @@ passport.use(new GoogleStrategy({
             last_name: profile.name.familyName
         };
 
-        const buscaUsuario = await candidateModel.readCandidateByEmail(user.email);
-        console.log(buscaUsuario);
-
+        const buscaUsuario = await userModel.getUsersByEmail(user.email);
         if (!buscaUsuario) {
-            const crearUsuario = await candidateModel.createCandidate(user);
+            const crearUsuario = await userModel.createUser(user);
             if (crearUsuario > 0) {
                 console.log("Usuario creado en BBDD");
             } else {
@@ -48,3 +43,4 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
     done(null, user);
 });
+ 

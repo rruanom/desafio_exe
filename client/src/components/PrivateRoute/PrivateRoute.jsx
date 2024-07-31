@@ -1,4 +1,3 @@
-// PrivateRoute.jsx
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/Authcontext';
@@ -12,7 +11,6 @@ const PrivateRoute = ({ children }) => {
     }
 
     if (!token) {
-        // Redirige a login, pero guarda la ubicación actual para redirigir de vuelta después del login
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 

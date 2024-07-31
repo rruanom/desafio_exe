@@ -7,8 +7,6 @@ import Login from "../../pages/Login";
 import Register from "../../pages/Register";
 import UnauthorizedPage from "../../pages/UnauthorizedPage";
 import Details from '../../pages/Details';
-import CandidateHome from "../CandidatesHome/CandidatesHome";
-import StaffHome from "../StaffHome";
 import PrivateRoute from "../PrivateRoute";
 import Staff from "../../pages/Staff";
 import { useAuth } from "../../context/Authcontext";

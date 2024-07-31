@@ -1,5 +1,6 @@
 import React from "react";
-import logo from '../../assets/logo_exe.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebookF, faTwitter, faInstagram, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
   return (
@@ -7,16 +8,16 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-social">
           <a href="https://www.facebook.com/empiezaporeducar" aria-label="Facebook">
-            <i className="fab fa-facebook-f"></i>
+            <FontAwesomeIcon icon={faFacebookF} />
           </a>
           <a href="https://www.twitter.com/empiezaporeducar" aria-label="Twitter">
-            <i className="fab fa-twitter"></i>
+            <FontAwesomeIcon icon={faTwitter} />
           </a>
           <a href="https://www.instagram.com/empiezaporeducar" aria-label="Instagram">
-            <i className="fab fa-instagram"></i>
+            <FontAwesomeIcon icon={faInstagram} />
           </a>
           <a href="https://www.linkedin.com/company/empiezaporeducar" aria-label="LinkedIn">
-            <i className="fab fa-linkedin-in"></i>
+            <FontAwesomeIcon icon={faLinkedinIn} />
           </a>
         </div>
         <div className="footer-info">

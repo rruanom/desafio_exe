@@ -23,10 +23,10 @@ const Main = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route 
-          path="/" 
+          path="/analytics" 
           element={
             <PrivateRoute>
-              {userType === 'staff' ? <Dashboard /> : <Analytics />}
+              <Analytics />
             </PrivateRoute>
           } 
         />

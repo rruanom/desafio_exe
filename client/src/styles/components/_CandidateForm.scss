@@ -1,0 +1,18 @@
+@import '../utils/mixins.scss';
+@import '../utils/variables.scss';
+
+.candidate-form {
+    &__paper {
+      padding: 20px;
+      margin-top: 20px;
+      text-align: center;
+    }
+  
+    &__title {
+      margin-bottom: 16px;
+    }
+  
+    &__text {
+      margin-bottom: 0;
+    }
+  }

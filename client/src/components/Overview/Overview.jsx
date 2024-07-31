@@ -3,8 +3,8 @@ import { CircularProgress, Typography, Box } from '@mui/material';
 
 const CircularProgressWithLabel = (props) => {
   return (
-    <Box position="relative" display="inline-flex">
-      <CircularProgress variant="determinate" {...props} />
+    <Box position="relative" display="inline-flex" style={{ marginTop: ' 5px'}} className='boxMui'>
+      <CircularProgress variant="determinate" {...props}/>
       <Box
         top={0}
         left={0}
@@ -15,7 +15,7 @@ const CircularProgressWithLabel = (props) => {
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="caption" component="div" color="textSecondary">
+        <Typography variant="caption" component="div" color="black" style={{ fontWeight: '600', fontSize: '16px' }}>
           {`${Math.round(props.value)}%`}
         </Typography>
       </Box>
@@ -25,28 +25,31 @@ const CircularProgressWithLabel = (props) => {
 
 const Overview = ({ totalCandidates, newCandidatesLastWeek, offeredPercentage, status2AndMorePercentage }) => {
   return (
-    <div className="overview">
-      <h2>Resumen</h2>
-      <div className="overview-section">
-        <div className="overview-item">
-          <Typography>Total de candidatos:</Typography>
-          <Typography>{totalCandidates}</Typography>
-        </div>
-        <div className="overview-item">
-          <Typography>Nuevos candidatos (última semana):</Typography>
-          <Typography>{newCandidatesLastWeek}</Typography>
-        </div>
-      </div>
-      <div className="progress-section">
-        <div className="progress-item">
-          <Typography>Candidatos ofertados:</Typography>
-          <CircularProgressWithLabel value={parseFloat(offeredPercentage)} />
-        </div>
-        <div className="progress-item">
-          <Typography>Candidatos que han completado el proceso de registro:</Typography>
-          <CircularProgressWithLabel value={parseFloat(status2AndMorePercentage)} />
-        </div>
-      </div>
+    <div className="divData4">
+      <section className="sectionDashboardCard">
+        <span className="spanTitleAnalytics">
+          <h2 className="titleAnalytics">Total de Candidatos</h2>
+        </span>
+        <p className="titleTop">{totalCandidates}</p>
+      </section>
+      <section className="sectionDashboardCard">
+        <span className="spanTitleAnalytics">
+          <h2 className="titleAnalytics">Nuevos Candidatos</h2>
+        </span>
+        <p className="titleTop">{newCandidatesLastWeek}</p>
+      </section>
+      <section className="sectionDashboardCard2">
+        <span className="spanTitleAnalytics">
+          <h2 className="titleAnalytics">1er Filtro Superado</h2>
+        </span>
+        <CircularProgressWithLabel value={parseFloat(status2AndMorePercentage)} />
+      </section>
+      <section className="sectionDashboardCard3">
+        <span className="spanTitleAnalytics">
+          <h2 className="titleAnalytics">Candidatos Ofertados</h2>
+        </span>
+        <CircularProgressWithLabel value={parseFloat(offeredPercentage)} />
+      </section>
     </div>
   );
 };

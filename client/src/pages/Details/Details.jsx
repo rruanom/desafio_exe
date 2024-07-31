@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../../context/Authcontext';
 import axios from 'axios';
 import { Card, CardContent, CardActions, Button, Typography } from '@mui/material';
 import Grades from '../../components/Grades';
@@ -9,9 +10,9 @@ const Details = () => {
   const [candidate, setCandidate] = useState(null);
   const [grades, setGrades] = useState([]);
   const [assessments, setAssessments] = useState([]);
-  const [showGrades, setShowGrades] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
+  const [visibleSection, setVisibleSection] = useState(null); // 'grades', 'profile', or null
   const { email } = useParams();
+  const { id } = useAuth();
   const API_URL = import.meta.env.VITE_API_URL || '/api'
 
   useEffect(() => {
@@ -45,32 +46,53 @@ const Details = () => {
 
   const daysSinceLastAssessment = getDaysSinceLastAssessment();
 
+  const toggleSection = (section) => {
+    setVisibleSection(visibleSection === section ? null : section);
+  };
+
   return (
     <div className="details-container">
       <Card className="details-card">
         <CardContent>
-          <h2>
+          <Typography variant="h5" component="h2">
             {candidate.first_name} {candidate.last_name}
-          </h2>
-          <p>
+          </Typography>
+          <Typography color="textSecondary">
             Fecha de registro: {new Date(candidate.registration_date).toLocaleDateString()}
-          </p>
+          </Typography>
           {daysSinceLastAssessment !== null && (
-            <p>
+            <Typography color="textSecondary">
               Días desde la última evaluación: {daysSinceLastAssessment}
-            </p>
+            </Typography>
           )}
         </CardContent>
         <CardActions className="card-actions">
-          <Button onClick={() => setShowGrades(!showGrades)} className="button-grades">
-            {showGrades ? 'Ocultar Notas' : 'Notas'}
+          <Button 
+            onClick={() => toggleSection('grades')} 
+            className="button-grades"
+            variant={visibleSection === 'grades' ? 'contained' : 'outlined'}
+          >
+            {visibleSection === 'grades' ? 'Ocultar Notas' : 'Notas'}
           </Button>
-          <Button onClick={() => setShowProfile(!showProfile)} className="button-profile">
-            {showProfile ? 'Ocultar Perfil' : 'Perfil'}
+          <Button 
+            onClick={() => toggleSection('profile')} 
+            className="button-profile"
+            variant={visibleSection === 'profile' ? 'contained' : 'outlined'}
+          >
+            {visibleSection === 'profile' ? 'Ocultar Perfil' : 'Perfil'}
           </Button>
         </CardActions>
-        {showGrades && <Grades grades={grades} assessments={assessments} candidateName={`${candidate.first_name} ${candidate.last_name}`} />}
-        {showProfile && <Profile candidate={candidate} />}
+        {visibleSection === 'grades' && (
+          <Grades 
+            grades={grades} 
+            assessments={assessments} 
+            candidateName={`${candidate.first_name} ${candidate.last_name}`} 
+            idCandidate={candidate.id_candidate} 
+            idStaff={id} 
+            email={email}
+          />
+        )}
+        {visibleSection === 'profile' && <Profile candidate={candidate} />}
       </Card>
     </div>
   );

@@ -2,13 +2,13 @@
 
 .search-dashboard {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   padding: 20px;
   font-family: $font_principal;
 
   .MuiAutocomplete-root {
-    width: 300px;
+    width: 374px;
 
     .MuiInputBase-root {
       font-family: $font_principal;
@@ -21,6 +21,11 @@
     }
 
     .MuiInputLabel-root {
+        padding-left: 0px; // Ajusta el padding izquierdo
+        padding-top: 4px; // Ajusta el padding derecho
+        display: flex;
+        align-items: center; // Alinea verticalmente el label
+        height: 100%;
       &.Mui-focused {
         color: $green;
       }
@@ -28,6 +33,15 @@
 
     .MuiAutocomplete-option {
       padding: 0;
+    }
+
+    .MuiOutlinedInput-root {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      margin-bottom: -19px;
+      background-color: white;
     }
   }
 

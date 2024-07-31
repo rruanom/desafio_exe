@@ -14,6 +14,7 @@ import Staff from "../../pages/Staff";
 import { useAuth } from "../../context/Authcontext";
 import CandidateForm from "../../pages/CandidateForm/CandidateForm";
 import Analytics from '../../pages/Analytics';
+import ResetPassword from "../ResetPassword";
 
 const Main = () => {
   const { userType } = useAuth();
@@ -24,6 +25,8 @@ const Main = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/analytics" element={<Analytics />} />
+        <Route path="/analytics" element={<Analytics />} />
+        <Route path="/reset-password/:email" component={ResetPassword} />
         <Route 
           path="/" 
           element={
@@ -80,6 +83,7 @@ const Main = () => {
             </PrivateRoute>
           } 
         />
+
         <Route path="/*" element={<UnauthorizedPage />} />
       </Routes>
     </main>

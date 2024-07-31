@@ -29,7 +29,14 @@ const allowedOrigins = [
   'https://desafio-exe-1.onrender.com'
 ];
 
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      connectSrc: ["'self'", "https://apis-4945.onrender.com"],
+    },
+  })
+);
 
 app.use(cors({
   origin: function(origin, callback){

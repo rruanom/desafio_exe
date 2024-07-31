@@ -21,11 +21,12 @@ const assessmentRoutes = require('./routes/assessment.routes');
 const gradesRoutes = require('./routes/grades_apt.routes')
 const formRoutes = require('./routes/form.routes');
 const candidateRoutes = require('./routes/candidate.routes');
+const authRoutes = require('./routes/auth.routes')
 
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5000',
-  'https://desafio-exe-1.onrender.com',
+  'https://desafio-exe-1.onrender.com'
 ];
 
 app.use(helmet());
@@ -42,6 +43,17 @@ app.use(cors({
   credentials: true
 }));
 
+app.use(session({
+  secret: process.env.SESSION_SECRET, // Usa una variable de entorno para el secreto
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+      secure: process.env.NODE_ENV === "production", // Usa HTTPS en producción
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000 // 24 horas
+  }
+}));
+
 app.options('*', cors());
 
 app.use(bodyParser.json());
@@ -50,6 +62,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(morgan(':method :host :status - :response-time ms :body'));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/api/role', roleRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/status', statusRoutes);
@@ -57,6 +72,7 @@ app.use('/api/assessment', assessmentRoutes);
 app.use('/api/grades', gradesRoutes);
 app.use('/api/form', formRoutes);
 app.use('/api/candidate', candidateRoutes);
+app.use('/api/auth', authRoutes)
 
 app.use(express.static(path.join(__dirname, 'client/dist')));
 

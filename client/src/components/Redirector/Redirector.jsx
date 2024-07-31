@@ -13,8 +13,8 @@ const Redirector = ({candidates}) => {
     <div className="divChart4">
       <section className="sectionDashboard" style={{
           backgroundImage: 'url(/banner.png)',
-          backgroundSize: 'cover', // Opcional, para ajustar el tamaño de la imagen de fondo
-          backgroundPosition: 'center', // Opcional, para centrar la imagen de fondo
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}>
       <p className="titleDashboard">Hola, {name}!</p>
       <div className="divDataDashboard">

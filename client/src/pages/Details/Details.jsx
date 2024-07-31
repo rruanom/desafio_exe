@@ -10,7 +10,7 @@ const Details = () => {
   const [candidate, setCandidate] = useState(null);
   const [grades, setGrades] = useState([]);
   const [assessments, setAssessments] = useState([]);
-  const [visibleSection, setVisibleSection] = useState(null); // 'grades', 'profile', or null
+  const [visibleSection, setVisibleSection] = useState(null);
   const { email } = useParams();
   const { id } = useAuth();
   const API_URL = import.meta.env.VITE_API_URL || '/api'

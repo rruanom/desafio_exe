@@ -44,7 +44,7 @@ const Editor = ({ candidateData }) => {
       await axios.put(`${API_URL}/candidate/${candidateData.email}`, formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setMessage('Perfil actualizado con éxito');
+      setMessage('Perfil actualizado');
     } catch (error) {
       setMessage('Error al actualizar el perfil');
     }
@@ -70,7 +70,7 @@ const Editor = ({ candidateData }) => {
   return (
     <Card className="profile-editor">
       <h2>Editar perfil</h2>
-      {message && <Typography className={message.includes('éxito') ? 'success-message' : 'error-message'}>{message}</Typography>}
+      {message && <Typography className={message.includes('actualizado') ? 'success-message' : 'error-message'}>{message}</Typography>}
       <Box component="form" onSubmit={handleSubmit} className="editor-form">
         <TextField
           label="Nombre"
@@ -85,16 +85,6 @@ const Editor = ({ candidateData }) => {
           label="Apellido"
           name="last_name"
           value={formData.last_name}
-          onChange={handleChange}
-          required
-          fullWidth
-          {...inputProps}
-        />
-        <TextField
-          label="Email"
-          name="email"
-          type="email"
-          value={formData.email}
           onChange={handleChange}
           required
           fullWidth

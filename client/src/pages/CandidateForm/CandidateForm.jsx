@@ -29,11 +29,11 @@ const CandidateForm = () => {
         body: JSON.stringify(formData),
       });
 
-      if (!formResponse.ok) {
+      if (!response.ok) {
         throw new Error('Error al enviar los datos del formulario');
       }
 
-      const statusResponse = await fetch(`http://localhost:5000/api/candidate/${email}`, {
+      const statusResponse = await fetch(`${API_URL}/candidate/${email}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ const CandidateForm = () => {
     }
   };
 
-  if (status !== 1) {
+  if (status !== 'Registro') {
     return (
       <Paper elevation={3} className="candidate-form__paper">
         <h2 className="candidate-form__title">

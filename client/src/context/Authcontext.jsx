@@ -1,7 +1,5 @@
-// AuthContext.jsx
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
 
 const API_URL = import.meta.env.VITE_API_URL || '/api'
 const AuthContext = createContext();
@@ -33,7 +31,6 @@ export const AuthProvider = ({ children }) => {
             if (!response.ok) throw new Error('Failed to fetch user data');
 
             const data = await response.json();
-            console.log(data)
             setEmail(data.user.email);
             setId(data.user.id);
 

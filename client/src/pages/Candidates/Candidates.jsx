@@ -3,7 +3,7 @@ import Pipeline from "../../components/Pipeline";
 import Database from "../../components/Database";
 
 const Candidates = () => {
-  const [view, setView] = useState('pipeline'); // default view Pipeline
+  const [view, setView] = useState('pipeline'); 
 
   return (
     <section className="candidatesContainer">

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import filterDatabase from '/filterDatabase.png';
-import nofilterDatabase from '/nofilterDatabase.png';
 import GeneratePDF from "../GeneratedPDF/GeneratedPDF";
 
 

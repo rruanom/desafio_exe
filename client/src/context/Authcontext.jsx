@@ -1,6 +1,7 @@
 // AuthContext.jsx
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const API_URL = import.meta.env.VITE_API_URL || '/api'
 const AuthContext = createContext();
@@ -14,6 +15,7 @@ export const AuthProvider = ({ children }) => {
     const [status, setStatus] = useState(null);
     const [email, setEmail] = useState(null);
     const [loading, setLoading] = useState(true);
+    
 
     const fetchUser = useCallback(async () => {
         if (!token) {
@@ -87,13 +89,19 @@ export const AuthProvider = ({ children }) => {
         setRole(null);
         setStatus(null);
         setEmail(null);
+        navigate('/login')
     };
 
     const value = {
         token,
         userType,
         id,
+        setToken,
         setUserType,
+        setName,
+        setRole,
+        setStatus,
+        setEmail,
         name,
         role,
         status,

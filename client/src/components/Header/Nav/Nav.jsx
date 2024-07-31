@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/Authcontext';
 import ClipLoader from "react-spinners/ClipLoader";
+import Cookies from 'js-cookie';
+
 
 const Nav = () => {
-  const { user, logout, loading, token, userType, name } = useAuth();
+  const navigate = useNavigate();
+  const { user, setEmail, loading, token, userType, name, setUserType, setToken, setName, setRole, setStatus } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -13,6 +16,17 @@ const Nav = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const logout = () => {
+    Cookies.remove('access_token');
+    setToken(null);
+    setUserType(null);
+    setName(null);
+    setRole(null);
+    setStatus(null);
+    setEmail(null);
+    navigate('/login')
+};
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 

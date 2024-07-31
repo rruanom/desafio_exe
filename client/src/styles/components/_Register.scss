@@ -8,6 +8,17 @@
     margin-top: 20px;
 }
 
+p.log_opc a{
+    text-decoration: none;
+    color: $green;
+    padding: 5px;
+    border-radius: 3px;
+    &:hover{
+      background-color: $green;
+      color: white;
+    }
+  }
+
 .register-card {
     padding: 2rem;
     width: 100%;

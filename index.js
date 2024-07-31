@@ -9,9 +9,9 @@ const manage404 = require('./middlewares/error404');
 require('./config/db_mysql');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
-const session = require("express-session");
+//const session = require("express-session");
 //require("./config/passport");
-const passport = require("passport");
+//const passport = require("passport");
 const cors = require('cors');
 
 const roleRoutes = require('./routes/role.routes');
@@ -43,8 +43,8 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(session({
-  secret: process.env.SESSION_SECRET, // Usa una variable de entorno para el secreto
+/* app.use(session({
+  secret: process.env.SESSION_SECRET, 
   resave: false,
   saveUninitialized: false,
   cookie: {
@@ -52,7 +52,7 @@ app.use(session({
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000 // 24 horas
   }
-}));
+})); */
 
 app.options('*', cors());
 
@@ -62,8 +62,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(morgan(':method :host :status - :response-time ms :body'));
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use('/api/role', roleRoutes);
 app.use('/api/staff', staffRoutes);

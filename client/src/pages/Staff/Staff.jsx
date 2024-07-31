@@ -26,15 +26,14 @@ const Staff = () => {
     <Container maxWidth="lg">
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Staff Members
+          Staff
         </Typography>
         <Button 
           variant="contained" 
-          color="primary" 
           onClick={() => setShowCreateForm(true)}
           sx={{ mb: 2 }}
         >
-          Nuevo miebro
+          Nuevo miembro
         </Button>
         {showCreateForm && <CreateStaffForm onClose={() => setShowCreateForm(false)} onCreated={fetchStaffMembers} />}
         <StaffList 

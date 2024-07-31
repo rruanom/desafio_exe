@@ -4,10 +4,15 @@
  * @namespace Staff_Controllers
  */
 
+require('dotenv').config();
 const staffModels = require('../models/staff.models');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken')
+const transporter = require('../config/nodemailer');
+
+
 
 /**
  * @function createStaff
@@ -36,20 +41,37 @@ const createStaff = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { first_name, last_name, email, password, id_role } = req.body;
-
-    /* if (!first_name || !last_name || !email || !password || !id_role) {
-        return res.status(400).json({ error: 'Todos los campos son requeridos' });
-    } */
+    const { first_name, last_name, email, id_role } = req.body;
 
     try {
-        const saltRounds = 10;
-        const passwordHash = await bcrypt.hash(password, saltRounds);
+        const temporaryPassword = crypto.randomBytes(8).toString('hex');
+        const passwordHash = bcrypt.hashSync(temporaryPassword, 10);
+
         const result = await staffModels.createStaff(first_name, last_name, email, passwordHash, id_role);
         if (result === 0) {
             return res.status(500).json({ error: 'Error al crear el miembro del personal' });
         }
-        res.status(201).json({ message: 'Miembro Staff creado exitosamente'});
+
+        const mailOptions = {
+            to: email,
+            from: 'no-reply@example.com', 
+            subject: 'Set your password',
+            text: `You are receiving this because you have been invited to join our staff.\n\n
+                Your temporary password is ${temporaryPassword}. Please use the following link to set a new password:\n\n
+                http://${req.headers.host}/reset-password/${email}\n\n
+                If you did not request this, please ignore this email.\n`,
+        };
+
+        transporter.sendMail(mailOptions, (err, response) => {
+            if (err) {
+                console.error('There was an error:', err);
+                return res.status(500).send('Error in sending email');
+            } else {
+                console.log('Recovery email sent:', response);
+            }
+        });
+
+        res.status(201).json({ message: 'Miembro Staff creado exitosamente' });
     } catch (err) {
         res.status(500).json({ error: 'Error al crear el miembro del Staff' });
     }
@@ -248,12 +270,54 @@ const loginStaff = async (req, res) => {
     }
   };
 
+  const resetPassword = async (req, res) => {
+    const { email } = req.params;
+    const { password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).send('Email and password are required.');
+    }
+
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+    try {
+        console.log('Checking for user with email:', email);
+        const staffMember = await staffModels.readStaffByEmail(email);
+        console.log('Found user:', staffMember);
+
+        if (!staffMember) {
+            return res.status(400).send('User not found.');
+        }
+
+        const updatedStaff = {
+            first_name: staffMember.first_name,
+            last_name: staffMember.last_name,
+            password: hashedPassword,
+            email: email,
+        };
+
+        console.log('Updating user with:', updatedStaff);
+        const result = await staffModels.updateStaffByStaff(updatedStaff);
+        console.log('Update result:', result);
+
+        if (result === 0) {
+            return res.status(500).send('Failed to update the password.');
+        }
+
+        res.status(200).send('Password has been updated.');
+    } catch (error) {
+        console.error('Error updating password:', error);
+        res.status(500).send('Error in updating password');
+    }
+};
+
 module.exports = {
     createStaff,
     readStaff,
     readStaffByEmail,
     updateStaffbyStaff,
     updateStaffbyAdmin,
-    loginStaff
+    loginStaff,
+    resetPassword
 };
 

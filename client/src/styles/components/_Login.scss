@@ -1,11 +1,6 @@
 @import '../utils/mixins.scss';
 @import '../utils/variables.scss';
 
-a {
-  font-family: $font_principal;
-  margin-top:20px;
-}
-
 .login-container {
   display: flex;
   justify-content: center;
@@ -64,6 +59,3 @@ a.log_opc{
   }
 }
 
-.bg_color_button{
-  background-color: red;
-  }

@@ -87,7 +87,7 @@ const Nav = () => {
       <div className="user-section">
         {token ? (
           <>
-            <span>Hola {name}</span>
+            <span><strong>Hola {name}</strong></span>
             <button onClick={logout}>Logout</button>
           </>
         ) : (

@@ -10,8 +10,8 @@ require('./config/db_mysql');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 const session = require("express-session");
+//require("./config/passport");
 const passport = require("passport");
-require("./config/passport");
 const cors = require('cors');
 
 const roleRoutes = require('./routes/role.routes');

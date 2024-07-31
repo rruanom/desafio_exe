@@ -1,11 +1,14 @@
 @import '../utils/mixins.scss';
 @import '../utils/variables.scss';
 
+* {
+  font-family: $font_principal!important;
+}
+
 body {
     min-height: 100vh;
     background-color: $white;
     margin: 0;
-    font-family: $font_principal;
   }
 
   h2 {
@@ -13,3 +16,4 @@ body {
     justify-content: center;
     color: $dark_blue;
   }
+

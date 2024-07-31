@@ -96,6 +96,7 @@ const Login = () => {
                             {error && <Typography color="error">{error}</Typography>}
                         </form>
                         <LoginGoogle />
+                        <a href='/register'>Registrarme</a>
                     </>
                 )}
             </Card>

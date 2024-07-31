@@ -114,6 +114,7 @@ const Register = () => {
                     {message && <Typography color={message.includes('exitoso') ? 'primary' : 'error'}>{message}</Typography>}
                 </form>
                 <LoginGoogle />
+                <p>¿ya estas registrado? <a href='/login'>login</a></p>
             </Card>
         </div>
     );

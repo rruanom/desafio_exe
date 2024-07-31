@@ -53,7 +53,7 @@ const CandidateForm = () => {
     }
   };
 
-  if (status !== 'Registro') {
+  if (status !== "Registro") {
     return (
       <Paper elevation={3} className="candidate-form__paper">
         <h2 className="candidate-form__title">

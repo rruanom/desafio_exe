@@ -50,4 +50,121 @@
       color: $green;
     }
   }
+
+  .boxMui {
+    margin-bottom: -15px;
+  }
+
+}
+
+.sectionDashboardCard {
+  display: inline-block;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: 1.3px solid rgba(128, 128, 128, 0.331);
+  background-color: white;
+  overflow: hidden;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 25px;
+  padding-right: 20px;
+  margin-top: 10px;
+  margin-bottom: -2px;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 100%;
+}
+
+.sectionDashboardCard2 {
+  display: inline-block;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: 1.3px solid rgba(128, 128, 128, 0.331);
+  background-color: white;
+  overflow: hidden;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 25px;
+  padding-right: 20px;
+  margin-top: 10px;
+  margin-bottom: -2px;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 100%;
+}
+
+.sectionDashboardCard3 {
+  display: inline-block;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: 1.3px solid rgba(128, 128, 128, 0.331);
+  background-color: white;
+  overflow: hidden;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 25px;
+  padding-right: 20px;
+  margin-top: 10px;
+  margin-bottom: -30px;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 100%;
+}
+
+@media screen and (min-width: 1100px) {
+
+.sectionDashboardCard {
+  display: inline-block;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: 1.3px solid rgba(128, 128, 128, 0.331);
+  background-color: #f6f7fb;
+  overflow: hidden;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 20px;
+  width: 23.5%;
+}
+
+.sectionDashboardCard2 {
+  display: inline-block;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: 1.3px solid rgba(128, 128, 128, 0.331);
+  background-color: #f6f7fb;
+  overflow: hidden;
+  padding-top: 10px;
+  padding-bottom: 10.4px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 20px;
+  width: 23.6%;
+}
+
+.sectionDashboardCard3 {
+display: inline-block;
+border-radius: 5px;
+box-sizing: border-box;
+border: 1.3px solid rgba(128, 128, 128, 0.331);
+background-color: #f6f7fb;
+overflow: hidden;
+padding-top: 10px;
+padding-bottom: 10.4px;
+padding-left: 20px;
+padding-right: 20px;
+margin-top: 10px;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: 0px;
+width: 23.6%;
+}
+
 }

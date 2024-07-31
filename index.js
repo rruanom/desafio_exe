@@ -13,6 +13,8 @@ const port = process.env.PORT || 5000;
 //require("./config/passport");
 //const passport = require("passport");
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const roleRoutes = require('./routes/role.routes');
 const staffRoutes = require('./routes/staff.routes');
@@ -28,6 +30,8 @@ const allowedOrigins = [
   'http://localhost:5000',
   'https://desafio-exe-1.onrender.com'
 ];
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(
   helmet.contentSecurityPolicy({

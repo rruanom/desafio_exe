@@ -1,0 +1,634 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Gestión de Candidatos y Personal",
+    "version": "1.0.0",
+    "description": "API para la gestión de candidatos, personal y procesos de selección en ExE (Empieza por Educar)"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api",
+      "description": "Servidor de desarrollo"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Candidatos",
+      "description": "Operaciones relacionadas con los candidatos"
+    },
+    {
+      "name": "Personal",
+      "description": "Operaciones relacionadas con el personal (staff)"
+    },
+    {
+      "name": "Calificaciones",
+      "description": "Operaciones relacionadas con las calificaciones de los candidatos"
+    },
+    {
+      "name": "Roles",
+      "description": "Operaciones relacionadas con los roles del personal"
+    },
+    {
+      "name": "Estados",
+      "description": "Operaciones relacionadas con los estados de los candidatos"
+    },
+    {
+      "name": "Evaluaciones",
+      "description": "Operaciones relacionadas con las evaluaciones"
+    },
+    {
+      "name": "Formularios",
+      "description": "Operaciones relacionadas con los formularios de los candidatos"
+    }
+  ],
+  "paths": {
+    "/candidate": {
+      "get": {
+        "summary": "Obtener todos los candidatos",
+        "description": "Recupera una lista de todos los candidatos registrados en el sistema.",
+        "tags": [
+          "Candidatos"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de candidatos obtenida con éxito"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo candidato",
+        "description": "Registra un nuevo candidato en el sistema.",
+        "tags": [
+          "Candidatos"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Candidate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Candidato creado con éxito"
+          }
+        }
+      }
+    },
+    "/candidate/{email}": {
+      "get": {
+        "summary": "Obtener un candidato por email",
+        "description": "Recupera la información detallada de un candidato específico usando su email.",
+        "tags": [
+          "Candidatos"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Candidato obtenido con éxito"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un candidato",
+        "description": "Actualiza la información de un candidato existente.",
+        "tags": [
+          "Candidatos"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CandidateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Candidato actualizado con éxito"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un candidato",
+        "description": "Elimina un candidato del sistema.",
+        "tags": [
+          "Candidatos"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Candidato eliminado con éxito"
+          }
+        }
+      }
+    },
+    "/staff": {
+      "get": {
+        "summary": "Obtener todo el personal",
+        "description": "Recupera una lista de todo el personal registrado en el sistema.",
+        "tags": [
+          "Personal"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de personal obtenida con éxito"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo miembro del personal",
+        "description": "Registra un nuevo miembro del personal en el sistema.",
+        "tags": [
+          "Personal"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Staff"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Miembro del personal creado con éxito"
+          }
+        }
+      }
+    },
+    "/staff/{email}": {
+      "get": {
+        "summary": "Obtener un miembro del personal por email",
+        "description": "Recupera la información detallada de un miembro del personal específico usando su email.",
+        "tags": [
+          "Personal"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Miembro del personal obtenido con éxito"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un miembro del personal",
+        "description": "Actualiza la información de un miembro del personal existente.",
+        "tags": [
+          "Personal"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StaffUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Miembro del personal actualizado con éxito"
+          }
+        }
+      }
+    },
+    "/grades": {
+      "get": {
+        "summary": "Obtener todas las calificaciones",
+        "description": "Recupera una lista de todas las calificaciones registradas en el sistema.",
+        "tags": [
+          "Calificaciones"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de calificaciones obtenida con éxito"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva calificación",
+        "description": "Registra una nueva calificación para un candidato.",
+        "tags": [
+          "Calificaciones"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Grade"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Calificación creada con éxito"
+          }
+        }
+      }
+    },
+    "/grades/{email}": {
+      "get": {
+        "summary": "Obtener calificaciones por email del candidato",
+        "description": "Recupera todas las calificaciones asociadas a un candidato específico usando su email.",
+        "tags": [
+          "Calificaciones"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Calificaciones obtenidas con éxito"
+          }
+        }
+      }
+    },
+    "/role": {
+      "get": {
+        "summary": "Obtener todos los roles",
+        "description": "Recupera una lista de todos los roles disponibles en el sistema.",
+        "tags": [
+          "Roles"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de roles obtenida con éxito"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo rol",
+        "description": "Crea un nuevo rol en el sistema.",
+        "tags": [
+          "Roles"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Rol creado con éxito"
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "summary": "Obtener todos los estados",
+        "description": "Recupera una lista de todos los estados posibles para los candidatos.",
+        "tags": [
+          "Estados"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de estados obtenida con éxito"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo estado",
+        "description": "Crea un nuevo estado para los candidatos en el sistema.",
+        "tags": [
+          "Estados"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Status"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Estado creado con éxito"
+          }
+        }
+      }
+    },
+    "/assessment": {
+      "get": {
+        "summary": "Obtener todas las evaluaciones",
+        "description": "Recupera una lista de todas las evaluaciones disponibles en el sistema.",
+        "tags": [
+          "Evaluaciones"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de evaluaciones obtenida con éxito"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva evaluación",
+        "description": "Crea una nueva evaluación en el sistema.",
+        "tags": [
+          "Evaluaciones"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Assessment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Evaluación creada con éxito"
+          }
+        }
+      }
+    },
+    "/form": {
+      "post": {
+        "summary": "Crear un nuevo formulario",
+        "description": "Crea un nuevo formulario para un candidato.",
+        "tags": [
+          "Formularios"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Form"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Formulario creado con éxito"
+          }
+        }
+      }
+    },
+    "/form/{email}": {
+      "get": {
+        "summary": "Obtener formulario por email del candidato",
+        "description": "Recupera el formulario asociado a un candidato específico usando su email.",
+        "tags": [
+          "Formularios"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Formulario obtenido con éxito"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Candidate": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          }
+        }
+      },
+      "CandidateUpdate": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Staff": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "id_role": {
+            "type": "integer"
+          }
+        }
+      },
+      "StaffUpdate": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "id_role": {
+            "type": "integer"
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Grade": {
+        "type": "object",
+        "properties": {
+          "id_candidate": {
+            "type": "integer"
+          },
+          "professionality": {
+            "type": "number"
+          },
+          "domain": {
+            "type": "number"
+          },
+          "resilience": {
+            "type": "number"
+          },
+          "social_hab": {
+            "type": "number"
+          },
+          "leadership": {
+            "type": "number"
+          },
+          "collaboration": {
+            "type": "number"
+          },
+          "commitment": {
+            "type": "number"
+          },
+          "initiative": {
+            "type": "number"
+          },
+          "id_assessment": {
+            "type": "integer"
+          },
+          "id_staff": {
+            "type": "integer"
+          },
+          "feedback": {
+            "type": "string"
+          }
+        }
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "name_role": {
+            "type": "string"
+          }
+        }
+      },
+      "Status": {
+        "type": "object",
+        "properties": {
+          "name_status": {
+            "type": "string"
+          }
+        }
+      },
+      "Assessment": {
+        "type": "object",
+        "properties": {
+          "name_assessment": {
+            "type": "string"
+          }
+        }
+      },
+      "Form": {
+        "type": "object",
+        "properties": {
+          "id_candidate": {
+            "type": "integer"
+          },
+          "academic_degree": {
+            "type": "string"
+          },
+          "average_grade": {
+            "type": "number"
+          },
+          "languages": {
+            "type": "string"
+          },
+          "experience": {
+            "type": "string"
+          },
+          "about_you": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

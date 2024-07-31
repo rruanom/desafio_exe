@@ -127,7 +127,7 @@ const Grades = ({ grades, assessments, candidateName, idCandidate, idStaff, emai
       professionality: 'Profesionalidad',
       domain: 'Dominio',
       resilience: 'Resiliencia',
-      social_hab: 'Habilidades Sociales',
+      social_hab: 'Hab. Sociales',
       leadership: 'Liderazgo',
       collaboration: 'Colaboración',
       commitment: 'Compromiso',
@@ -154,7 +154,7 @@ const Grades = ({ grades, assessments, candidateName, idCandidate, idStaff, emai
                   <li>Profesionalidad: {grade.professionality}</li>
                   <li>Dominio: {grade.domain}</li>
                   <li>Resiliencia: {grade.resilience}</li>
-                  <li>Habilidades Sociales: {grade.social_hab}</li>
+                  <li>Hab. Sociales: {grade.social_hab}</li>
                   <li>Liderazgo: {grade.leadership}</li>
                   <li>Colaboración: {grade.collaboration}</li>
                   <li>Compromiso: {grade.commitment}</li>

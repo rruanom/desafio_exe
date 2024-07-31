@@ -22,7 +22,14 @@ const Main = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/analytics" element={<Analytics />} />
+        <Route 
+          path="/" 
+          element={
+            <PrivateRoute>
+              {userType === 'staff' ? <Dashboard /> : <Analytics />}
+            </PrivateRoute>
+          } 
+        />
         <Route path="/reset-password/:email" element={<ResetPassword />} />
         <Route 
           path="/" 

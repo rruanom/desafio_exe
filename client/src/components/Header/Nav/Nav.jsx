@@ -4,6 +4,8 @@ import { useAuth } from '../../../context/Authcontext';
 import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from 'js-cookie';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHandPeace } from '@fortawesome/free-solid-svg-icons';
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -25,8 +27,8 @@ const Nav = () => {
     setRole(null);
     setStatus(null);
     setEmail(null);
-    navigate('/login')
-};
+    navigate('/login');
+  };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -54,20 +56,22 @@ const Nav = () => {
           <Link to="/analytics" onClick={toggleMenu}>Estadísticas</Link>
         </>
       ) : null}
+      {token && windowWidth <= 800 && (
+        <button onClick={() => { logout(); toggleMenu(); }}>Logout</button>
+      )}
     </>
   );
 
   return (
     <section className="nav">
       <div className="logo">
-      {!token ? (
-        <Link to="/"><img src="/logo.png" alt="Logo Exe" /></Link>
-      ) : userType === 'candidate' ? (
-        <Link to="/profile"><img src="/logo.png" alt="Logo Exe" /></Link>
-      ) : userType === 'staff' ? (
-        <Link to="/dashboard"><img src="/logo.png" alt="Logo Exe" /></Link>
-      ) : null}
-        
+        {!token ? (
+          <Link to="/"><img src="/logo.png" alt="Logo Exe" /></Link>
+        ) : userType === 'candidate' ? (
+          <Link to="/profile"><img src="/logo.png" alt="Logo Exe" /></Link>
+        ) : userType === 'staff' ? (
+          <Link to="/dashboard"><img src="/logo.png" alt="Logo Exe" /></Link>
+        ) : null}
       </div>
 
       {windowWidth <= 800 && (
@@ -86,10 +90,20 @@ const Nav = () => {
 
       <div className="user-section">
         {token ? (
-          <>
-            <span><strong>Hola {name}</strong></span>
-            <button onClick={logout}>Logout</button>
-          </>
+          windowWidth > 800 ? (
+            <>
+              <span>
+                <FontAwesomeIcon icon={faHandPeace} /> Hola {name}
+              </span>
+              <button onClick={logout}>Logout</button>
+            </>
+          ) : (
+            <>
+              <span>
+                <FontAwesomeIcon icon={faHandPeace} /> Hola {name}
+              </span>
+            </>
+          )
         ) : (
           <Link to="/login">
             <i className="fas fa-user"></i>

@@ -1,4 +1,4 @@
-passport.use(new GoogleStrategy({
+    passport.use(new GoogleStrategy({
     clientID: process.env.ID_CLIENT,
     clientSecret: process.env.SECRET_CLIENT,
     callbackURL: process.env.NODE_ENV === 'production'
@@ -43,3 +43,4 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
     done(null, user);
 });
+ 

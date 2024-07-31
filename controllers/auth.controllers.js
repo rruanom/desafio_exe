@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Candidate = require('../models/candidate.models');
 const Staff = require('../models/staff.models');
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+/* const API_URL = import.meta.env.VITE_API_URL || '/api'; */
 
 const loginCandidate = async (req, res) => {
   const { email, password } = req.body;

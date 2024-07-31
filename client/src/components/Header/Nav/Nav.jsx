@@ -15,7 +15,7 @@ const Nav = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [showConfetti, setShowConfetti] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [playTrumpet] = useSound('public/looney.mp3');
+  const [playTrumpet] = useSound('./public/looney.mp3');
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -39,7 +39,7 @@ const Nav = () => {
   const handleGreetingClick = () => {
     playTrumpet();
     setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 18000); 
+    setTimeout(() => {setShowConfetti(false), 18000}); 
   };
 
   const toggleDarkMode = () => {
@@ -123,11 +123,7 @@ const Nav = () => {
               </span>
             </>
           )
-        ) : (
-          <Link to="/login">
-            <i className="fas fa-user"></i>
-          </Link>
-        )}
+        ) : null}
       </div>
     </section>
   );

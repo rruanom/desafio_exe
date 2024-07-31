@@ -89,14 +89,14 @@ const Login = () => {
                                 margin="normal"
                             />
                             <div className="button-container">
-                                <Button type="submit" variant="contained" className="login-button">
+                                <Button type="submit" variant="contained" className="login-button bg_color_button">
                                     Login
                                 </Button>
                             </div>
                             {error && <Typography color="error">{error}</Typography>}
                         </form>
                         <LoginGoogle />
-                        <a href='/register'>Registrarme</a>
+                        <a className='log_opc' href='/register'>Registrarme</a>
                     </>
                 )}
             </Card>

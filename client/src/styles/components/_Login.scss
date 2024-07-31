@@ -13,6 +13,16 @@ a {
   background-color: $white;
   margin-top: 20px;
 }
+a.log_opc{
+  text-decoration: none;
+  color: $green;
+  padding: 5px;
+  border-radius: 3px;
+  &:hover{
+    background-color: $green;
+    color: white;
+  }
+}
 
 .login-card {
   padding: 2rem;
@@ -34,6 +44,7 @@ a {
   }
 }
 
+
 .MuiOutlinedInput-root {
   .MuiOutlinedInput-notchedOutline {
     border-color: $green;
@@ -52,3 +63,7 @@ a {
     color: $green;
   }
 }
+
+.bg_color_button{
+  background-color: red;
+  }

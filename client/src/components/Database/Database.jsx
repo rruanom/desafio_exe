@@ -242,11 +242,9 @@ const Database = () => {
               </div>
               <div className="divActions">
                 <Link to={`/details/${candidate.email}`} className="details-button">
-                  <div className="divDatabase2">
                     <button className="btnDatabase">
                       <img className="iconEye" src={"/eye.png"} alt="eye" />
                     </button>
-                  </div>
                 </Link>
                 <div>
                 <GeneratePDF Email={candidate.email} />

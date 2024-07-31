@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import * as jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import Welcome from '../../components/Welcome';
@@ -25,7 +24,6 @@ const UserHome = () => {
           headers: { Authorization: `Bearer ${token}` }
         });
 
-        console.log('Datos del candidato recibidos:', response.data);
         setCandidateData(response.data);
         setLoading(false);
       } catch (err) {

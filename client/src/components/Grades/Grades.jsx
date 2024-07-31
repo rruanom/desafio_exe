@@ -106,7 +106,7 @@ const Grades = ({ grades, assessments, candidateName, idCandidate, idStaff, emai
         await axios.put(`${API_URL}/candidate/${email}`, { id_status: statusId });
       }
 
-      alert("Calificación enviada con éxito");
+      alert("Calificación enviada");
       
       const [gradesResponse, assessmentsResponse] = await Promise.all([
         axios.get(`${API_URL}/grades/${email}`),

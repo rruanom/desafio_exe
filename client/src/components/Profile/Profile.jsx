@@ -72,7 +72,7 @@ console.log(statuses)
         ...prev,
         active: newActiveState
       }));
-      alert(`estatus del candidato caambiado a ${candidate.name_status}`)
+      alert(`estatus del candidato cambiado a ${candidate.name_status}`)
     } catch (error) {
       console.error('Error al cambiar el estado activo:', error);
     }

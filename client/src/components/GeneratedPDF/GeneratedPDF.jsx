@@ -83,8 +83,8 @@ const GeneratePDF = ({ Email }) => {
       });
     };
 
-    const maxWidth = width - 100;  // Ajusta según sea necesario
-    const lineHeight = 18;  // Ajusta según sea necesario
+    const maxWidth = width - 100;
+    const lineHeight = 18;
 
     drawWrappedText(`ID: ${candidateData.id_candidate}`, 50, height - 110, timesRomanFont, 16, maxWidth, lineHeight);
     drawWrappedText(`Nombre: ${candidateData.first_name}`, 50, height - 140, timesRomanFont, 16, maxWidth, lineHeight);

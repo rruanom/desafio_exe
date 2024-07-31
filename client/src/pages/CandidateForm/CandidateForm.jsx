@@ -33,7 +33,7 @@ const CandidateForm = () => {
         throw new Error('Error al enviar los datos del formulario');
       }
 
-      const statusResponse = await fetch(`http://localhost:5000/api/candidate/${email}`, {
+      const statusResponse = await fetch(`${API_URL}/candidate/${email}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

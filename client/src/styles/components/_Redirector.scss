@@ -5,7 +5,7 @@
     display: flex;
     justify-content: left;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     gap: 15px;
     padding: 20px;
     font-family: $font_principal;
@@ -15,6 +15,7 @@
       color: $black;
       font-family: $font_principal;
       width: 100%;
+      max-width: 374px;
   
       &:hover {
         background-color: $yellow_light;

@@ -53,12 +53,12 @@ const CreateStaffForm = ({ onClose, onCreated }) => {
 
   return (
     <Dialog open={true} onClose={onClose}>
-      <DialogTitle>Nuevo miebro</DialogTitle>
+      <DialogTitle>Nuevo miembro</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>
           <TextField
             name="first_name"
-            label="First Name"
+            label="Nombre"
             value={formData.first_name}
             onChange={handleChange}
             fullWidth
@@ -66,7 +66,7 @@ const CreateStaffForm = ({ onClose, onCreated }) => {
             required
           />
           <TextField
-            name="last_name"
+            name="Apellidos"
             label="Last Name"
             value={formData.last_name}
             onChange={handleChange}
@@ -95,7 +95,7 @@ const CreateStaffForm = ({ onClose, onCreated }) => {
             required
           />
           <FormControl fullWidth margin="normal">
-            <InputLabel>Role</InputLabel>
+            <InputLabel>Rol</InputLabel>
             <Select
               name="id_role"
               value={formData.id_role}
@@ -112,8 +112,8 @@ const CreateStaffForm = ({ onClose, onCreated }) => {
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleSubmit} color="primary">Create</Button>
+        <Button onClick={onClose}>Cancelar</Button>
+        <Button onClick={handleSubmit} color="primary">Crear</Button>
       </DialogActions>
     </Dialog>
   );

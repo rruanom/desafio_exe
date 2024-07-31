@@ -23,23 +23,22 @@ const Staff = () => {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Staff Members
+    <Container maxWidth="lg" className="staff-container">
+      <Box>
+        <Typography variant="h4" component="h1" className="staff-title">
+          Staff
         </Typography>
-        <Button 
-          variant="contained" 
-          color="primary" 
+        <Button
+          variant="contained"
           onClick={() => setShowCreateForm(true)}
-          sx={{ mb: 2 }}
+          className="new-member-button"
         >
-          Nuevo miebro
+          Nuevo miembro
         </Button>
         {showCreateForm && <CreateStaffForm onClose={() => setShowCreateForm(false)} onCreated={fetchStaffMembers} />}
-        <StaffList 
-          staffMembers={staffMembers} 
-          onUpdate={fetchStaffMembers} 
+        <StaffList
+          staffMembers={staffMembers}
+          onUpdate={fetchStaffMembers}
         />
       </Box>
     </Container>

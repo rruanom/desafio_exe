@@ -65,10 +65,10 @@ const StaffList = ({ staffMembers, onUpdate }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
+              <TableCell>Nombre</TableCell>
               <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>Rol</TableCell>
+              <TableCell>Detalles</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -91,12 +91,12 @@ const StaffList = ({ staffMembers, onUpdate }) => {
       </TableContainer>
 
       <Dialog open={!!selectedStaff} onClose={() => setSelectedStaff(null)}>
-        <DialogTitle>Staff Details</DialogTitle>
+        <DialogTitle>Detalles</DialogTitle>
         <DialogContent>
-          <Typography>Name: {selectedStaff?.first_name} {selectedStaff?.last_name}</Typography>
+          <Typography>Nombre: {selectedStaff?.first_name} {selectedStaff?.last_name}</Typography>
           <Typography>Email: {selectedStaff?.email}</Typography>
           <FormControl fullWidth margin="normal">
-            <InputLabel id="role-select-label">Role</InputLabel>
+            <InputLabel id="role-select-label">Rol</InputLabel>
             <Select
               labelId="role-select-label"
               value={selectedStaff?.id_role || ''}
@@ -111,15 +111,15 @@ const StaffList = ({ staffMembers, onUpdate }) => {
             </Select>
           </FormControl>
           <FormControl fullWidth margin="normal">
-            <InputLabel id="active-select-label">Active</InputLabel>
+            <InputLabel id="active-select-label">Activo</InputLabel>
             <Select
               labelId="active-select-label"
               value={selectedStaff?.active}
               onChange={(e) => handleActiveChange(selectedStaff?.email, e.target.value)}
               label="Active"
             >
-              <MenuItem value={true}>True</MenuItem>
-              <MenuItem value={false}>False</MenuItem>
+              <MenuItem value={true}>Sí</MenuItem>
+              <MenuItem value={false}>No</MenuItem>
             </Select>
           </FormControl>
         </DialogContent>

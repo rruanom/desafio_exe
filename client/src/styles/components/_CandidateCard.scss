@@ -1,0 +1,178 @@
+@import '../utils/mixins.scss';
+@import '../utils/variables.scss';
+
+.candidateCard {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(128, 128, 128, 0.201);
+    margin: 0;
+}
+
+.iconClock {
+    width: 14.5px;
+    height: 14.5px;
+    margin-bottom: -2px;
+}
+
+.iconRegister {
+    width: 15px;
+    height: 15px;
+    margin-bottom: -2px;
+}
+
+.titleCard {
+    display: inline-block;
+    margin-right: auto;
+    margin-left: 5px;
+    margin-top: 11px;
+    font-size: 13.5px;
+    color: $dark_blue;
+}
+
+.divDatesCard {
+    display: flex;
+    margin-top: -21px;
+    align-items: center;
+    margin-right: auto;
+    margin-bottom: -2px;
+}
+
+.dateCard {
+    margin-left: 4px;
+    font-size: 13px;
+    color: $dark_blue;
+}
+
+.dateCard2 {
+    margin-left: 10px;
+    font-size: 13px;
+    color: $dark_blue;
+}
+
+.matchRed {
+    margin-left: 10px;
+    margin-top: 15px;
+    font-size: 13px;
+    font-weight: 600;
+    color: red;
+}
+
+.matchYellow {
+    margin-left: 10px;
+    margin-top: 15px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffcc00;
+}
+
+.matchGreen {
+    margin-left: 10px;
+    margin-top: 15px;
+    font-size: 13px;
+    font-weight: 600;
+    color: green;
+}
+
+.iconFlechaDcha {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-top: -16px;
+    margin-left: auto;
+    margin-bottom: 6px;
+}
+
+@media screen and (min-width: 900px) {
+    .candidateCard {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        width: 100%;
+        align-items: center;
+        justify-content: flex-start;
+        box-sizing: border-box;
+        border-top: 1px solid rgba(128, 128, 128, 0.201);
+        margin: 0;
+    }
+    
+    .iconClock {
+        width: 14.5px;
+        height: 14.5px;
+        margin-bottom: -2px;
+    }
+    
+    .iconRegister {
+        width: 15px;
+        height: 15px;
+        margin-bottom: -2px;
+    }
+    
+    .titleCard {
+        display: inline-block;
+        margin-right: auto;
+        margin-left: 5px;
+        margin-top: 11px;
+        font-size: 14px;
+        color: $dark_blue;
+    }
+    
+    .divDatesCard {
+        display: flex;
+        margin-top: -21px;
+        align-items: center;
+        margin-right: auto;
+        margin-bottom: -2px;
+    }
+    
+    .dateCard {
+        margin-left: 4px;
+        font-size: 12px;
+        color: $dark_blue;
+    }
+    
+    .dateCard2 {
+        margin-left: 10px;
+        font-size: 12px;
+        color: $dark_blue;
+    }
+
+    .matchRed {
+        margin-left: 10px;
+        margin-top: 15px;
+        font-size: 12px;
+        font-weight: 600;
+        color: red;
+    }
+
+    .matchYellow {
+        margin-left: 10px;
+        margin-top: 15px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #ffcc00;
+    }
+
+    .matchGreen {
+        margin-left: 10px;
+        margin-top: 15px;
+        font-size: 12px;
+        font-weight: 600;
+        color: green;
+    }
+
+    
+    .iconFlechaDcha {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin-top: -16px;
+        margin-left: auto;
+        margin-bottom: 6px;
+    }
+    
+}

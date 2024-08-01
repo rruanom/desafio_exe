@@ -1,10 +1,10 @@
 const queriesStaff = {
     createStaff: `INSERT INTO staff (first_name, last_name, email, password, id_role, logged, last_logged_date, active)
     VALUES (?, ?, ?, ?, ?, false, NOW(), true)`,
-    readStaff: `SELECT s.id_staff, s.first_name, s.last_name, s.email, r.name_role, s.logged, s.last_logged_date, s.active
+    readStaff: `SELECT s.id_staff, s.first_name, s.last_name, s.email, s.password, r.name_role, s.logged, s.last_logged_date, s.active
     FROM staff as s
     INNER JOIN role as r ON r.id_role = s.id_role`,
-    readStaffByEmail: `SELECT s.id_staff, s.first_name, s.last_name, s.email, r.name_role, s.logged, s.last_logged_date, s.active
+    readStaffByEmail: `SELECT s.id_staff, s.first_name, s.last_name, s.email, s.password, r.name_role, s.logged, s.last_logged_date, s.active
     FROM staff as s
     INNER JOIN role as r ON r.id_role = s.id_role
     WHERE s.email = ?`,
@@ -20,6 +20,12 @@ const queriesStaff = {
         last_logged_date = COALESCE(?, last_logged_date)
     WHERE email = ?`,
     deleteStaff: `DELETE FROM staff
+    WHERE email = ?`,
+    loginStaff: `UPDATE staff
+    SET logged = 1
+    WHERE email = ?`,
+    logoutStaff: `UPDATE staff
+    SET logged = 0
     WHERE email = ?`
 };
 

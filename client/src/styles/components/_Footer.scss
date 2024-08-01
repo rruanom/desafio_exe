@@ -1,0 +1,63 @@
+// src/components/Footer.scss
+@import '../utils/mixins.scss';
+@import '../utils/variables.scss';
+
+footer {
+  margin-top: 20px;
+  background-color: $green;
+  color: $white;
+  padding: 2rem;
+  text-align: center;
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+
+      a {
+        color: $white;
+        font-size: 1.5rem; // Ajusta el tamaño del icono si es necesario
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $yellow;
+        }
+      }
+    }
+
+    .footer-info {
+      font-size: 0.875rem;
+      color: $white;
+
+      p {
+        font-weight: bold;
+
+        a {
+          color: $white;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  footer .footer-content {
+    flex-direction: column;
+    justify-content: space-between;
+
+    .footer-social {
+      justify-content: flex-end;
+    }
+  }
+}

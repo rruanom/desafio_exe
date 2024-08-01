@@ -1,0 +1,66 @@
+@import '../utils/mixins.scss';
+@import '../utils/variables.scss';
+
+.profile-editor {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+  }
+
+  .custom-input {
+    .MuiInputBase-root {
+      &.MuiOutlinedInput-root {
+        & fieldset {
+          border-color: $green;
+        }
+        &:hover fieldset {
+          border-color: $green;
+        }
+        &.Mui-focused fieldset {
+          border-color: $green;
+        }
+      }
+    }
+    .MuiInputLabel-root {
+      color: $green;
+      &.Mui-focused {
+        color: $green;
+      }
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .submit-button {
+    width: auto;
+    min-width: 120px;
+    margin-top: 20px;
+    background-color: $green;
+    &:hover {
+      background-color: darken($green, 10%);
+    }
+  }
+
+  .success-message {
+    color: green;
+    margin-bottom: 10px;
+  }
+
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+  }
+}

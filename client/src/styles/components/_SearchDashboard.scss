@@ -1,0 +1,69 @@
+@import '../utils/variables.scss';
+
+.search-dashboard {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 20px;
+  font-family: $font_principal;
+
+  .MuiAutocomplete-root {
+    width: 374px;
+
+    .MuiInputBase-root {
+      font-family: $font_principal;
+
+      &.Mui-focused {
+        .MuiOutlinedInput-notchedOutline {
+          border-color: $green;
+        }
+      }
+    }
+
+    .MuiInputLabel-root {
+        padding-left: 0px; // Ajusta el padding izquierdo
+        padding-top: 4px; // Ajusta el padding derecho
+        display: flex;
+        align-items: center; // Alinea verticalmente el label
+        height: 100%;
+      &.Mui-focused {
+        color: $green;
+      }
+    }
+
+    .MuiAutocomplete-option {
+      padding: 0;
+    }
+
+    .MuiOutlinedInput-root {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      margin-bottom: -19px;
+      background-color: white;
+    }
+  }
+
+  // Estilos adicionales para el input cuando está enfocado
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: $green;
+  }
+
+  // Estilos para el texto de las opciones
+  .MuiAutocomplete-popper {
+    .MuiAutocomplete-option {
+      .candidate-link {
+        display: block;
+        width: 100%;
+        padding: 6px 16px;
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

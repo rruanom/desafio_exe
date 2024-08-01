@@ -1,0 +1,14 @@
+@import '../utils/variables.scss';
+
+.login-google-container {
+  margin-top: 1rem;
+  margin-bottom: 20px;
+}
+
+.google-button {
+  color: $dark_blue !important;
+  border-color: $dark_blue !important;
+  &:hover {
+    background-color: rgba($dark_blue, 0.04);
+  }
+}

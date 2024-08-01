@@ -1,0 +1,39 @@
+@import '../utils/mixins.scss';
+@import '../utils/variables.scss';
+
+.profile-card {
+  width: 100%;
+
+  .profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .status-select {
+    .MuiOutlinedInput-notchedOutline {
+      border-color: $green;
+    }
+    &:hover .MuiOutlinedInput-notchedOutline {
+      border-color: darken($green, 10%);
+    }
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: $green;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .button-toggle {
+    background-color: $yellow;
+    color: $black;
+    width: auto;
+    min-width: 120px;
+    &:hover {
+      background-color: $yellow-light;
+    }
+  }
+}

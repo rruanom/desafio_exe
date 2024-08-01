@@ -4,8 +4,11 @@
   "description": "desafio_exe",
   "main": "index.js",
   "scripts": {
-    "test": "test",
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "render-postbuild": "npm run install-client && npm run build-client"
   },
   "repository": {
     "type": "git",
@@ -21,23 +24,34 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "chart.js": "^4.4.3",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.2",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "express-validator": "^7.1.0",
-    "jest": "^29.7.0",
+    "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.0",
     "mysql2": "^3.10.3",
+    "nodemailer": "^6.9.14",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
-    "supertest": "^7.0.0",
+    "react-chartjs-2": "^5.2.0",
+    "sequelize": "^6.37.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.9",
+    "@babel/preset-env": "^7.24.8",
+    "@babel/preset-react": "^7.24.7",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
     "jsdoc": "^4.0.3",
-    "nodemon": "^2.0.19"
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.19",
+    "supertest": "^7.0.0"
   }
 }

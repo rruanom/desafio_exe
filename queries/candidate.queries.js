@@ -4,12 +4,12 @@ const queriesCandidates = {
     VALUES (?, ?, ?, ?, ?, 1, NOW(), false, NOW(), true)
     `,
     readCandidates: `
-    SELECT c.id_candidate, c.first_name, c.last_name, c.email, c.gender, s.name_status, c.registration_date, c.logged, c.last_logged_date, c.active
+    SELECT c.id_candidate, c.first_name, c.last_name, c.email, c.password, c.gender, s.name_status, c.registration_date, c.logged, c.last_logged_date, c.active
     FROM candidate AS c
     INNER JOIN status AS s ON s.id_status = c.id_status
     `,
     readCandidateByEmail: `
-    SELECT c.id_candidate, c.first_name, c.last_name, c.email, c.gender, s.name_status, c.registration_date, c.logged, c.last_logged_date, c.active
+    SELECT c.id_candidate, c.first_name, c.last_name, c.email, c.password, c.gender, s.name_status, c.registration_date, c.logged, c.last_logged_date, c.active
     FROM candidate AS c
     INNER JOIN status AS s ON s.id_status = c.id_status
     WHERE c.email = ?
@@ -30,7 +30,17 @@ const queriesCandidates = {
     deleteCandidate: `
     DELETE FROM candidate
     WHERE email = ?
-    `
+    `,
+    loginCandidate: `
+    UPDATE candidate
+    SET logged = 1
+    WHERE email = ?
+    `,
+    logoutCandidate: `
+    UPDATE candidate
+    SET logged = 0
+    WHERE email = ?
+    `,
 };
 
 module.exports = queriesCandidates;

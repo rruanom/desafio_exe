@@ -1,0 +1,53 @@
+@import '../utils/mixins.scss';
+@import '../utils/variables.scss';
+
+.details-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+  .details-card {
+    margin: 20px;
+    width: 90%;
+  }
+
+  .card-actions {
+    justify-content: center;
+    gap: 15px;
+    padding: 16px;
+  }
+
+  .button {
+    
+    &-grades {
+      border: transparent;
+      background-color: $yellow;
+      color: $black;
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+      &:hover {
+        background-color: $yellow-light;
+      }
+    }
+    &-profile {
+      border: transparent;
+      background-color: $yellow;
+      color: $black;
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+      &:hover {
+        background-color: $yellow-light;
+      }
+    }
+  }
+}
+
+@media (min-width: 1241px) {
+  .details-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    .assessment-card {
+      max-width: 60%;
+    }
+  }
+
+}

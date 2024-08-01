@@ -1,0 +1,111 @@
+@import '../utils/mixins.scss';
+@import '../utils/variables.scss';
+
+.redirector {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    align-items: left;
+    gap: 15px;
+    padding: 20px;
+    font-family: $font_principal;
+  
+    .MuiButton-root {
+      background-color: $yellow;
+      color: $black;
+      font-family: $font_principal;
+      width: 100%;
+      max-width: 374px;
+  
+      &:hover {
+        background-color: $yellow_light;
+      }
+    }
+  }
+
+  .divDataDashboard {
+    display: flex;
+    gap: 15px;
+    margin-left: 20px;
+    margin-top: -27px;
+    margin-bottom: -15px;
+  }
+
+  .titleDashboard {
+    font-size: 25px;
+    font-weight: 600;
+    margin-left: 20px;
+  }
+
+  .dataDashboard {
+    font-size: 14px;
+    margin-top: 12px;
+
+  }
+
+  .dataDashboardRole {
+    font-size: 13px;
+    font-weight: 400;
+    background-color: #e8e9ee;
+    border-radius: 5px;
+    padding: 5px 8px;
+    margin-top: 9px;
+    margin-right: 0px;
+
+  }
+
+  @media screen and (min-width: 1100px) {
+    .redirector {
+      display: flex;
+      justify-content: left;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      font-family: $font_principal;
+    
+      .MuiButton-root {
+        background-color: $yellow;
+        color: $black;
+        font-family: $font_principal;
+        width: auto;
+    
+        &:hover {
+          background-color: $yellow_light;
+        }
+      }
+    }
+  
+    .divDataDashboard {
+      display: flex;
+      gap: 15px;
+      margin-left: 20px;
+      margin-top: -27px;
+      margin-bottom: -15px;
+    }
+  
+    .titleDashboard {
+      font-size: 25px;
+      font-weight: 600;
+      margin-left: 20px;
+    }
+  
+    .dataDashboard {
+      font-size: 14px;
+      margin-top: 12px;
+  
+    }
+  
+    .dataDashboardRole {
+      font-size: 13px;
+      font-weight: 400;
+      background-color: #e8e9ee;
+      border-radius: 5px;
+      padding: 5px 8px;
+      margin-top: 9px;
+      margin-right: 0px;
+  
+    }
+
+
+  }

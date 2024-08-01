@@ -1,0 +1,104 @@
+@import '../utils/mixins.scss';
+@import '../utils/variables.scss';
+
+.candidatesList {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15px;
+    padding-bottom: 5px;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    border: 1.3px solid rgba(128, 128, 128, 0.311);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.candidatesList a {
+    display: inline-block;
+    text-decoration: none;
+    width: 90%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.titleList {
+    margin-right: auto;
+    padding:15px 20px;
+    font-weight: 550;
+    font-size: 15px;
+    color: $dark_blue;
+    background-color: #f6f7fb;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+@media screen and (min-width: 900px) {
+    .titleList {
+        margin-right: auto;
+        padding:15px 20px;
+        font-weight: 550;
+        font-size: 16px;
+        color: $dark_blue;
+        background-color: #f6f7fb;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .candidatesList {
+        display: inline-flex;
+        flex-direction: column;
+        width: 18.1%;
+        margin-right: 15px;
+        margin-left: 0px;
+        margin-top: 15px;
+        padding-bottom: 5px;
+        align-items: center;
+        justify-content: flex-start;
+        background-color: white;
+        border: 1.3px solid rgba(128, 128, 128, 0.311);
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    
+}
+
+@media screen and (min-width: 1241px) {
+    .candidatesList {
+        display: inline-flex;
+        flex-direction: column;
+        width: 18.7%;
+        margin-right: 15px;
+        margin-left: 0px;
+        margin-top: 15px;
+        padding-bottom: 5px;
+        align-items: center;
+        justify-content: flex-start;
+        background-color: white;
+        border: 1.3px solid rgba(128, 128, 128, 0.311);
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .titleList {
+        margin-right: auto;
+        padding:15px 20px;
+        font-weight: 550;
+        font-size: 16px;
+        color: $dark_blue;
+        background-color: #f6f7fb;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    
+}

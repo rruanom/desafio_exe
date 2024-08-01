@@ -1,0 +1,46 @@
+@import '../utils/mixins.scss';
+@import '../utils/variables.scss';
+
+* {
+  font-family: $font_principal!important;
+}
+
+body {
+    min-height: 100vh;
+    background-color: $white;
+    margin: 0;
+  }
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    color: $dark_blue;
+  }
+
+  body.dark-mode {
+    background-color: $black;
+    color: #ffffff;
+  }
+  
+  body.dark-mode .nav {
+    background-color: $black;
+  }
+  body.dark-mode{
+    p{
+      color: rgb(12, 12, 12);
+    }
+    .footer-info{
+      &>p{
+        color: white;
+      }
+      
+    }
+    nav{
+      &>a{
+        color: white;
+      }
+    }
+  }
+
+  
+
